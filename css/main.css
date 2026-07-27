@@ -151,6 +151,21 @@ p {
   border-radius: 3px;
   background: var(--primary);
 }
+
+.head-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.77rem;
+  color: var(--primary);
+  font-weight: 700;
+  justify-content: center;
+  align-items: center;
+}
+
 .section-heading {
   max-width: 720px;
   margin-bottom: 2.5rem;
