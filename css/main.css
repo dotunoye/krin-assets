@@ -1216,6 +1216,7 @@ object-fit: cover;
   color: var(--primary); /* Golden Sun accent */
   font-weight: 700;
   justify-content: center;
+  align-items: center;
 }
 
 .hero-video h1 {
