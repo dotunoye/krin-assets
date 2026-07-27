@@ -1,27 +1,92 @@
 @keyframes jump {
-  0%, 100% { transform: translateY(0) rotate(0); }
-  42% { transform: translateY(-11px) rotate(-2deg); }
-  68% { transform: translateY(2px) rotate(1deg); }
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  42% {
+    transform: translateY(-11px) rotate(-2deg);
+  }
+  68% {
+    transform: translateY(2px) rotate(1deg);
+  }
 }
 @keyframes popIn {
-  0% { opacity: 0; transform: translateY(24px) scale(.85); }
-  70% { opacity: 1; transform: translateY(-4px) scale(1.025); }
-  100% { opacity: 1; transform: none; }
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.85);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.025);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
 }
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 @keyframes ripple {
-  0% { transform: scale(0); opacity: .7; }
-  100% { transform: scale(24); opacity: 0; }
+  0% {
+    transform: scale(0);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(24);
+    opacity: 0;
+  }
 }
-@keyframes blink { 50% { opacity: .25; } }
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
 
-.jump-text .jump-word { display: inline-block; white-space: nowrap; }
-.jump-text .jump-char { display: inline-block; animation-duration: .62s; animation-fill-mode: both; animation-timing-function: cubic-bezier(.2,.9,.3,1.4); }
-.jump-text:hover .jump-char, .jump-text.in-view .jump-char { animation-name: jump; animation-delay: calc(var(--char-index) * .05s); }
-.pop-in { opacity: 0; transform: translateY(24px) scale(.85); }
-.pop-in.in-view { animation: popIn .7s cubic-bezier(.175,.885,.32,1.275) forwards; animation-delay: var(--delay,0s); }
-.floating { animation: float 3.5s ease-in-out infinite; }
-.pulse-dot { width: 9px; height: 9px; display: inline-block; border-radius: 50%; background: #31bd82; box-shadow: 0 0 0 6px rgba(49,189,130,.12); animation: blink 1.6s ease-in-out infinite; }
+.jump-text {
+  justify-content: center;
+  max-width: clamp(200px, 50vw + 10rem, 700px);
+  margin-left: auto;
+  margin-right: auto;
+}
+.jump-text .jump-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.jump-text .jump-char {
+  display: inline-block;
+  animation-duration: 0.62s;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.2, 0.9, 0.3, 1.4);
+}
+.jump-text:hover .jump-char,
+.jump-text.in-view .jump-char {
+  animation-name: jump;
+  animation-delay: calc(var(--char-index) * 0.05s);
+}
+.pop-in {
+  opacity: 0;
+  transform: translateY(24px) scale(0.85);
+}
+.pop-in.in-view {
+  animation: popIn 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: var(--delay, 0s);
+}
+.floating {
+  animation: float 3.5s ease-in-out infinite;
+}
+.pulse-dot {
+  width: 9px;
+  height: 9px;
+  display: inline-block;
+  border-radius: 50%;
+  background: #31bd82;
+  box-shadow: 0 0 0 6px rgba(49, 189, 130, 0.12);
+  animation: blink 1.6s ease-in-out infinite;
+}
