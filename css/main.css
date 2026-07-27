@@ -676,6 +676,7 @@ p {
   background-position: center;
   background-repeat: no-repeat;
   color: var(--text-dark);
+  position: relative;
 }
 .page-hero .container {
   position: relative;
