@@ -146,6 +146,18 @@
   font-size: 0.69rem;
   font-weight: 800;
   cursor: pointer;
+  transform-origin: center;
+  transition:
+    transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.event-pill:hover {
+  position: relative;
+  z-index: 2;
+  transform: scale(1.05);
+  filter: saturate(1.2) brightness(0.97);
+  box-shadow: 0 5px 12px rgba(29, 42, 68, 0.16);
 }
 .event-pill.haven {
   background: #ccefeb;

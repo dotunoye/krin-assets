@@ -37,6 +37,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const span = document.createElement("span");
         span.className = "jump-char";
         span.style.setProperty("--char-index", charIndex++);
+        span.style.setProperty(
+          "--char-delay",
+          `${Math.min(charIndex, 8) * 0.05}s`,
+        );
+        span.style.setProperty(
+          "--hover-delay",
+          `${Math.min(charIndex, 8) * 0.035}s`,
+        );
         span.textContent = char;
         word.appendChild(span);
       });
@@ -49,28 +57,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-          revealObserver.unobserve(entry.target);
-        }
+        entry.target.classList.toggle("animate-in", entry.isIntersecting);
       });
     },
-    { threshold: 0.16 },
+    { threshold: 0.2 },
   );
   document
-    .querySelectorAll(".pop-in, .jump-text")
+    .querySelectorAll(".pop-in, .jump-text, .animate-on-scroll")
     .forEach((el) => revealObserver.observe(el));
 
   const openModal = (modal) => {
     if (!modal) return;
+    modal.classList.remove("animate-in");
     modal.classList.add("open");
     modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
-    modal.querySelector("input, button, select, textarea, a")?.focus();
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => modal.classList.add("animate-in")),
+    );
+    window.setTimeout(
+      () => modal.querySelector("input, button, select, textarea, a")?.focus(),
+      120,
+    );
   };
   const closeModal = (modal) => {
     if (!modal) return;
-    modal.classList.remove("open");
+    modal.classList.remove("open", "animate-in");
     modal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("modal-open");
   };
@@ -99,19 +111,59 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.querySelectorAll(".tabs").forEach((tabList) => {
-    tabList.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-tab]");
-      if (!button) return;
-      const scope = tabList.closest("[data-tabs]");
-      scope.querySelectorAll("[data-tab]").forEach((tab) => {
+    const scope = tabList.closest("[data-tabs]");
+    const tabs = [...tabList.querySelectorAll("[data-tab]")];
+
+    const activateTab = (button, moveFocus = false) => {
+      if (!scope || !button) return;
+      const activeIndex = tabs.indexOf(button);
+      tabList.style.setProperty("--active-tab", activeIndex);
+      tabList.style.setProperty("--tab-count", tabs.length);
+
+      tabs.forEach((tab) => {
         const active = tab === button;
         tab.classList.toggle("active", active);
         tab.setAttribute("aria-selected", String(active));
+        tab.setAttribute("tabindex", active ? "0" : "-1");
       });
+
       scope.querySelectorAll(".tab-panel").forEach((panel) => {
-        panel.hidden = panel.id !== button.dataset.tab;
+        const active = panel.id === button.dataset.tab;
+        panel.classList.remove("animate-in");
+        panel.hidden = !active;
+        if (active) {
+          panel.classList.add("pop-in");
+          requestAnimationFrame(() =>
+            requestAnimationFrame(() => {
+              if (!panel.hidden && panel.id === button.dataset.tab)
+                panel.classList.add("animate-in");
+            }),
+          );
+        }
       });
+      if (moveFocus) button.focus();
+    };
+
+    tabList.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-tab]");
+      if (!button) return;
+      activateTab(button);
     });
+    tabList.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key))
+        return;
+      event.preventDefault();
+      const current = tabs.indexOf(document.activeElement);
+      let next = current;
+      if (event.key === "ArrowRight") next = (current + 1) % tabs.length;
+      if (event.key === "ArrowLeft")
+        next = (current - 1 + tabs.length) % tabs.length;
+      if (event.key === "Home") next = 0;
+      if (event.key === "End") next = tabs.length - 1;
+      activateTab(tabs[next], true);
+    });
+
+    activateTab(tabList.querySelector("[data-tab].active") || tabs[0]);
   });
 
   document.querySelectorAll(".accordion-trigger").forEach((trigger) => {

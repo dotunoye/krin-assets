@@ -3,51 +3,59 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!sections.length) return;
 
   const companion = document.createElement("aside");
+  companion.id = "mascot-companion";
   companion.className = "mascot-companion side-left";
   companion.setAttribute("aria-live", "polite");
   companion.innerHTML = `
-    <img class="mascot-image" alt="" aria-hidden="true">
-    <div class="mascot-bubble"></div>
+    <img id="mascot-img" class="mascot-image" alt="" aria-hidden="true">
+    <div class="mascot-bubble pop-in"><span id="mascot-text"></span></div>
     <button class="mascot-toggle" type="button" aria-label="Minimize Krin the Dove" title="Minimize Krin">−</button>`;
   document.body.appendChild(companion);
 
-  const image = companion.querySelector(".mascot-image");
+  const image = companion.querySelector("#mascot-img");
   const bubble = companion.querySelector(".mascot-bubble");
+  const text = companion.querySelector("#mascot-text");
   const toggle = companion.querySelector(".mascot-toggle");
   let activeSection = null;
+  let bubbleTimer = null;
 
   const update = (section) => {
     if (!section || section === activeSection) return;
     activeSection = section;
-    companion.classList.add("is-changing");
-    window.setTimeout(() => {
-      companion.classList.toggle(
-        "side-right",
-        section.dataset.mascotSide === "right",
-      );
-      companion.classList.toggle(
-        "side-left",
-        section.dataset.mascotSide !== "right",
-      );
-      bubble.textContent = section.dataset.mascotMsg;
-      image.src = section.dataset.mascotImg || "assets/mascot/krin-waving.png";
-      companion.classList.remove("is-changing");
-    }, 160);
+    window.clearTimeout(bubbleTimer);
+    bubble.classList.remove("animate-in");
+    companion.classList.toggle(
+      "side-right",
+      section.dataset.mascotSide === "right",
+    );
+    companion.classList.toggle(
+      "side-left",
+      section.dataset.mascotSide !== "right",
+    );
+    text.textContent = section.dataset.mascotMsg;
+    image.src = section.dataset.mascotImg || "assets/mascot/krin-waving.png";
+    void bubble.offsetWidth;
+    bubbleTimer = window.setTimeout(
+      () => bubble.classList.add("animate-in"),
+      100,
+    );
   };
-  update(sections[0]);
 
-  const visibility = new Map();
   const observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) =>
-        visibility.set(entry.target, entry.intersectionRatio),
-      );
-      const best = [...visibility.entries()].sort((a, b) => b[1] - a[1])[0];
-      if (best && best[1] > 0) update(best[0]);
+      const entering = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+      if (entering.length) update(entering[0].target);
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting && entry.target === activeSection)
+          activeSection = null;
+      });
     },
-    { threshold: [0, 0.15, 0.3, 0.5, 0.7], rootMargin: "-18% 0px -30%" },
+    { threshold: 0.35 },
   );
   sections.forEach((section) => observer.observe(section));
+  update(sections[0]);
 
   toggle.addEventListener("click", () => {
     const minimized = companion.classList.toggle("minimized");

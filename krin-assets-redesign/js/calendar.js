@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       day: 21,
       title: "Young Voices Recording",
       category: "media",
-      categoryName: "Prophetic Kids Media",
+      categoryName: "Prophetic Kids",
       time: "1:00 PM – 4:00 PM",
       age: "Ages 8–12",
       location: "Prophetic Kids Studio",
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       day: 16,
       title: "Animation Premiere",
       category: "media",
-      categoryName: "Prophetic Kids Media",
+      categoryName: "Prophetic Kids",
       time: "4:00 PM – 6:00 PM",
       age: "All ages",
       location: "Krin Screening Hall",
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
       day: 19,
       title: "Character Design Lab",
       category: "media",
-      categoryName: "Prophetic Kids Media",
+      categoryName: "Prophetic Kids",
       time: "1:00 PM – 3:00 PM",
       age: "Ages 8–12",
       location: "Prophetic Kids Studio",
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
       day: 12,
       title: "Light of Christmas Premiere",
       category: "media",
-      categoryName: "Prophetic Kids Media",
+      categoryName: "Prophetic Kids",
       time: "4:00 PM – 6:00 PM",
       age: "All ages",
       location: "Krin Screening Hall",
@@ -197,10 +197,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const dates = `${date.toISOString().slice(0, 10).replaceAll("-", "")}T120000/${date.toISOString().slice(0, 10).replaceAll("-", "")}T130000`;
     const google = document.getElementById("google-calendar-link");
     google.href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${dates}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}`;
+    modal.classList.remove("animate-in");
     modal.classList.add("open");
     modal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
-    modal.querySelector(".modal-close").focus();
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => modal.classList.add("animate-in")),
+    );
+    window.setTimeout(() => modal.querySelector(".modal-close").focus(), 120);
   };
 
   const render = () => {
@@ -251,6 +255,19 @@ document.addEventListener("DOMContentLoaded", () => {
         `${new Date(year, cellMonth, day).toLocaleDateString()}${dayEvents.length ? `, ${dayEvents.length} event${dayEvents.length > 1 ? "s" : ""}` : ", no events"}`,
       );
       cellButton.innerHTML = `<span class="day-number">${day}</span>${dayEvents.map((event, index) => `<span class="event-pill ${event.category}" data-event-index="${events.indexOf(event)}">${event.title}</span>`).join("")}`;
+      cellButton.querySelectorAll(".event-pill").forEach((pill) => {
+        pill.addEventListener("click", (event) => {
+          event.stopPropagation();
+          pill.classList.remove("is-popping");
+          void pill.offsetWidth;
+          pill.classList.add("is-popping");
+          const selectedEvent = events[Number(pill.dataset.eventIndex)];
+          window.setTimeout(() => showModal(selectedEvent), 120);
+        });
+        pill.addEventListener("animationend", () =>
+          pill.classList.remove("is-popping"),
+        );
+      });
       cellButton.addEventListener("click", () => {
         if (dayEvents.length) showModal(dayEvents[0]);
         else if (!outside) {
@@ -292,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   modal.querySelectorAll("[data-close-modal]").forEach((button) =>
     button.addEventListener("click", () => {
-      modal.classList.remove("open");
+      modal.classList.remove("open", "animate-in");
       modal.setAttribute("aria-hidden", "true");
       document.body.classList.remove("modal-open");
     }),
