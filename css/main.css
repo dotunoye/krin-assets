@@ -798,6 +798,7 @@ object-fit: cover;
 .field textarea {
   min-height: 130px;
   resize: vertical;
+  margin-bottom: 16px;
 }
 .field input:focus,
 .field select:focus,
