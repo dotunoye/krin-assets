@@ -39,11 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
         span.style.setProperty("--char-index", charIndex++);
         span.style.setProperty(
           "--char-delay",
-          `${Math.min(charIndex, 8) * 0.05}s`,
+          `${charIndex * 0.1}s`,
         );
         span.style.setProperty(
           "--hover-delay",
-          `${Math.min(charIndex, 8) * 0.035}s`,
+          `${charIndex * 0.08}s`,
         );
         span.textContent = char;
         word.appendChild(span);
