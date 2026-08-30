@@ -56,7 +56,7 @@
   margin: 1.2rem 0 1.4rem;
 }
 .filter-pill {
-  padding: 0.58rem 0.85rem;
+  padding: 0.5rem 0.6rem;
   border: 1px solid #dce5e9;
   border-radius: var(--radius-full);
   background: white;
@@ -211,10 +211,10 @@
   .calendar-shell {
     overflow-x: auto;
   }
-  .weekdays,
+  /* .weekdays,
   .calendar-grid {
     min-width: 760px;
-  }
+  } */
   .calendar-day {
     min-height: 105px;
   }

@@ -169,6 +169,8 @@ p {
 .section-heading {
   max-width: 720px;
   margin-bottom: 2.5rem;
+  margin-inline: auto;
+  text-align: center;
 }
 .section-heading.center {
   margin-inline: auto;
@@ -983,6 +985,7 @@ object-fit: cover;
   border-radius: 34px;
   background: var(--text-dark);
   color: white;
+  text-align: center;
 }
 .cta-band::after {
   content: "";
@@ -998,6 +1001,7 @@ object-fit: cover;
 .cta-band p {
   color: #cbd5e4;
   max-width: 620px;
+  margin-inline: auto;
 }
 .site-footer {
   padding: 4rem 0 1.5rem;
@@ -1134,6 +1138,9 @@ object-fit: cover;
 }
 @media (max-width: 430px) {
   .button-row .btn {
+    width: 100%;
+  }
+  .btn-primary {
     width: 100%;
   }
   .hero-visual {

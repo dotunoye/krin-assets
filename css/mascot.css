@@ -1,10 +1,10 @@
 .mascot-companion {
-  --mascot-size: 150px;
+  --mascot-size: 250px;
   position: fixed;
   z-index: 750;
   bottom: 18px;
   left: 18px;
-  width: min(330px, calc(100vw - 36px));
+  width: min(500px, calc(100vw - 36px));
   display: flex;
   align-items: flex-end;
   pointer-events: none;
@@ -22,8 +22,8 @@
   opacity: 0.15;
 }
 .mascot-image {
-  flex: 0 0 var(--mascot-size);
-  width: var(--mascot-size);
+  /* flex: 0 0 var(--mascot-size); */
+  /* width: var(--mascot-size); */
   height: var(--mascot-size);
   object-fit: contain;
   filter: drop-shadow(0 12px 10px rgba(29, 42, 68, 0.2));
@@ -82,10 +82,10 @@
 }
 @media (max-width: 700px) {
   .mascot-companion {
-    --mascot-size: 92px;
+    --mascot-size: 180px;
     bottom: 8px;
-    left: 8px;
-    width: min(250px, calc(100vw - 16px));
+    left: 0px;
+    width: min(330px, calc(100vw - 16px));
   }
   .mascot-companion.side-right {
     right: 8px;
