@@ -198,3 +198,61 @@ document.addEventListener("DOMContentLoaded", () => {
     el.textContent = new Date().getFullYear();
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Grab all forms with this class
+  const ajaxForms = document.querySelectorAll('.web3-ajax-form');
+  const modal = document.getElementById('success-modal');
+  const closeModalBtn = document.getElementById('close-modal');
+
+  // Loop through each form and attach the interceptor
+  ajaxForms.forEach(form => {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault(); // Kill default redirect
+
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+
+      const formData = new FormData(form);
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: json
+        });
+
+        if (response.status === 200) {
+          modal.style.display = 'flex'; // Pop the shared modal
+          form.reset(); // Wipe the specific form that was submitted
+        } else {
+          console.error('API rejected the submission.');
+        }
+      } catch (error) {
+        console.error('Network routing failed:', error);
+      } finally {
+        // Restore the specific button's state
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+      }
+    });
+  });
+
+  // Modal Close Logic
+  closeModalBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+});
