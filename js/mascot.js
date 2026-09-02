@@ -18,6 +18,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggle = companion.querySelector(".mascot-toggle");
   let activeSection = null;
   let bubbleTimer = null;
+  let scrollFrame = null;
+
+  // Warm every pose into the browser cache before it is requested by a section.
+  const poseCache = new Map();
+  sections.forEach((section) => {
+    const src = section.dataset.mascotImg || "assets/mascot/krin-waving.png";
+    if (poseCache.has(src)) return;
+    const preload = new Image();
+    preload.decoding = "async";
+    preload.src = src;
+    poseCache.set(src, preload);
+  });
 
   const update = (section) => {
     if (!section || section === activeSection) return;
@@ -33,7 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
       section.dataset.mascotSide !== "right",
     );
     text.textContent = section.dataset.mascotMsg;
-    image.src = section.dataset.mascotImg || "assets/mascot/krin-waving.png";
+    const nextSrc =
+      section.dataset.mascotImg || "assets/mascot/krin-waving.png";
+    if (image.getAttribute("src") !== nextSrc) image.src = nextSrc;
     void bubble.offsetWidth;
     bubbleTimer = window.setTimeout(
       () => bubble.classList.add("animate-in"),
@@ -41,21 +55,46 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   };
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const entering = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-      if (entering.length) update(entering[0].target);
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting && entry.target === activeSection)
-          activeSection = null;
-      });
-    },
-    { threshold: 0.35 },
-  );
+  // A viewport activation line works for short and very tall sections alike.
+  // It also makes reverse scrolling deterministic, unlike intersection-ratio
+  // thresholds that tall sections can never reach.
+  const syncToScrollPosition = () => {
+    scrollFrame = null;
+    const activationLine = window.innerHeight * 0.42;
+    const current =
+      sections.find((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.top <= activationLine && rect.bottom >= activationLine;
+      }) ||
+      [...sections].sort((a, b) => {
+        const aRect = a.getBoundingClientRect();
+        const bRect = b.getBoundingClientRect();
+        const aDistance = Math.min(
+          Math.abs(aRect.top - activationLine),
+          Math.abs(aRect.bottom - activationLine),
+        );
+        const bDistance = Math.min(
+          Math.abs(bRect.top - activationLine),
+          Math.abs(bRect.bottom - activationLine),
+        );
+        return aDistance - bDistance;
+      })[0];
+    update(current);
+  };
+
+  const requestSync = () => {
+    if (scrollFrame !== null) return;
+    scrollFrame = requestAnimationFrame(syncToScrollPosition);
+  };
+
+  const observer = new IntersectionObserver(requestSync, {
+    threshold: 0,
+    rootMargin: "-35% 0px -55% 0px",
+  });
   sections.forEach((section) => observer.observe(section));
-  update(sections[0]);
+  window.addEventListener("scroll", requestSync, { passive: true });
+  window.addEventListener("resize", requestSync);
+  requestSync();
 
   toggle.addEventListener("click", () => {
     const minimized = companion.classList.toggle("minimized");

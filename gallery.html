@@ -5,198 +5,200 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Krin Asset nurtures children after school and creates faith-filled media for the next generation."
+      content="Explore moments of learning, faith, creativity, and community from across Krin Asset."
     />
-    <title>Krin Asset | Safe Spaces. Brave Stories. Bright Futures.</title>
+    <title>Gallery | Krin Asset</title>
+    <link rel="icon" type="image/webp" href="assets/images/tab-logo.webp" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/mascot.css" />
+    <link rel="stylesheet" href="css/calendar.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="container nav-wrap">
-        <a class="brand" href="index.html" aria-label="Krin Asset home">
-          <span class="brand-mark"><span>◆</span></span
-          >Krin Asset
-          </a>
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-label="Toggle navigation"
-          aria-expanded="false"
+        <a class="brand" href="index.html" aria-label="Krin Asset home"
+          ><img src="assets/images/krin-logo.webp" alt="Krin Asset"
+        /></a>
+        <nav
+          class="site-nav"
+          id="primary-navigation"
+          aria-label="Primary navigation"
         >
-          <span></span><span></span><span></span>
-        </button>
-        <nav class="site-nav" aria-label="Primary navigation">
-          <a class="active" href="index.html">Home</a
-          ><a href="about.html">About</a
-          ><a href="after-school-haven.html">After School Haven</a
-          ><a href="prophetic-kids.html">Prophetic Kids</a
-          ><a href="calendar.html">Calendar</a><a href="contact.html">Contact</a
-          ><a
-            class="btn btn-primary btn-sm"
+          <div class="desktop-nav">
+            <a class="nav-link" href="index.html">Home</a>
+            <div class="nav-dropdown">
+              <a
+                class="dropdown-trigger active"
+                href="about.html"
+                aria-haspopup="true"
+                >About <span class="dropdown-chevron">⌄</span></a
+              >
+              <div class="dropdown-menu">
+                <a href="about.html">Our Story</a
+                ><a class="active" href="gallery.html">Gallery</a>
+              </div>
+            </div>
+            <div class="nav-dropdown">
+              <button
+                class="dropdown-trigger"
+                type="button"
+                aria-haspopup="true"
+              >
+                Programs <span class="dropdown-chevron">⌄</span>
+              </button>
+              <div class="dropdown-menu">
+                <a href="after-school-haven.html">After School Haven</a
+                ><a href="prophetic-kids.html">Prophetic Kids</a>
+              </div>
+            </div>
+            <a class="nav-link" href="shop.html">Shop</a
+            ><a class="nav-link" href="calendar.html">Calendar</a
+            ><a class="nav-link" href="contact.html">Contact</a>
+          </div>
+          <div class="mobile-nav">
+            <a href="index.html">Home</a><a href="about.html">About</a
+            ><a class="active" href="gallery.html">Gallery</a
+            ><a href="after-school-haven.html">After School Haven</a
+            ><a href="prophetic-kids.html">Prophetic Kids</a
+            ><a href="shop.html">Shop</a><a href="calendar.html">Calendar</a
+            ><a class="mobile-contact" href="contact.html">Contact</a>
+          </div>
+        </nav>
+        <div class="header-actions">
+          <a
+            class="btn btn-primary btn-sm header-cta"
             href="after-school-haven.html#enroll"
             >Enroll a child</a
           >
-        </nav>
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-label="Toggle navigation"
+            aria-controls="primary-navigation"
+            aria-expanded="false"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        </div>
       </div>
     </header>
+
     <main id="main">
-
-        <div class="section-heading center" style="max-width: 1000px; margin: 2rem auto 0rem auto; padding: 0px auto;">
-            <span class="eyebrow">Our Memories</span>
-            <h2 style="margin-bottom: 0px;  margin: 0rem 2rem 0rem 2rem;">Experiences turned memories</h2>
-            
+      <!-- <section
+        class="page-hero gallery-hero"
+        data-mascot-msg="Welcome to our memory wall—every picture holds a moment of growth, joy, or discovery."
+        data-mascot-side="left"
+        data-mascot-img="assets/mascot/krin-waving.png"
+      >
+        <div class="container">
+          <div class="crumbs">
+            <a href="index.html">Home</a><span>/</span><span>Gallery</span>
           </div>
+          <span class="eyebrow">Our memories</span>
+          <h1 class="jump-text">Experiences turned into memories.</h1>
+          <p>
+            A living collection of everyday learning, brave creativity, warm
+            relationships, and joyful faith across the Krin community.
+          </p>
+        </div>
+      </section> -->
+      <div class="section-heading" style="margin: 2rem auto 0 auto;">
+            <span class="eyebrow">A typical day</span>
+            <h2>From school shoes to confident smiles.</h2>
+          </div>
+      <section
+        class="section gallery-section"
+        data-mascot-msg="Choose a collection or tap any picture for a closer look. New folder images appear here through our gallery manifest."
+        data-mascot-side="right"
+        data-mascot-img="assets/mascot/krin-point-left.png"
+      >
+        <div class="container">
+          <div
+            class="filter-pills gallery-filters"
+            id="gallery-filters"
+            aria-label="Filter gallery"
+          ></div>
+          <p id="gallery-status" class="gallery-status" role="status">
+            Loading our memories…
+          </p>
+        </div>
+        <div
+          class="krin-gallery"
+          id="gallery-grid"
+          data-gallery-source="assets/images/gallery-manifest.json"
+          aria-live="polite"
+        ></div>
+      </section>
+    </main>
 
-    <section class="krin-gallery" id="gallery-grid">
-  <div class="reveal-item" data-full-src="/assets/images/AfterSchool.webp">
-    <img src="/assets/images/AfterSchool.webp" alt="After School" loading="lazy">
-  </div>
-  
-  <div class="reveal-item" data-full-src="/assets/images/aunt-tee-awarding-a-student.webp">
-    <img src="/assets/images/aunt-tee-awarding-a-student.webp" alt="Aunt Tee awarding a student" loading="lazy">
-  </div>
+    <div
+      id="krin-modal"
+      class="krin-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="krin-modal-caption"
+      hidden
+    >
+      <button
+        class="krin-modal-backdrop"
+        type="button"
+        data-gallery-close
+        aria-label="Close expanded image"
+      ></button>
+      <figure class="gallery-modal-figure">
+        <button
+          class="gallery-modal-close"
+          type="button"
+          data-gallery-close
+          aria-label="Close expanded image"
+        >
+          ×
+        </button>
+        <img id="krin-modal-img" alt="" />
+        <figcaption id="krin-modal-caption"></figcaption>
+      </figure>
+    </div>
 
-  <div class="reveal-item" data-full-src="/assets/images/aunt-tee-praying-with-the-children.webp">
-    <img src="/assets/images/aunt-tee-praying-with-the-children.webp" alt="Aunt Tee praying with the children" loading="lazy">
-  </div>
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <a class="brand" href="index.html"
+              ><img src="assets/images/krin-logo.webp" alt="Krin Asset"
+            /></a>
+            <p>Safe spaces and brave stories for bright futures.</p>
+          </div>
+          <div>
+            <h3>Explore</h3>
+            <div class="footer-links">
+              <a href="about.html">Our story</a
+              ><a href="gallery.html">Gallery</a
+              ><a href="calendar.html">Events</a>
+            </div>
+          </div>
+          <div>
+            <h3>Initiatives</h3>
+            <div class="footer-links">
+              <a href="after-school-haven.html">After School Haven</a
+              ><a href="prophetic-kids.html">Prophetic Kids</a>
+            </div>
+          </div>
+          <div>
+            <h3>Connect</h3>
+            <a href="contact.html">Contact our team</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© <span data-year></span> Krin Asset.</span
+          ><span>Faith • Care • Creativity</span>
+        </div>
+      </div>
+    </footer>
 
-  <div class="reveal-item" data-full-src="/assets/images/aunt-tee-reading-prophetic-kids-1.webp">
-    <img src="/assets/images/aunt-tee-reading-prophetic-kids-1.webp" alt="Aunt Tee reading Prophetic Kids" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/aunt-tee-teaching-1.webp">
-    <img src="/assets/images/aunt-tee-teaching-1.webp" alt="Aunt Tee teaching" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/aunt-tee-teaching-prophetic-kids.webp">
-    <img src="/assets/images/aunt-tee-teaching-prophetic-kids.webp" alt="Aunt Tee teaching Prophetic Kids" loading="lazy">
-  </div>
-  
-  <div class="reveal-item" data-full-src="/assets/images/aunt-tee-teaching.webp">
-    <img src="/assets/images/aunt-tee-teaching.webp" alt="Aunt Tee teaching" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/aunt-tee-telling-story.webp">
-    <img src="/assets/images/aunt-tee-telling-story.webp" alt="Aunt Tee telling a story" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/Aunt-Tee.webp">
-    <img src="/assets/images/Aunt-Tee.webp" alt="Aunt Tee" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/aunt-tope-with-prophetic-kids.webp">
-    <img src="/assets/images/aunt-tope-with-prophetic-kids.webp" alt="Aunt Tope with Prophetic Kids" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/child-learning-1.webp">
-    <img src="/assets/images/child-learning-1.webp" alt="Child learning" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/child-learning-2.webp">
-    <img src="/assets/images/child-learning-2.webp" alt="Child learning" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/child-learning-3.webp">
-    <img src="/assets/images/child-learning-3.webp" alt="Child learning" loading="lazy">
-  </div>
-  
-  <div class="reveal-item" data-full-src="/assets/images/child-learning-4.webp">
-    <img src="/assets/images/child-learning-4.webp" alt="Child learning" loading="lazy">
-  </div>
-  
-  <div class="reveal-item" data-full-src="/assets/images/child-learning.webp">
-    <img src="/assets/images/child-learning.webp" alt="Child learning" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/child-writting.webp">
-    <img src="/assets/images/child-writting.webp" alt="Child writing" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/children-1.webp">
-    <img src="/assets/images/children-1.webp" alt="Children" loading="lazy">
-  </div>
-  
-  <div class="reveal-item" data-full-src="/assets/images/children-2.webp">
-    <img src="/assets/images/children-2.webp" alt="Children" loading="lazy">
-  </div>
-  
-  <div class="reveal-item" data-full-src="/assets/images/children-3.webp">
-    <img src="/assets/images/children-3.webp" alt="Children" loading="lazy">
-  </div>
-  
-  <div class="reveal-item" data-full-src="/assets/images/children-4.webp">
-    <img src="/assets/images/children-4.webp" alt="Children" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/children-eating.webp">
-    <img src="/assets/images/children-eating.webp" alt="Children eating" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/children-hugging-aunt-tee.webp">
-    <img src="/assets/images/children-hugging-aunt-tee.webp" alt="Children hugging Aunt Tee" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/children-learning-1.webp">
-    <img src="/assets/images/children-learning-1.webp" alt="Children learning" loading="lazy">
-  </div>
-  
-  <div class="reveal-item" data-full-src="/assets/images/children-learning.webp">
-    <img src="/assets/images/children-learning.webp" alt="Children learning" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/children-robotics.webp">
-    <img src="/assets/images/children-robotics.webp" alt="Children robotics" loading="lazy">
-  </div>
-  
-  <div class="reveal-item" data-full-src="/assets/images/children.webp">
-    <img src="/assets/images/children.webp" alt="Children" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/chilren-activity.webp">
-    <img src="/assets/images/chilren-activity.webp" alt="Children activity" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/group-picture-1.webp">
-    <img src="/assets/images/group-picture-1.webp" alt="Group picture" loading="lazy">
-  </div>
-  
-  <div class="reveal-item" data-full-src="/assets/images/group-picture.webp">
-    <img src="/assets/images/group-picture.webp" alt="Group picture" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/mrs-tope-teaching.webp">
-    <img src="/assets/images/mrs-tope-teaching.webp" alt="Mrs Tope teaching" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/one-on-one-interaction.webp">
-    <img src="/assets/images/one-on-one-interaction.webp" alt="One on one interaction" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/prophetic-kids-1.webp">
-    <img src="/assets/images/prophetic-kids-1.webp" alt="Prophetic Kids" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/prophetic-kids-2.webp">
-    <img src="/assets/images/prophetic-kids-2.webp" alt="Prophetic Kids" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/prophetic-kids-3.webp">
-    <img src="/assets/images/prophetic-kids-3.webp" alt="Prophetic Kids" loading="lazy">
-  </div>
-
-  <div class="reveal-item" data-full-src="/assets/images/prophetic-kids-4.webp">
-    <img src="/assets/images/prophetic-kids-4.webp" alt="Prophetic Kids" loading="lazy">
-  </div>
-</section>
-
-<div id="krin-modal" class="krin-modal" hidden>
-  <div class="krin-modal-backdrop" id="krin-modal-backdrop"></div>
-  <img id="krin-modal-img" src="" alt="Expanded View">
-</div>
-</main>
-<script src="js/main.js"></script>
-</body>
+    <script src="js/main.js"></script>
+    <script src="js/mascot.js"></script>
+    <script src="js/gallery.js"></script>
+  </body>
 </html>

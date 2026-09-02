@@ -7,7 +7,8 @@
       name="description"
       content="Krin Asset nurtures children after school and creates faith-filled media for the next generation."
     />
-    <title>Krin Asset | Safe Spaces. Brave Stories. Bright Futures.</title>
+    <title>Shop | Krin Asset</title>
+    <link rel="icon" type="image/webp" href="assets/images/tab-logo.webp" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/mascot.css" />
@@ -16,32 +17,18 @@
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="container nav-wrap">
-        <a class="brand" href="index.html" aria-label="Krin Asset home">
-          <span class="brand-mark"><span>◆</span></span
-          >Krin Asset
-        </a>
-
-        <div class="header-controls">
-          <nav class="site-nav" aria-label="Primary navigation">
-            <a class="active" href="index.html">Home</a
-            ><a href="about.html">About</a
-            ><a href="after-school-haven.html">After School Haven</a
-            ><a href="prophetic-kids.html">Prophetic Kids</a
-            ><a href="calendar.html">Calendar</a
-            ><a href="contact.html">Contact</a>
-          </nav>
-
-          <button
-            class="nav-toggle"
-            type="button"
-            aria-label="Toggle navigation"
-            aria-expanded="false"
-          >
-            <span></span><span></span><span></span>
-          </button>
-
-          <!-- Cart Icon -->
-          <button id="cart-toggle" class="nav-cart-btn" aria-label="Open Cart">
+        <a class="brand" href="index.html" aria-label="Krin Asset home"><img src="assets/images/krin-logo.webp" alt="Krin Asset" /></a>
+        <nav class="site-nav" id="primary-navigation" aria-label="Primary navigation">
+          <div class="desktop-nav">
+            <a class="nav-link" href="index.html">Home</a>
+            <div class="nav-dropdown"><a class="dropdown-trigger" href="about.html" aria-haspopup="true">About <span class="dropdown-chevron">⌄</span></a><div class="dropdown-menu"><a href="about.html">Our Story</a><a href="gallery.html">Gallery</a></div></div>
+            <div class="nav-dropdown"><button class="dropdown-trigger" type="button" aria-haspopup="true">Programs <span class="dropdown-chevron">⌄</span></button><div class="dropdown-menu"><a href="after-school-haven.html">After School Haven</a><a href="prophetic-kids.html">Prophetic Kids</a></div></div>
+            <a class="nav-link active" href="shop.html">Shop</a><a class="nav-link" href="calendar.html">Calendar</a><a class="nav-link" href="contact.html">Contact</a>
+          </div>
+          <div class="mobile-nav"><a href="index.html">Home</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="after-school-haven.html">After School Haven</a><a href="prophetic-kids.html">Prophetic Kids</a><a class="active" href="shop.html">Shop</a><a href="calendar.html">Calendar</a><a class="mobile-contact" href="contact.html">Contact</a></div>
+        </nav>
+        <div class="header-actions">
+          <button id="cart-toggle" class="nav-cart-btn" aria-label="Open cart">
             <svg
               width="24"
               height="24"
@@ -60,16 +47,21 @@
               >0</span
             >
           </button>
+          <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-controls="primary-navigation" aria-expanded="false"><span></span><span></span><span></span></button>
         </div>
       </div>
     </header>
     <main id="main">
+        <div class="section-heading" style="margin: 2rem auto 0 auto;">
+            <span class="eyebrow">A typical day</span>
+            <h2>Own a piece of us</h2>
+          </div>
       <section class="krin-shop" id="shop-grid">
         <!-- Product Card 1 -->
         <div class="product-card">
           <div class="product-image-wrapper">
             <img
-              src="assets/images/prophetic-kids-1.webp"
+              src="assets/products/jigsaw1.jpg"
               alt="Prophetic Kids Book"
               loading="lazy"
             />
@@ -78,12 +70,12 @@
           </div>
           <div class="product-info">
             <h3 class="product-title">Prophetic Kids Devotional</h3>
-            <p class="product-price">₦4,500</p>
+            <p class="product-price">₦13,000</p>
             <button
               class="krin-btn-buy"
               data-id="1"
               data-name="Prophetic Kids Book"
-              data-price="4500"
+              data-price="13000"
             >
               Add to Cart
             </button>
@@ -94,19 +86,19 @@
         <div class="product-card">
           <div class="product-image-wrapper">
             <img
-              src="/assets/images/children-1.webp"
+              src="assets/products/jigsaw2.jpg"
               alt="Krin Asset T-Shirt"
               loading="lazy"
             />
           </div>
           <div class="product-info">
-            <h3 class="product-title">After-School Haven Tee</h3>
-            <p class="product-price">₦6,000</p>
+            <h3 class="product-title">Jonah and the Whale Jigsaw</h3>
+            <p class="product-price">₦13,000</p>
             <button
               class="krin-btn-buy"
               data-id="2"
-              data-name="Prophetic Kids Book"
-              data-price="4500"
+              data-name="Jonah and the Whale Jigsaw"
+              data-price="13000"
             >
               Add to Cart
             </button>
@@ -117,19 +109,19 @@
         <div class="product-card">
           <div class="product-image-wrapper">
             <img
-              src="/assets/images/children-1.webp"
+              src="assets/products/jigsaw3.jpg"
               alt="Krin Asset T-Shirt"
               loading="lazy"
             />
           </div>
           <div class="product-info">
             <h3 class="product-title">After-School Haven Tee</h3>
-            <p class="product-price">₦6,000</p>
+            <p class="product-price">₦13,000</p>
             <button
               class="krin-btn-buy"
               data-id="3"
               data-name="Prophetic Kids Book"
-              data-price="6500"
+              data-price="13000"
             >
               Add to Cart
             </button>
@@ -140,19 +132,19 @@
         <div class="product-card">
           <div class="product-image-wrapper">
             <img
-              src="/assets/images/children-1.webp"
+              src="assets/products/jigsaw4.jpg"
               alt="Krin Asset T-Shirt"
               loading="lazy"
             />
           </div>
           <div class="product-info">
             <h3 class="product-title">After-School Haven Tee</h3>
-            <p class="product-price">₦6,000</p>
+            <p class="product-price">₦13,000</p>
             <button
               class="krin-btn-buy"
               data-id="4"
               data-name="Prophetic Kids Book"
-              data-price="4000"
+              data-price="13000"
             >
               Add to Cart
             </button>
@@ -163,19 +155,41 @@
         <div class="product-card">
           <div class="product-image-wrapper">
             <img
-              src="/assets/images/children-1.webp"
+              src="assets/products/jigsaw5.jpg"
               alt="Krin Asset T-Shirt"
               loading="lazy"
             />
           </div>
           <div class="product-info">
             <h3 class="product-title">After-School Haven Tee</h3>
-            <p class="product-price">₦6,000</p>
+            <p class="product-price">₦13,000</p>
             <button
               class="krin-btn-buy"
               data-id="5"
               data-name="Prophetic Kids Book"
-              data-price="7000"
+              data-price="13000"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image-wrapper">
+            <img
+              src="assets/products/jigsaw6.jpg"
+              alt="Krin Asset T-Shirt"
+              loading="lazy"
+            />
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">After-School Haven Tee</h3>
+            <p class="product-price">₦13,000</p>
+            <button
+              class="krin-btn-buy"
+              data-id="6"
+              data-name="Prophetic Kids Book"
+              data-price="13000"
             >
               Add to Cart
             </button>
