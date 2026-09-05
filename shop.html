@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/mascot.css" />
+    <link rel="stylesheet" href="css/cms.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -56,147 +57,22 @@
             <span class="eyebrow">A typical day</span>
             <h2>Own a piece of us</h2>
           </div>
-      <section class="krin-shop" id="shop-grid">
-        <!-- Product Card 1 -->
-        <div class="product-card">
-          <div class="product-image-wrapper">
-            <img
-              src="assets/products/jigsaw1.jpg"
-              alt="Prophetic Kids Book"
-              loading="lazy"
-            />
-            <!-- Optional badge for new/sale items -->
-            <span class="product-badge">Best Seller</span>
-          </div>
-          <div class="product-info">
-            <h3 class="product-title">Prophetic Kids Devotional</h3>
-            <p class="product-price">₦13,000</p>
-            <button
-              class="krin-btn-buy"
-              data-id="1"
-              data-name="Prophetic Kids Book"
-              data-price="13000"
-            >
-              Add to Cart
-            </button>
+      <p id="shop-status" class="cms-status cms-loading" role="status">Loading items…</p>
+      <button id="shop-retry" class="cms-retry" type="button" hidden>Try again</button>
+      <section class="krin-shop" id="shop-grid" aria-label="Shop products" aria-busy="true"></section>
+      <noscript>Please enable JavaScript to load the shop.</noscript>
+      <div id="product-modal" class="product-modal" role="dialog" aria-modal="true" aria-labelledby="product-modal-title" hidden>
+        <div class="product-modal-content">
+          <button type="button" class="product-modal-close" data-product-close aria-label="Close product details">×</button>
+          <div class="product-modal-image"><img alt="" /></div>
+          <div class="product-modal-details">
+            <h2 id="product-modal-title"></h2>
+            <p class="product-description"></p>
+            <p class="product-price"></p>
+            <div class="product-modal-action"></div>
           </div>
         </div>
-
-        <!-- Product Card 2 -->
-        <div class="product-card">
-          <div class="product-image-wrapper">
-            <img
-              src="assets/products/jigsaw2.jpg"
-              alt="Krin Asset T-Shirt"
-              loading="lazy"
-            />
-          </div>
-          <div class="product-info">
-            <h3 class="product-title">Jonah and the Whale Jigsaw</h3>
-            <p class="product-price">₦13,000</p>
-            <button
-              class="krin-btn-buy"
-              data-id="2"
-              data-name="Jonah and the Whale Jigsaw"
-              data-price="13000"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-
-        <!-- Product Card 2 -->
-        <div class="product-card">
-          <div class="product-image-wrapper">
-            <img
-              src="assets/products/jigsaw3.jpg"
-              alt="Krin Asset T-Shirt"
-              loading="lazy"
-            />
-          </div>
-          <div class="product-info">
-            <h3 class="product-title">After-School Haven Tee</h3>
-            <p class="product-price">₦13,000</p>
-            <button
-              class="krin-btn-buy"
-              data-id="3"
-              data-name="Prophetic Kids Book"
-              data-price="13000"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-
-        <!-- Product Card 2 -->
-        <div class="product-card">
-          <div class="product-image-wrapper">
-            <img
-              src="assets/products/jigsaw4.jpg"
-              alt="Krin Asset T-Shirt"
-              loading="lazy"
-            />
-          </div>
-          <div class="product-info">
-            <h3 class="product-title">After-School Haven Tee</h3>
-            <p class="product-price">₦13,000</p>
-            <button
-              class="krin-btn-buy"
-              data-id="4"
-              data-name="Prophetic Kids Book"
-              data-price="13000"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-
-        <!-- Product Card 2 -->
-        <div class="product-card">
-          <div class="product-image-wrapper">
-            <img
-              src="assets/products/jigsaw5.jpg"
-              alt="Krin Asset T-Shirt"
-              loading="lazy"
-            />
-          </div>
-          <div class="product-info">
-            <h3 class="product-title">After-School Haven Tee</h3>
-            <p class="product-price">₦13,000</p>
-            <button
-              class="krin-btn-buy"
-              data-id="5"
-              data-name="Prophetic Kids Book"
-              data-price="13000"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <div class="product-image-wrapper">
-            <img
-              src="assets/products/jigsaw6.jpg"
-              alt="Krin Asset T-Shirt"
-              loading="lazy"
-            />
-          </div>
-          <div class="product-info">
-            <h3 class="product-title">After-School Haven Tee</h3>
-            <p class="product-price">₦13,000</p>
-            <button
-              class="krin-btn-buy"
-              data-id="6"
-              data-name="Prophetic Kids Book"
-              data-price="13000"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-        <!-- Add more cards as needed -->
-      </section>
+      </div>
 
       <!-- The Cart Drawer -->
       <div id="cart-drawer" class="cart-drawer">
@@ -224,6 +100,8 @@
       <div id="cart-overlay" class="cart-overlay"></div>
     </main>
     <script src="js/main.js"></script>
+    <script src="js/sanity.js"></script>
+    <script src="js/shop.js"></script>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -243,13 +121,14 @@
         };
 
         // Listen for clicks on ANY Add to Cart button
-        document.querySelectorAll(".krin-btn-buy").forEach((btn) => {
-          btn.addEventListener("click", (e) => {
+        document.addEventListener("click", (e) => {
+            const btn = e.target.closest(".krin-btn-buy");
+            if (!btn) return;
             // Build the product object from the HTML data attributes
             const item = {
-              id: e.target.dataset.id,
-              name: e.target.dataset.name,
-              price: parseInt(e.target.dataset.price),
+              id: btn.dataset.id,
+              name: btn.dataset.name,
+              price: parseInt(btn.dataset.price),
             };
 
             // Push to array and save to local storage
@@ -258,10 +137,9 @@
             updateBadge();
 
             // Briefly change button text for user feedback
-            const originalText = e.target.textContent;
-            e.target.textContent = "Added ✓";
-            setTimeout(() => (e.target.textContent = originalText), 1500);
-          });
+            const originalText = btn.textContent;
+            btn.textContent = "Added ✓";
+            setTimeout(() => (btn.textContent = originalText), 1500);
         });
 
         // Build the visual list of items inside the drawer
@@ -277,7 +155,7 @@
               total += item.price;
               itemsContainer.innerHTML += `
           <div class="cart-item">
-            <span>${item.name}</span>
+            <span>${String(item.name).replace(/[&<>"']/g, char => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"})[char])}</span>
             <div style="display:flex; align-items:center; gap:10px;">
               <strong>₦${item.price.toLocaleString()}</strong>
               <button onclick="window.removeItem(${index})" style="color:#e63946; border:none; background:none; cursor:pointer; font-weight:bold; font-size:18px;">

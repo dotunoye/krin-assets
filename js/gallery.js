@@ -7,41 +7,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   const modalCaption = document.getElementById("krin-modal-caption");
   if (!grid || !status || !filters || !modal || !modalImage) return;
 
-  /*
-   * Stable gallery data contract:
-   * { id | _id, title, alt, category, image: { url } | imageUrl | src }
-   *
-   * A future Sanity adapter can assign an async function to
-   * window.KRIN_GALLERY_PROVIDER and return GROQ results in this shape.
-   * The renderer, filters, modal, and animation code remain unchanged.
-   */
-  const normalizeItem = (item) => ({
-    id: item._id || item.id,
-    title: item.title || item.alt || "Krin Asset memory",
-    alt: item.alt || item.title || "Krin Asset memory",
-    category: item.category || "Community",
-    src: item.imageUrl || item.image?.url || item.src,
-  });
-
-  const localManifestProvider = async () => {
-    const response = await fetch(
-      grid.dataset.gallerySource || "assets/images/gallery-manifest.json",
-      { cache: "no-cache" },
-    );
-    if (!response.ok)
-      throw new Error(`Gallery manifest request failed: ${response.status}`);
-    const payload = await response.json();
-    return Array.isArray(payload) ? payload : payload.items;
-  };
-
-  const loadItems = async () => {
-    const provider =
-      typeof window.KRIN_GALLERY_PROVIDER === "function"
-        ? window.KRIN_GALLERY_PROVIDER
-        : localManifestProvider;
-    const sourceItems = await provider();
-    return sourceItems.map(normalizeItem).filter((item) => item.id && item.src);
-  };
+  const { imageURL, loadImage, trapFocus } = window.KrinCMS;
+  const loadItems = async () => (await window.KRIN_GALLERY_PROVIDER()).map(item => ({
+    id: item._id, title: item.title || 'Krin Asset memory',
+    alt: item.title || 'Krin Asset memory', category: item.category || 'Community',
+    src: imageURL(item.imageUrl), full: imageURL(item.imageUrl, 1800),
+  })).filter(item => item.id && item.src);
 
   let items = [];
   let activeCategory = "All";
@@ -69,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         button.dataset.galleryId = item.id;
         button.setAttribute("aria-label", `Open ${item.title}`);
         const image = document.createElement("img");
-        image.src = item.src;
+
         image.alt = item.alt;
         image.loading = "lazy";
         image.decoding = "async";
@@ -77,6 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         label.className = "gallery-item-label";
         label.textContent = item.title;
         button.append(image, label);
+        loadImage(image, item.src);
         revealObserver.observe(button);
         return button;
       }),
@@ -131,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
     if (!item) return;
     lastTrigger = trigger;
-    modalImage.src = item.src;
+    loadImage(modalImage, item.full);
     modalImage.alt = item.alt;
     modalCaption.textContent = item.title;
     modal.hidden = false;
@@ -148,8 +120,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && !modal.hidden) closeModal();
+    trapFocus(event, modal);
   });
 
+  const retry = document.getElementById('gallery-retry');
+  async function load() {
+  retry.hidden = true;
+  status.classList.remove('error');
+  status.classList.add('cms-loading');
+  status.textContent = 'Loading our memories…';
+  grid.setAttribute('aria-busy', 'true');
   try {
     items = await loadItems();
     renderFilters();
@@ -159,5 +139,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     status.textContent =
       "The gallery could not be loaded right now. Please try again shortly.";
     status.classList.add("error");
+    retry.hidden = false;
+  } finally {
+    status.classList.remove('cms-loading');
+    grid.setAttribute('aria-busy', 'false');
   }
+  }
+  retry.addEventListener('click', load);
+  load();
 });

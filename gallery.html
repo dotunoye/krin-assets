@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/mascot.css" />
     <link rel="stylesheet" href="css/calendar.css" />
+    <link rel="stylesheet" href="css/cms.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -110,7 +111,7 @@
           </div>
       <section
         class="section gallery-section"
-        data-mascot-msg="Choose a collection or tap any picture for a closer look. New folder images appear here through our gallery manifest."
+        data-mascot-msg="Choose a collection or tap any picture for a closer look. Explore our latest memories."
         data-mascot-side="right"
         data-mascot-img="assets/mascot/krin-point-left.png"
       >
@@ -120,14 +121,15 @@
             id="gallery-filters"
             aria-label="Filter gallery"
           ></div>
-          <p id="gallery-status" class="gallery-status" role="status">
+          <p id="gallery-status" class="gallery-status cms-loading" role="status">
             Loading our memories…
           </p>
         </div>
+        <button id="gallery-retry" class="cms-retry" type="button" hidden>Try again</button>
         <div
           class="krin-gallery"
           id="gallery-grid"
-          data-gallery-source="assets/images/gallery-manifest.json"
+          aria-busy="true"
           aria-live="polite"
         ></div>
       </section>
@@ -156,7 +158,7 @@
         >
           ×
         </button>
-        <img id="krin-modal-img" alt="" />
+        <div class="gallery-modal-image"><img id="krin-modal-img" alt="" /></div>
         <figcaption id="krin-modal-caption"></figcaption>
       </figure>
     </div>
@@ -199,6 +201,7 @@
 
     <script src="js/main.js"></script>
     <script src="js/mascot.js"></script>
+    <script src="js/sanity.js"></script>
     <script src="js/gallery.js"></script>
   </body>
 </html>
