@@ -86,13 +86,48 @@
         </div>
 
         <div class="cart-footer">
-          <div class="cart-total">
+          <div class="cart-total" style="margin-bottom: 10px;">
             <span>Total:</span>
             <span id="cart-total-price">₦0</span>
           </div>
-          <button id="whatsapp-checkout-btn" class="whatsapp-btn">
-            Checkout via WhatsApp
-          </button>
+
+          <!-- Hidden by default -->
+          <div id="checkout-details" class="cart-checkout-form collapsed">
+            <div class="input-group">
+              <label for="customer-email">Email Address *</label>
+              <input type="email" id="customer-email" placeholder="For your receipt" required>
+            </div>
+            
+            <div class="input-group">
+              <label for="customer-phone">Phone / WhatsApp *</label>
+              <input type="tel" id="customer-phone" placeholder="080..." required>
+            </div>
+            
+            <div class="input-group">
+              <label for="delivery-zone">Delivery Zone *</label>
+              <select id="delivery-zone" required>
+                <option value="" disabled selected>Select delivery area...</option>
+                <option value="0">Pickup / Digital Only (Free)</option>
+                <option value="3000">Lagos Mainland (₦3,000)</option>
+                <option value="4000">Lagos Island (₦4,000)</option>
+                <option value="6000">Outside Lagos (₦6,000)</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="customer-address">Street Address *</label>
+              <textarea id="customer-address" placeholder="E.g., 12 Admiralty Way, Lekki" rows="2" required></textarea>
+            </div>
+
+            <div class="input-group">
+              <label>Check pin location (drag to adjust):</label>
+              <div id="delivery-map" style="width: 100%; height: 200px; border-radius: 8px; background: #eaeaea; margin-top: 5px;"></div>
+              <input type="hidden" id="customer-lat" value="6.4698">
+              <input type="hidden" id="customer-lng" value="3.5852">
+            </div>
+          </div>
+          
+          <button id="checkout-action-btn" class="krin-btn-buy" style="width: 100%; margin-top: 15px;">Checkout</button>
         </div>
       </div>
 
@@ -102,143 +137,8 @@
     <script src="js/main.js"></script>
     <script src="js/sanity.js"></script>
     <script src="js/shop.js"></script>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCU8aR8Wss5OTpzWtEaEL_6xWjML8i7e9s&callback=initMap" async defer></script>
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // Pull existing cart from memory or start a new empty array
-        let cart = JSON.parse(localStorage.getItem("krinCart")) || [];
-
-        const badge = document.getElementById("cart-badge");
-        const drawer = document.getElementById("cart-drawer");
-        const overlay = document.getElementById("cart-overlay");
-        const itemsContainer = document.getElementById("cart-items-container");
-        const totalEl = document.getElementById("cart-total-price");
-
-        // Update the red number on the cart icon
-        const updateBadge = () => {
-          badge.textContent = cart.length;
-          badge.style.display = cart.length > 0 ? "flex" : "none";
-        };
-
-        // Listen for clicks on ANY Add to Cart button
-        document.addEventListener("click", (e) => {
-            const btn = e.target.closest(".krin-btn-buy");
-            if (!btn) return;
-            // Build the product object from the HTML data attributes
-            const item = {
-              id: btn.dataset.id,
-              name: btn.dataset.name,
-              price: parseInt(btn.dataset.price),
-            };
-
-            // Push to array and save to local storage
-            cart.push(item);
-            localStorage.setItem("krinCart", JSON.stringify(cart));
-            updateBadge();
-
-            // Briefly change button text for user feedback
-            const originalText = btn.textContent;
-            btn.textContent = "Added ✓";
-            setTimeout(() => (btn.textContent = originalText), 1500);
-        });
-
-        // Build the visual list of items inside the drawer
-        const renderCart = () => {
-          itemsContainer.innerHTML = "";
-          let total = 0;
-
-          if (cart.length === 0) {
-            itemsContainer.innerHTML =
-              '<p style="text-align:center; padding-top:20px;">Your cart is empty.</p>';
-          } else {
-            cart.forEach((item, index) => {
-              total += item.price;
-              itemsContainer.innerHTML += `
-          <div class="cart-item">
-            <span>${String(item.name).replace(/[&<>"']/g, char => ({"&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"})[char])}</span>
-            <div style="display:flex; align-items:center; gap:10px;">
-              <strong>₦${item.price.toLocaleString()}</strong>
-              <button onclick="window.removeItem(${index})" style="color:#e63946; border:none; background:none; cursor:pointer; font-weight:bold; font-size:18px;">
-                <svg xmlns="http://w3.org" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 6h18"></path>
-                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-                    <line x1="10" y1="11" x2="10" y2="17"></line>
-                    <line x1="14" y1="11" x2="14" y2="17"></line>
-                </svg>
-            </button>
-            </div>
-          </div>
-        `;
-            });
-          }
-          totalEl.textContent = `₦${total.toLocaleString()}`;
-        };
-
-        // Function to remove an individual item from the drawer
-        window.removeItem = (index) => {
-          cart.splice(index, 1);
-          localStorage.setItem("krinCart", JSON.stringify(cart));
-          updateBadge();
-          renderCart();
-        };
-
-        // Drawer Toggle Controls
-        const openCart = () => {
-          renderCart();
-          drawer.classList.add("is-open");
-          overlay.classList.add("is-open");
-        };
-
-        const closeCart = () => {
-          drawer.classList.remove("is-open");
-          overlay.classList.remove("is-open");
-        };
-
-        // Bind the toggles to the header icon and overlay
-        document
-          .getElementById("cart-toggle")
-          .addEventListener("click", openCart);
-        document
-          .getElementById("close-cart")
-          .addEventListener("click", closeCart);
-        overlay.addEventListener("click", closeCart);
-
-        // WhatsApp Checkout Redirect
-        document
-          .getElementById("whatsapp-checkout-btn")
-          .addEventListener("click", () => {
-            if (cart.length === 0)
-              return alert("Please add items to your cart first.");
-
-            const KRIN_WHATSAPP_NUMBER = "2348072495976";
-
-            let message = "*New Order from Krin Asset Shop* %0A%0A";
-            let total = 0;
-
-            cart.forEach((item) => {
-              message += `- ${item.name} (₦${item.price.toLocaleString()}) %0A`;
-              total += item.price;
-            });
-
-            message += `%0A*Total: ₦${total.toLocaleString()}*%0A%0A_Please let me know how to make payment._`;
-
-            // Empty the cart so they don't buy it twice by accident
-            localStorage.removeItem("krinCart");
-            cart = [];
-            updateBadge();
-            closeCart();
-
-            // Send the user to WhatsApp
-            window.open(
-              `https://wa.me/${KRIN_WHATSAPP_NUMBER}?text=${message}`,
-              "_blank",
-            );
-          });
-
-        // Run once on page load to check if they already have items saved
-        updateBadge();
-      });
     </script>
   </body>
 </html>

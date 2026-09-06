@@ -2,6 +2,8 @@
   text-align: center;
   margin: 1.5rem auto;
   padding: 0 1rem;
+  font-weight: 700;
+  color: #a73232;
 }
 .cms-loading::before {
   content: "";
@@ -20,6 +22,8 @@
   margin: 1rem auto;
   padding: 0.75rem 1.5rem;
   cursor: pointer;
+  font-weight: 700;
+  border-radius: 50px;
 }
 .cms-retry[hidden],
 .product-modal[hidden] {
