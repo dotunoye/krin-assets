@@ -12,10 +12,24 @@
       const stored = JSON.parse(localStorage.getItem('krinCart'));
       cart = Array.isArray(stored) ? stored : [];
     } catch { cart = []; }
+    // Upgrade legacy duplicate rows without losing their item counts.
+    cart = cart.reduce((items, item) => {
+      if (!item || item.id == null || !Number.isFinite(Number(item.price))) return items;
+      const id = String(item.id);
+      const quantity = Number.isInteger(item.quantity) && item.quantity > 0 ? item.quantity : 1;
+      const existing = items.find(entry => entry.id === id);
+      if (existing) {
+        existing.quantity += quantity;
+        existing.image ||= item.image || '';
+      } else items.push({ id, name: String(item.name || 'Product'), price: Math.max(0, parseInt(item.price, 10)), image: item.image || '', quantity });
+      return items;
+    }, []);
+    localStorage.setItem('krinCart', JSON.stringify(cart));
+    let paying = false;
     const badge = byId('cart-badge');
     const updateBadge = () => {
       if (!badge) return;
-      badge.textContent = cart.length;
+      badge.textContent = cart.reduce((count, item) => count + item.quantity, 0);
       badge.style.display = cart.length ? 'flex' : 'none';
     };
     let renderPage = () => {};
@@ -30,13 +44,16 @@
       if (!(event.target instanceof Element)) return;
       if (event.target.closest('#paystack-checkout-btn')) return;
       const button = event.target.closest('button.krin-btn-buy');
-      if (!button || button.disabled) return;
+      if (!button || button.disabled || paying) return;
       const id = button.dataset.id;
       const name = button.dataset.title || button.dataset.name;
-      const price = Number(button.dataset.price);
+      const price = parseInt(button.dataset.price, 10);
+      const image = button.dataset.image || '';
       if (!id || !name || !button.dataset.price || !Number.isFinite(price) || price < 0) return;
       event.preventDefault();
-      cart.push({ id, name, price });
+      const existing = cart.find(item => item.id === id);
+      if (existing) { existing.quantity += 1; existing.image = image || existing.image; }
+      else cart.push({ id, name, price, image, quantity: 1 });
       saveCart();
       const previous = feedbackTimers.get(button);
       clearTimeout(previous?.timer);
@@ -49,37 +66,87 @@
       feedbackTimers.set(button, { text, timer });
     });
 
-    function renderItems(container, removable = false) {
+    window.increaseQty = id => {
+      if (paying) return;
+      const item = cart.find(item => item.id === String(id));
+      if (!item) return;
+      item.quantity += 1;
+      saveCart();
+    };
+    window.decreaseQty = id => {
+      if (paying) return;
+      const index = cart.findIndex(item => item.id === String(id));
+      if (index < 0) return;
+      if (--cart[index].quantity === 0) cart.splice(index, 1);
+      saveCart();
+    };
+
+    function renderItems(container) {
       if (!container) return;
-      container.replaceChildren(...cart.map((item, index) => {
+      // Keep keyboard focus on the same stepper after replacing its DOM.
+      const focused = container.contains(document.activeElement) ? document.activeElement : null;
+      const focusId = focused?.dataset.itemId;
+      const focusAction = focused?.dataset.quantityAction;
+      container.replaceChildren(...cart.map(item => {
         const row = document.createElement('div');
-        row.className = 'cart-item';
-        const name = document.createElement('span');
-        name.textContent = item.name;
-        const price = document.createElement('strong');
-        price.textContent = money(Number(item.price));
-        row.append(name, price);
-        if (removable) {
-          const remove = document.createElement('button');
-          remove.type = 'button';
-          remove.textContent = '×';
-          remove.setAttribute('aria-label', `Remove ${item.name}`);
-          remove.addEventListener('click', () => { cart.splice(index, 1); saveCart(); });
-          row.append(remove);
-        }
+        row.className = 'cart-item cart-product-row';
+        const thumbnail = document.createElement('div');
+        thumbnail.className = 'cart-thumbnail';
+        const image = document.createElement('img');
+        image.alt = item.name;
+        image.width = image.height = 70;
+        image.loading = 'lazy';
+        image.addEventListener('error', () => { thumbnail.textContent = 'No image'; });
+        if (item.image) { image.src = item.image; thumbnail.append(image); }
+        else thumbnail.textContent = 'No image';
+        const details = document.createElement('div');
+        details.className = 'cart-product-details';
+        const title = document.createElement('strong');
+        title.textContent = item.name;
+        const unit = document.createElement('span');
+        unit.className = 'cart-unit-price';
+        unit.textContent = `${money(item.price)} each`;
+        details.append(title, unit);
+        const actions = document.createElement('div');
+        actions.className = 'cart-product-actions';
+        const total = document.createElement('strong');
+        total.textContent = money(item.price * item.quantity);
+        const stepper = document.createElement('div');
+        stepper.className = 'cart-quantity';
+        const count = document.createElement('span');
+        count.textContent = item.quantity;
+        count.setAttribute('aria-label', `Quantity: ${item.quantity}`);
+        const buttons = ['decrease', 'increase'].map(action => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.textContent = action === 'increase' ? '+' : '−';
+          button.dataset.itemId = item.id;
+          button.dataset.quantityAction = action;
+          button.setAttribute('aria-label', `${action === 'increase' ? 'Increase' : 'Decrease'} quantity of ${item.name}`);
+          button.addEventListener('click', () => action === 'increase' ? window.increaseQty(item.id) : window.decreaseQty(item.id));
+          return button;
+        });
+        stepper.append(buttons[0], count, buttons[1]);
+        actions.append(total, stepper);
+        row.append(thumbnail, details, actions);
         return row;
       }));
       if (!cart.length) container.textContent = 'Your cart is empty.';
+      if (focusId) {
+        const buttons = [...container.querySelectorAll('[data-quantity-action]')];
+        (buttons.find(button => button.dataset.itemId === focusId && button.dataset.quantityAction === focusAction) || buttons[0])?.focus();
+      }
     }
-    const subtotal = () => cart.reduce((sum, item) => sum + Number(item.price), 0);
+    const subtotal = () => cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    function renderDrawer() {
+      renderItems(byId('cart-items-container'));
+      if (byId('cart-total-price')) byId('cart-total-price').textContent = money(subtotal());
+    }
 
     function initShop(grid) {
       const drawer = byId('cart-drawer');
       const overlay = byId('cart-overlay');
-      renderPage = () => {
-        renderItems(byId('cart-items-container'), true);
-        if (byId('cart-total-price')) byId('cart-total-price').textContent = money(subtotal());
-      };
+      renderPage = renderDrawer;
       const toggle = open => {
         if (open) renderPage();
         drawer?.classList.toggle('is-open', open);
@@ -107,7 +174,10 @@
           if (byId(id)) byId(id).textContent = money(value);
         }
       };
-      renderPage = () => { renderItems(container); updateTotal(); };
+      renderPage = () => {
+        if (!cart.length) { window.location.replace('shop.html'); return; }
+        renderItems(container); updateTotal();
+      };
       renderPage();
       zone?.addEventListener('change', updateTotal);
 
@@ -128,7 +198,7 @@
           if (status !== 'OK' || !results?.[0]?.geometry?.location) return;
           const position = results[0].geometry.location;
           marker.setPosition(position);
-          map.setCenter(position);
+          map.panTo(position);
           map.setZoom(16);
           setCoordinates(position);
         });
@@ -152,9 +222,9 @@
         timer = setTimeout(locate, 650);
       });
       address?.addEventListener('change', locate);
+      address?.addEventListener('blur', locate);
       window.initMap();
 
-      let paying = false;
       pay?.addEventListener('click', event => {
         event.preventDefault();
         if (paying) return;
@@ -182,7 +252,7 @@
               { display_name: 'Address', variable_name: 'address', value: address.value.trim() },
               { display_name: 'Zone', variable_name: 'delivery_zone', value: zone?.selectedOptions[0]?.text || '' },
               { display_name: 'Map Pin', variable_name: 'map_link', value: mapLink },
-              { display_name: 'Items', variable_name: 'cart_items', value: cart.map(item => item.name).join(', ') },
+              { display_name: 'Items', variable_name: 'cart_items', value: cart.map(item => `${item.name} × ${item.quantity}`).join(', ') },
             ] },
             callback: function () {
               cart = [];
