@@ -86,12 +86,21 @@
         </div>
 
         <div class="cart-footer">
+          <div class="cart-total" style="margin-bottom: 15px;">
+            <span>Subtotal:</span>
+            <span id="cart-total-price">₦0</span>
+          </div>
+          <!-- This is now just a standard link to the new page -->
+          <a href="checkout.html" class="krin-btn-buy" style="display: block; width: 100%; text-align: center; text-decoration: none;">Proceed to Checkout</a>
+        </div>
+
+        <!-- <div class="cart-footer">
           <div class="cart-total" style="margin-bottom: 10px;">
             <span>Total:</span>
             <span id="cart-total-price">₦0</span>
           </div>
 
-          <!-- Hidden by default -->
+          <- Hidden by default ->
           <div id="checkout-details" class="cart-checkout-form collapsed">
             <div class="input-group">
               <label for="customer-email">Email Address *</label>
@@ -128,7 +137,7 @@
           </div>
           
           <button id="checkout-action-btn" class="krin-btn-buy" style="width: 100%; margin-top: 15px;">Checkout</button>
-        </div>
+        </div> -->
       </div>
 
       <!-- The dark overlay behind the drawer -->
