@@ -1,5 +1,9 @@
 (() => {
   'use strict';
+  // Escape CMS/cart values before inserting them into HTML text or attributes.
+  const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, character => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  })[character]);
   const byId = id => document.getElementById(id);
   const money = value => `₦${value.toLocaleString('en-NG')}`;
   let mapInitializer = () => {};
@@ -81,57 +85,46 @@
       saveCart();
     };
 
+    // Delegation keeps the steppers connected after each innerHTML refresh.
+    document.addEventListener('click', event => {
+      const button = event.target.closest('[data-quantity-action]');
+      if (!button || !button.closest('#cart-items-container, #checkout-items-container')) return;
+      if (button.dataset.quantityAction === 'increase') window.increaseQty(button.dataset.itemId);
+      else if (button.dataset.quantityAction === 'decrease') window.decreaseQty(button.dataset.itemId);
+    });
+
     function renderItems(container) {
       if (!container) return;
       // Keep keyboard focus on the same stepper after replacing its DOM.
       const focused = container.contains(document.activeElement) ? document.activeElement : null;
       const focusId = focused?.dataset.itemId;
       const focusAction = focused?.dataset.quantityAction;
-      container.replaceChildren(...cart.map(item => {
-        const row = document.createElement('div');
-        row.className = 'cart-item cart-product-row';
-        const thumbnail = document.createElement('div');
-        thumbnail.className = 'cart-thumbnail';
-        const image = document.createElement('img');
-        image.alt = item.name;
-        image.width = image.height = 70;
-        image.loading = 'lazy';
-        image.addEventListener('error', () => { thumbnail.textContent = 'No image'; });
-        if (item.image) { image.src = item.image; thumbnail.append(image); }
-        else thumbnail.textContent = 'No image';
-        const details = document.createElement('div');
-        details.className = 'cart-product-details';
-        const title = document.createElement('strong');
-        title.textContent = item.name;
-        const unit = document.createElement('span');
-        unit.className = 'cart-unit-price';
-        unit.textContent = `${money(item.price)} each`;
-        details.append(title, unit);
-        const actions = document.createElement('div');
-        actions.className = 'cart-product-actions';
-        const total = document.createElement('strong');
-        total.textContent = money(item.price * item.quantity);
-        const stepper = document.createElement('div');
-        stepper.className = 'cart-quantity';
-        const count = document.createElement('span');
-        count.textContent = item.quantity;
-        count.setAttribute('aria-label', `Quantity: ${item.quantity}`);
-        const buttons = ['decrease', 'increase'].map(action => {
-          const button = document.createElement('button');
-          button.type = 'button';
-          button.textContent = action === 'increase' ? '+' : '−';
-          button.dataset.itemId = item.id;
-          button.dataset.quantityAction = action;
-          button.setAttribute('aria-label', `${action === 'increase' ? 'Increase' : 'Decrease'} quantity of ${item.name}`);
-          button.addEventListener('click', () => action === 'increase' ? window.increaseQty(item.id) : window.decreaseQty(item.id));
-          return button;
-        });
-        stepper.append(buttons[0], count, buttons[1]);
-        actions.append(total, stepper);
-        row.append(thumbnail, details, actions);
-        return row;
-      }));
-      if (!cart.length) container.textContent = 'Your cart is empty.';
+      container.innerHTML = cart.map(item => `
+        <div class="cart-item cart-product-row">
+          <div class="cart-thumbnail">
+            ${item.image ? `<img data-cart-image="${escapeHTML(item.image)}" alt="${escapeHTML(item.name)}" width="70" height="70" loading="lazy">` : 'No image'}
+          </div>
+          <div class="cart-product-details">
+            <strong>${escapeHTML(item.name)}</strong>
+            <div class="cart-quantity">
+              <button type="button" data-item-id="${escapeHTML(item.id)}" data-quantity-action="decrease" aria-label="Decrease quantity of ${escapeHTML(item.name)}">−</button>
+              <span aria-label="Quantity: ${item.quantity}">${item.quantity}</span>
+              <button type="button" data-item-id="${escapeHTML(item.id)}" data-quantity-action="increase" aria-label="Increase quantity of ${escapeHTML(item.name)}">+</button>
+            </div>
+            
+          </div>
+          <div class="cart-product-actions">
+            <strong class="sub-price">${money(item.price * item.quantity)}</strong>
+            <span class="cart-unit-price">${money(item.price)} each</span>
+          </div>
+        </div>
+      `).join('') || '<p>Your cart is empty.</p>';
+
+      // Bind image failures before starting each request, including cached images.
+      container.querySelectorAll('[data-cart-image]').forEach(image => {
+        image.addEventListener('error', () => { image.parentElement.innerHTML = 'No image'; });
+        image.src = image.dataset.cartImage;
+      });
       if (focusId) {
         const buttons = [...container.querySelectorAll('[data-quantity-action]')];
         (buttons.find(button => button.dataset.itemId === focusId && button.dataset.quantityAction === focusAction) || buttons[0])?.focus();
@@ -287,14 +280,16 @@
     const money = (value) => `₦${value.toLocaleString("en-NG")}`;
 
     function buyButton(product) {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "krin-btn-buy";
-      Object.assign(button.dataset, {
-        id: product._id, title: product.title, name: product.title, price: product.price, image: product.imageUrl || "",
-      });
-      button.textContent = "Add to Cart";
-      return button;
+      return `
+        <button type="button" class="krin-btn-buy"
+          data-id="${escapeHTML(product._id)}"
+          data-title="${escapeHTML(product.title)}"
+          data-name="${escapeHTML(product.title)}"
+          data-price="${escapeHTML(product.price)}"
+          data-image="${escapeHTML(product.imageUrl || '')}">
+          Add to Cart
+        </button>
+      `;
     }
 
     function close() { modal.hidden = true; document.body.classList.remove("modal-open"); lastTrigger?.focus(); }
@@ -305,7 +300,7 @@
       modal.querySelector("h2").textContent = product.title;
       modal.querySelector(".product-description").textContent = product.description || "";
       modal.querySelector(".product-price").textContent = money(product.price);
-      modal.querySelector(".product-modal-action").replaceChildren(buyButton(product));
+      modal.querySelector(".product-modal-action").innerHTML = buyButton(product);
       const image = modal.querySelector("img");
       image.alt = product.title;
       loadImage(image, imageURL(product.imageUrl, 1800));
@@ -322,27 +317,23 @@
       try {
         const products = await fetchSanity('*[_type == "product"] | order(title asc, _id) {_id, title, description, price, "imageUrl": image.asset->url}');
         const valid = products.filter((p) => typeof p._id === "string" && typeof p.title === "string" && Number.isFinite(p.price) && p.price >= 0);
-        grid.replaceChildren(
-          ...valid.map((product) => {
-            const card = document.createElement("article");
-            card.className = "product-card";
-            const trigger = document.createElement("button");
-            trigger.type = "button"; trigger.className = "product-image-wrapper product-image-trigger"; trigger.setAttribute("aria-label", `View ${product.title}`);
-            const image = document.createElement("img");
-            image.alt = product.title; image.loading = "lazy";
-            trigger.append(image); loadImage(image, imageURL(product.imageUrl));
-            trigger.addEventListener("click", () => open(product, trigger));
-            const info = document.createElement("div");
-            info.className = "product-info";
-            const title = document.createElement("h3");
-            title.className = "product-title"; title.textContent = product.title;
-            const price = document.createElement("p");
-            price.className = "product-price"; price.textContent = money(product.price);
-            info.append(title, price, buyButton(product));
-            card.append(trigger, info);
-            return card;
-          })
-        );
+        grid.innerHTML = valid.map(product => `
+          <article class="product-card">
+            <button type="button" class="product-image-wrapper product-image-trigger" aria-label="View ${escapeHTML(product.title)}">
+              <img alt="${escapeHTML(product.title)}" loading="lazy">
+            </button>
+            <div class="product-info">
+              <h3 class="product-title">${escapeHTML(product.title)}</h3>
+              <p class="product-price">${money(product.price)}</p>
+              ${buyButton(product)}
+            </div>
+          </article>
+        `).join('');
+        grid.querySelectorAll('.product-image-trigger').forEach((trigger, index) => {
+          const product = valid[index];
+          loadImage(trigger.querySelector('img'), imageURL(product.imageUrl));
+          trigger.addEventListener('click', () => open(product, trigger));
+        });
         status.textContent = valid.length ? `${valid.length} products available.` : "New products are coming soon.";
       } catch (error) {
         status.textContent = "Unable to load products. Check your connection and try again."; retry.hidden = false;

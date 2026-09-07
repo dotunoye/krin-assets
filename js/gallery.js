@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
+  // Escape CMS/cart values before inserting them into HTML text or attributes.
+  const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, character => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  })[character]);
   const grid = document.getElementById("gallery-grid");
   const status = document.getElementById("gallery-status");
   const filters = document.getElementById("gallery-filters");
@@ -32,27 +36,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       activeCategory === "All"
         ? items
         : items.filter((item) => item.category === activeCategory);
-    grid.replaceChildren(
-      ...visibleItems.map((item) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "reveal-item";
-        button.dataset.galleryId = item.id;
-        button.setAttribute("aria-label", `Open ${item.title}`);
-        const image = document.createElement("img");
-
-        image.alt = item.alt;
-        image.loading = "lazy";
-        image.decoding = "async";
-        const label = document.createElement("span");
-        label.className = "gallery-item-label";
-        label.textContent = item.title;
-        button.append(image, label);
-        loadImage(image, item.src);
-        revealObserver.observe(button);
-        return button;
-      }),
-    );
+    grid.innerHTML = visibleItems.map(item => `
+      <button type="button" class="reveal-item" data-gallery-id="${escapeHTML(item.id)}" aria-label="Open ${escapeHTML(item.title)}">
+        <img alt="${escapeHTML(item.alt)}" loading="lazy" decoding="async">
+        <span class="gallery-item-label">${escapeHTML(item.title)}</span>
+      </button>
+    `).join('');
+    grid.querySelectorAll('[data-gallery-id]').forEach((button, index) => {
+      loadImage(button.querySelector('img'), visibleItems[index].src);
+      revealObserver.observe(button);
+    });
     status.textContent = visibleItems.length
       ? `Showing ${visibleItems.length} ${visibleItems.length === 1 ? "memory" : "memories"}.`
       : "No gallery images match this category yet.";
@@ -63,17 +56,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       "All",
       ...new Set(items.map((item) => item.category).filter(Boolean)),
     ];
-    filters.replaceChildren(
-      ...categories.map((category) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = `filter-pill${category === "All" ? " active" : ""}`;
-        button.dataset.galleryFilter = category;
-        button.setAttribute("aria-pressed", String(category === "All"));
-        button.textContent = category;
-        return button;
-      }),
-    );
+    filters.innerHTML = categories.map(category => `
+      <button type="button" class="filter-pill${category === 'All' ? ' active' : ''}"
+        data-gallery-filter="${escapeHTML(category)}" aria-pressed="${category === 'All'}">
+        ${escapeHTML(category)}
+      </button>
+    `).join('');
   };
 
   const closeModal = () => {
