@@ -94,7 +94,7 @@
 }
 @media (max-width: 768px) {
   .product-main-image {
-    margin-inline: 80px
+    margin-inline: 60px
   }
   .product-detail-header {
     display: flex;
