@@ -1,0 +1,23 @@
+.product-page { max-width: 1040px; margin: 32px auto 80px; padding: 0 24px; }
+.product-back { display: inline-block; margin-bottom: 24px; color: #496353; text-decoration: none; }
+.product-main-image { position: relative; overflow: hidden; border-radius: 24px; background: #f3f5f1; }
+.product-main-image img { display: block; width: 100%; height: clamp(300px, 60vw, 640px); object-fit: contain; }
+.product-thumbnails { display: flex; gap: 12px; overflow-x: auto; padding: 18px 3px; scroll-snap-type: x proximity; }
+.product-thumbnail { position: relative; flex: 0 0 86px; height: 86px; padding: 4px; border: 2px solid transparent; border-radius: 12px; background: #f3f5f1; overflow: hidden; cursor: pointer; scroll-snap-align: start; }
+.product-thumbnail img { width: 100%; height: 100%; object-fit: cover; border-radius: 7px; }
+.product-thumbnail.active { border-color: #246143; }
+.product-thumbnail:focus-visible, .product-add-button:focus-visible { outline: 3px solid #246143; outline-offset: 3px; }
+.product-page-details { display: flex; flex-direction: column; gap: 20px; padding-top: 24px; border-top: 1px solid #e2e8df; overflow-wrap: anywhere; }
+.product-detail-header { display: contents; }
+.product-detail-header h1 { order: 0; margin: 0; font-size: clamp(1.8rem, 4vw, 2.7rem); line-height: 1.15; }
+.product-detail-description { order: 1; margin: 0; white-space: pre-line; line-height: 1.85; color: #566159; }
+.product-detail-price { order: 2; margin: 0; font-size: 1.6rem; font-weight: 800; color: #246143; }
+.product-add-button { order: 3; width: 100%; min-height: 52px; }
+@media (min-width: 768px) {
+  .product-detail-header { display: flex; justify-content: space-between; align-items: center; gap: 32px; }
+  .product-detail-header h1 { flex: 1; min-width: 0; }
+  .product-add-button { width: auto; flex-shrink: 0; padding-inline: 36px; }
+  .product-detail-price { order: 1; }
+  .product-detail-description { order: 2; }
+}
+@media (max-width: 480px) { .product-page { padding: 0 16px; } .product-main-image { border-radius: 16px; } }

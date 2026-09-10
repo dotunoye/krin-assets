@@ -149,7 +149,7 @@
       byId('close-cart')?.addEventListener('click', () => toggle(false));
       overlay?.addEventListener('click', () => toggle(false));
       renderPage();
-      initProducts(grid);
+      if (grid) initProducts(grid);
     }
 
     function initCheckout(container) {
@@ -264,20 +264,16 @@
       });
     }
 
-    if (byId('shop-grid')) initShop(byId('shop-grid'));
+    if (byId('shop-grid') || byId('product-page')) initShop(byId('shop-grid'));
     if (byId('checkout-items-container')) initCheckout(byId('checkout-items-container'));
   }
 
   function initProducts(grid) {
     if (!window.KrinCMS) return;
-    const { fetchSanity, imageURL, loadImage, trapFocus } = window.KrinCMS;
+    const { fetchSanity, imageURL, loadImage } = window.KrinCMS;
     const status = document.getElementById("shop-status");
     const retry = document.getElementById("shop-retry");
-    const modal = document.getElementById("product-modal");
     if (!status || !retry) return;
-    const modalReady = modal && ['h2', '.product-description', '.product-price', '.product-modal-action', 'img', '[data-product-close]'].every(selector => modal.querySelector(selector));
-    let lastTrigger;
-    const money = (value) => `₦${value.toLocaleString("en-NG")}`;
 
     function buyButton(product) {
       return `
@@ -292,26 +288,6 @@
       `;
     }
 
-    function close() { modal.hidden = true; document.body.classList.remove("modal-open"); lastTrigger?.focus(); }
-    
-    function open(product, trigger) {
-      if (!modalReady) return;
-      lastTrigger = trigger;
-      modal.querySelector("h2").textContent = product.title;
-      modal.querySelector(".product-description").textContent = product.description || "";
-      modal.querySelector(".product-price").textContent = money(product.price);
-      modal.querySelector(".product-modal-action").innerHTML = buyButton(product);
-      const image = modal.querySelector("img");
-      image.alt = product.title;
-      loadImage(image, imageURL(product.imageUrl, 1800));
-      modal.hidden = false;
-      document.body.classList.add("modal-open");
-      modal.querySelector("[data-product-close]").focus();
-    }
-
-    if (modalReady) modal.addEventListener("click", (event) => { if (event.target === modal || event.target.closest("[data-product-close]")) close(); });
-    document.addEventListener("keydown", (event) => { if (!modalReady || modal.hidden) return; if (event.key === "Escape") close(); trapFocus(event, modal); });
-
     async function load() {
       retry.hidden = true; status.textContent = "Loading items…"; status.classList.add("cms-loading"); grid.setAttribute("aria-busy", "true");
       try {
@@ -319,11 +295,11 @@
         const valid = products.filter((p) => typeof p._id === "string" && typeof p.title === "string" && Number.isFinite(p.price) && p.price >= 0);
         grid.innerHTML = valid.map(product => `
           <article class="product-card">
-            <button type="button" class="product-image-wrapper product-image-trigger" aria-label="View ${escapeHTML(product.title)}">
+            <a href="product.html?id=${encodeURIComponent(product._id)}" class="product-image-wrapper product-image-trigger" aria-label="View ${escapeHTML(product.title)}">
               <img alt="${escapeHTML(product.title)}" loading="lazy">
-            </button>
+            </a>
             <div class="product-info">
-              <h3 class="product-title">${escapeHTML(product.title)}</h3>
+              <h3 class="product-title"><a href="product.html?id=${encodeURIComponent(product._id)}">${escapeHTML(product.title)}</a></h3>
               <p class="product-price">${money(product.price)}</p>
               ${buyButton(product)}
             </div>
@@ -332,7 +308,6 @@
         grid.querySelectorAll('.product-image-trigger').forEach((trigger, index) => {
           const product = valid[index];
           loadImage(trigger.querySelector('img'), imageURL(product.imageUrl));
-          trigger.addEventListener('click', () => open(product, trigger));
         });
         status.textContent = valid.length ? `${valid.length} products available.` : "New products are coming soon.";
       } catch (error) {

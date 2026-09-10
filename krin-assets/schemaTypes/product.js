@@ -27,6 +27,12 @@ export default {
       type: 'image', 
       options: { hotspot: true } 
     },
+    {
+      name: 'gallery',
+      title: 'Product Gallery',
+      type: 'array',
+      of: [{ type: 'image', options: { hotspot: true } }]
+    },
     { 
       name: 'inStock', 
       title: 'In Stock', 
