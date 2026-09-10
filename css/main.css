@@ -219,7 +219,7 @@ p {
 }
 .brand img {
   width: auto;
-  height: 46px;
+  height: 40px;
   display: block;
   object-fit: contain;
 }
@@ -1042,6 +1042,32 @@ p {
 }
 .map-pin span {
   transform: rotate(45deg);
+}
+
+/* Contact Page Map Container */
+.contact-map-wrapper {
+  width: 100%;
+  height: 450px; /* Nice wide aspect ratio for desktop */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  border: 1px solid #eaeaea;
+  background: #f4f4f4;
+  margin-top: 20px;
+}
+
+/* Ensure iframe fits container perfectly */
+.contact-map-wrapper iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .contact-map-wrapper {
+    height: 300px; /* Shorter on mobile so it doesn't hog the whole screen */
+  }
 }
 
 .modal {

@@ -4,7 +4,7 @@
   z-index: 750;
   bottom: 18px;
   left: 18px;
-  width: min(500px, calc(100vw - 36px));
+  /* width: min(500px, calc(100vw - 36px)); */
   display: flex;
   align-items: flex-end;
   pointer-events: none;

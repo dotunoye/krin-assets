@@ -1,244 +1,182 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Browse upcoming Krin Asset programmes, workshops, media events, and community gatherings."
-    />
-    <title>Events Calendar | Krin Asset</title>
-    <link rel="icon" type="image/webp" href="assets/images/tab-logo.webp" />
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/animations.css" />
-    <link rel="stylesheet" href="css/mascot.css" />
-    <link rel="stylesheet" href="css/calendar.css" />
-  </head>
-  <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header">
-      <div class="container nav-wrap">
-        <a class="brand" href="index.html" aria-label="Krin Asset home"><img src="assets/images/krin-logo.webp" alt="Krin Asset" /></a>
-        <nav class="site-nav" id="primary-navigation" aria-label="Primary navigation">
-          <div class="desktop-nav">
-            <a class="nav-link" href="index.html">Home</a>
-            <div class="nav-dropdown"><a class="dropdown-trigger" href="about.html" aria-haspopup="true">About <span class="dropdown-chevron">⌄</span></a><div class="dropdown-menu"><a href="about.html">Our Story</a><a href="gallery.html">Gallery</a></div></div>
-            <div class="nav-dropdown"><button class="dropdown-trigger" type="button" aria-haspopup="true">Programs <span class="dropdown-chevron">⌄</span></button><div class="dropdown-menu"><a href="after-school-haven.html">After School Haven</a><a href="prophetic-kids.html">Prophetic Kids</a></div></div>
-            <a class="nav-link" href="shop.html">Shop</a><a class="nav-link active" href="calendar.html">Calendar</a><a class="nav-link" href="contact.html">Contact</a>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Browse upcoming Krin Asset programmes, workshops, media events, and community gatherings." />
+  <title>Events Calendar | Krin Asset</title>
+  <link rel="icon" type="image/webp" href="assets/images/tab-logo.webp" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/mascot.css" />
+  <link rel="stylesheet" href="css/calendar.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="Krin Asset home"><img src="assets/images/krin-logo.webp"
+          alt="Krin Asset" /></a>
+      <nav class="site-nav" id="primary-navigation" aria-label="Primary navigation">
+        <div class="desktop-nav">
+          <a class="nav-link" href="index.html">Home</a>
+          <div class="nav-dropdown"><a class="dropdown-trigger" href="about.html" aria-haspopup="true">About <span
+                class="dropdown-chevron">⌄</span></a>
+            <div class="dropdown-menu"><a href="about.html">Our Story</a><a href="gallery.html">Gallery</a></div>
           </div>
-          <div class="mobile-nav"><a href="index.html">Home</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="after-school-haven.html">After School Haven</a><a href="prophetic-kids.html">Prophetic Kids</a><a href="shop.html">Shop</a><a class="active" href="calendar.html">Calendar</a><a class="mobile-contact" href="contact.html">Contact</a></div>
-        </nav>
-        <div class="header-actions"><a class="btn btn-primary btn-sm header-cta" href="contact.html">Plan a visit</a><button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-controls="primary-navigation" aria-expanded="false"><span></span><span></span><span></span></button></div>
-      </div>
-    </header>
-    <main id="main">
-      <section
-        class="page-hero"
-        data-mascot-msg="There’s always something meaningful around the corner. Pick a date and come along!"
-        data-mascot-side="left"
-        data-mascot-img="assets/mascot/krin-waving.png"
-        style="height: 70vh; background: #eaf9f7"
-      >
-        <div class="container">
-          <div class="crumbs">
-            <a href="index.html">Home</a><span>/</span><span>Calendar</span>
+          <div class="nav-dropdown"><button class="dropdown-trigger" type="button" aria-haspopup="true">Programs <span
+                class="dropdown-chevron">⌄</span></button>
+            <div class="dropdown-menu"><a href="after-school-haven.html">After School Haven</a><a
+                href="prophetic-kids.html">Prophetic Kids</a></div>
           </div>
-          <span class="eyebrow">Plan your next Krin moment</span>
-          <h1 class="jump-text">Learn, play, connect, repeat.</h1>
-          <p>
-            Explore programme dates, parent workshops, media previews, and
-            gatherings made for the whole Krin community.
-          </p>
+          <a class="nav-link" href="shop.html">Shop</a><a class="nav-link active" href="calendar.html">Calendar</a><a
+            class="nav-link" href="contact.html">Contact</a>
         </div>
-      </section>
-      <section
-        class="section section--light"
-        data-mascot-msg="Check out our upcoming workshops and program dates below!"
-        data-mascot-side="right"
-        data-mascot-img="assets/mascot/krin-point-left.png"
-      >
-        <div class="container">
-          <div class="calendar-toolbar">
-            <div class="month-nav">
-              <button
-                class="icon-btn"
-                id="prev-month"
-                type="button"
-                aria-label="Previous month"
-              >
-                ←
-              </button>
-              <h2 class="month-title" id="month-title" aria-live="polite"></h2>
-              <button
-                class="icon-btn"
-                id="next-month"
-                type="button"
-                aria-label="Next month"
-              >
-                →
-              </button>
-            </div>
-            <div class="calendar-mascot-note">
-              <img src="assets/mascot/krin-haven-safe.png" alt="" />
-              <p>Check out our upcoming workshops and program dates below!</p>
-            </div>
-          </div>
-          <div class="filter-pills" aria-label="Filter events">
-            <button
-              class="filter-pill active"
-              type="button"
-              data-filter="all"
-              aria-pressed="true"
-            >
-              All Events</button
-            ><button
-              class="filter-pill"
-              type="button"
-              data-filter="haven"
-              aria-pressed="false"
-            >
-              After School Haven</button
-            ><button
-              class="filter-pill"
-              type="button"
-              data-filter="media"
-              aria-pressed="false"
-            >
-              Prophetic Kids</button
-            ><button
-              class="filter-pill"
-              type="button"
-              data-filter="parent"
-              aria-pressed="false"
-            >
-              Parent Workshops</button
-            ><button
-              class="filter-pill"
-              type="button"
-              data-filter="community"
-              aria-pressed="false"
-            >
-              Community & Funding
-            </button>
-          </div>
-          <div class="calendar-shell pop-in">
-            <div class="weekdays" aria-hidden="true">
-              <div>Sun</div>
-              <div>Mon</div>
-              <div>Tue</div>
-              <div>Wed</div>
-              <div>Thu</div>
-              <div>Fri</div>
-              <div>Sat</div>
-            </div>
-            <div
-              class="calendar-grid"
-              id="calendar-grid"
-              aria-label="Events calendar"
-            ></div>
-          </div>
-        </div>
-      </section>
-      <section
-        class="section section--gold"
-        data-mascot-msg="Can’t find the right date? We’d still love to help you plan a visit."
-        data-mascot-side="left"
-        data-mascot-img="assets/mascot/krin-point-right.png"
-      >
-        <div class="container">
-          <div class="cta-band pop-in">
-            <span class="eyebrow">Bring your group</span>
-            <h2>Want to arrange a private visit?</h2>
-            <p>
-              Schools, churches, funders, and community groups can request a
-              Haven tour
-            </p>
-            <a class="btn btn-primary" href="contact.html"
-              >Plan a group visit</a
-            >
-          </div>
-        </div>
-      </section>
-    </main>
-    <div
-      class="modal"
-      id="event-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-head">
-          <div>
-            <span class="tag" id="modal-category"></span>
-            <h2 id="modal-title">Event details</h2>
-          </div>
-          <button
-            class="modal-close"
-            type="button"
-            data-close-modal
-            aria-label="Close event details"
-          >
-            ×
-          </button>
-        </div>
-        <div class="event-meta">
-          <div><small>Date</small><strong id="modal-date"></strong></div>
-          <div><small>Time</small><strong id="modal-time"></strong></div>
-          <div><small>Age group</small><strong id="modal-age"></strong></div>
-          <div>
-            <small>Location</small><strong id="modal-location"></strong>
-          </div>
-        </div>
-        <p id="modal-description"></p>
-        <div class="button-row">
-          <a class="btn btn-primary" href="contact.html">Register for event</a
-          ><a
-            class="btn btn-ghost"
-            id="google-calendar-link"
-            href="#"
-            target="_blank"
-            rel="noopener"
-            >Add to Google Calendar</a
-          >
-        </div>
+        <div class="mobile-nav"><a href="index.html">Home</a><a href="about.html">About</a><a
+            href="gallery.html">Gallery</a><a href="after-school-haven.html">After School Haven</a><a
+            href="prophetic-kids.html">Prophetic Kids</a><a href="shop.html">Shop</a><a class="active"
+            href="calendar.html">Calendar</a><a class="mobile-contact" href="contact.html">Contact</a></div>
+      </nav>
+      <div class="header-actions"><a class="btn btn-primary btn-sm header-cta" href="contact.html">Plan a
+          visit</a><button class="nav-toggle" type="button" aria-label="Toggle navigation"
+          aria-controls="primary-navigation" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </div>
-    <footer class="site-footer">
+  </header>
+  <main id="main">
+    <section class="page-hero" style="height: 70vh; background: #eaf9f7">
       <div class="container">
-        <div class="footer-grid">
-          <div>
-            <a class="brand" href="index.html"><img src="assets/images/krin-logo.webp" alt="Krin Asset" /></a>
-            <p>Safe spaces and brave stories for bright futures.</p>
-          </div>
-          <div>
-            <h3>Explore</h3>
-            <div class="footer-links">
-              <a href="about.html">Our story</a
-              ><a href="contact.html">Contact</a>
-            </div>
-          </div>
-          <div>
-            <h3>Initiatives</h3>
-            <div class="footer-links">
-              <a href="after-school-haven.html">After School Haven</a
-              ><a href="prophetic-kids.html">Prophetic Kids</a>
-            </div>
-          </div>
-          <div>
-            <h3>Connect</h3>
-            <a href="mailto:hello@krinasset.org">hello@krinasset.org</a>
-          </div>
+        <div class="crumbs">
+          <a href="index.html">Home</a><span>/</span><span>Calendar</span>
         </div>
-        <div class="footer-bottom">
-          <span>© <span data-year></span> Krin Asset.</span
-          ><span>Faith • Care • Creativity</span>
+        <span class="eyebrow">Plan your next Krin moment</span>
+        <h1 class="jump-text">Learn, play, connect, repeat.</h1>
+        <p>
+          Explore programme dates, parent workshops, media previews, and
+          gatherings made for the whole Krin community.
+        </p>
+      </div>
+    </section>
+    <section class="section section--light" data-mascot-msg="Check out our upcoming workshops and program dates below!"
+      data-mascot-side="right" data-mascot-img="assets/danny/danny-peeking-left.webp">
+      <div class="container">
+        <div class="calendar-toolbar">
+          <div class="month-nav">
+            <button class="icon-btn" id="prev-month" type="button" aria-label="Previous month">
+              ←
+            </button>
+            <h2 class="month-title" id="month-title" aria-live="polite"></h2>
+            <button class="icon-btn" id="next-month" type="button" aria-label="Next month">
+              →
+            </button>
+          </div>
+          <!-- <div class="calendar-mascot-note">
+            <img src="assets/danny/danny-chill.webp" alt="" />
+            <p>Check out our upcoming workshops and program dates below!</p>
+          </div> -->
+        </div>
+        <div class="filter-pills" aria-label="Filter events">
+          <button class="filter-pill active" type="button" data-filter="all" aria-pressed="true">
+            All Events</button><button class="filter-pill" type="button" data-filter="haven" aria-pressed="false">
+            After School Haven</button><button class="filter-pill" type="button" data-filter="media"
+            aria-pressed="false">
+            Prophetic Kids</button><button class="filter-pill" type="button" data-filter="parent" aria-pressed="false">
+            Parent Workshops</button><button class="filter-pill" type="button" data-filter="community"
+            aria-pressed="false">
+            Community & Funding
+          </button>
+        </div>
+        <div class="calendar-shell pop-in">
+          <div class="weekdays" aria-hidden="true">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+          </div>
+          <div class="calendar-grid" id="calendar-grid" aria-label="Events calendar"></div>
         </div>
       </div>
-    </footer>
-    <script src="js/main.js"></script>
-    <script src="js/mascot.js"></script>
-    <script src="js/calendar.js"></script>
-  </body>
+    </section>
+    <section class="section section--gold"
+      data-mascot-msg="Can’t find the right date? We’d still love to see you and your child." data-mascot-side="left"
+      data-mascot-img="assets/aunt-tee/aunt-tee-welcome.webp">
+      <div class="container">
+        <div class="cta-band pop-in">
+          <span class="eyebrow">Bring your group</span>
+          <h2>Want to arrange a private visit?</h2>
+          <p>
+            Schools, churches, funders, and community groups can request a
+            Haven tour
+          </p>
+          <a class="btn btn-primary" href="contact.html">Plan a group visit</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div class="modal" id="event-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-head">
+        <div>
+          <span class="tag" id="modal-category"></span>
+          <h2 id="modal-title">Event details</h2>
+        </div>
+        <button class="modal-close" type="button" data-close-modal aria-label="Close event details">
+          ×
+        </button>
+      </div>
+      <div class="event-meta">
+        <div><small>Date</small><strong id="modal-date"></strong></div>
+        <div><small>Time</small><strong id="modal-time"></strong></div>
+        <div><small>Age group</small><strong id="modal-age"></strong></div>
+        <div>
+          <small>Location</small><strong id="modal-location"></strong>
+        </div>
+      </div>
+      <p id="modal-description"></p>
+      <div class="button-row">
+        <a class="btn btn-primary" href="contact.html">Register for event</a><a class="btn btn-ghost"
+          id="google-calendar-link" href="#" target="_blank" rel="noopener">Add to Google Calendar</a>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="index.html"><img src="assets/images/krin-logo.webp" alt="Krin Asset" /></a>
+          <p>Safe spaces and brave stories for bright futures.</p>
+        </div>
+        <div>
+          <h3>Explore</h3>
+          <div class="footer-links">
+            <a href="about.html">Our story</a><a href="contact.html">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h3>Initiatives</h3>
+          <div class="footer-links">
+            <a href="after-school-haven.html">After School Haven</a><a href="prophetic-kids.html">Prophetic Kids</a>
+          </div>
+        </div>
+        <div>
+          <h3>Connect</h3>
+          <a href="mailto:hello@krinasset.org">hello@krinasset.org</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year></span> Krin Asset.</span><span>Faith • Care • Creativity</span>
+      </div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+  <script src="js/mascot.js"></script>
+  <script src="js/calendar.js"></script>
+</body>
+
 </html>
