@@ -256,3 +256,95 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+
+/* ==========================================================================
+     PROPHETIC KIDS: INTERACTIVE NATIVE VIDEO TRAILER (Bug Fixes)
+     ========================================================================== */
+  const nativeVideoPlayer = document.getElementById('animation-video-player');
+
+  if (nativeVideoPlayer) {
+    // 1. Viewport Observer: Handle Autoplay (muted if necessary)
+    // Browsers forbid unmuted autoplay on viewport entry without prior interaction.
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Attempt to play with sound first
+          nativeVideoPlayer.play().catch(error => {
+            console.warn("Unmuted autoplay blocked by browser. Continuing muted fallback.", error);
+            // If browser blocks unmuted play, we must mute it to allow any playback
+            nativeVideoPlayer.muted = true;
+            nativeVideoPlayer.play();
+          });
+        } else {
+          // Pause when scrolling out to save battery/bandwidth
+          nativeVideoPlayer.pause();
+        }
+      });
+    }, { 
+      threshold: 0.4 // Triggers when 40% of the video is visible
+    });
+
+    videoObserver.observe(nativeVideoPlayer);
+
+    // 2. Interaction Listener: UNMUTE ONLY (Fixes Pause/Resume Glitch)
+    const videoContainer = nativeVideoPlayer.closest('.video-container');
+    if (videoContainer) {
+      videoContainer.addEventListener('click', (event) => {
+        // BUG FIX: Since the video has HTML5 'controls' enabled, the BROWSER 
+        // natively handles toggling play/pause when tapping the video area [cite: 1].
+        // Our JS listener must ONLY ensure the video is UNMUTED upon this user 
+        // interaction, which browsers permit. We no longer force play/pause in JS [cite: 1].
+        nativeVideoPlayer.muted = false;
+        
+        // Let native controls handle the play/pause state naturally [cite: 1].
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+  const countdownWrapper = document.querySelector('.countdown-wrapper');
+  
+  if (countdownWrapper) {
+    // Grab the target date from the HTML attribute
+    const targetDateString = countdownWrapper.getAttribute('data-target-date');
+    const countDownDate = new Date(targetDateString).getTime();
+
+    // Get DOM elements
+    const daysEl = document.getElementById('cd-days');
+    const hoursEl = document.getElementById('cd-hours');
+    const minutesEl = document.getElementById('cd-minutes');
+    const secondsEl = document.getElementById('cd-seconds');
+
+    // Update the count down every 1 second
+    const countdownTimer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+
+      // Time calculations
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Output the result and pad single digits with a zero
+      if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+      if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+      if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+      if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+
+      // If the countdown is finished, clear interval and show zeroes or a message
+      if (distance < 0) {
+        clearInterval(countdownTimer);
+        if (daysEl) daysEl.textContent = "00";
+        if (hoursEl) hoursEl.textContent = "00";
+        if (minutesEl) minutesEl.textContent = "00";
+        if (secondsEl) secondsEl.textContent = "00";
+        
+        // Optional: Trigger an event or change CTA text when live
+        const heroTitle = document.querySelector('.premiere-hero h1');
+        if (heroTitle) heroTitle.textContent = "We Are Live.";
+      }
+    }, 1000);
+  }
+});

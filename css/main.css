@@ -812,8 +812,8 @@ p {
 }
 .feature-split {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: clamp(2rem, 7vw, 6rem);
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 7vw, 3rem);
   align-items: center;
 }
 .visual-panel {
@@ -862,6 +862,7 @@ p {
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   background: #fff7dc;
   color: var(--text-dark);
+  margin-top: 16px;
 }
 
 .form-shell {
@@ -2095,5 +2096,484 @@ p {
 @media (prefers-reduced-motion: reduce) {
   #cart-drawer {
     transition: none;
+  }
+}
+
+
+
+
+/* ==========================================================================
+   PROPHETIC KIDS SPECIFIC STYLES (Cards & Video)
+   ========================================================================== */
+
+   
+/* Remove default padding from cards so images go edge-to-edge */
+.puzzle-card,
+.feature-card {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensures cards stretch to equal heights in the grid */
+}
+
+/* Card Images */
+.puzzle-card__image,
+.feature-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--bg-light, #f4f6f8);
+  display: block;
+}
+
+/* Slightly shorter images for the features section */
+.feature-card__image img{
+  aspect-ratio: 1/1;
+}
+
+/* Card Text Content Wrapper */
+.puzzle-card__content,
+.feature-card__content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Pushes the button to the bottom */
+}
+
+.puzzle-card__content h3,
+.feature-card__content h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.puzzle-card__content p,
+.feature-card__content p {
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+}
+
+/* Full-width buttons inside these specific cards */
+.buy-now-btn,
+.event-btn {
+  width: 100%;
+  text-align: center;
+  margin-top: auto; /* Anchors button to bottom */
+}
+
+/* Shop More Row */
+.shop-more-row {
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.shop-more-btn {
+  border: 2px solid var(--text-dark, #1D2A44);
+  color: var(--text-dark, #1D2A44);
+}
+
+.shop-more-btn:hover {
+  background: var(--text-dark, #1D2A44);
+  color: #ffffff;
+}
+
+/* Staggered Animation Delays */
+.animation-delay-1 { --delay: 0.1s; animation-delay: 0.1s; }
+.animation-delay-2 { --delay: 0.2s; animation-delay: 0.2s; }
+
+/* ==========================================================================
+   RESPONSIVE VIDEO CONTAINER (16:9 Aspect Ratio)
+   ========================================================================== */
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: var(--shadow-hover, 0 10px 30px rgba(0,0,0,0.1));
+  background-color: #000;
+  cursor: pointer; /* Hints that it can be tapped */
+}
+
+.video-container .video-player-native {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: none;
+}
+
+
+/* ==========================================================================
+   MOBILE HORIZONTAL SCROLL (Jigsaw Puzzles Section Only)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  /* Targets the 3rd section inside <main> (the Jigsaw Puzzles grid) */
+  main section:nth-of-type(3) .grid-3 {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    
+    /* Creates the app-like snap effect */
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; 
+    
+    /* Adds bottom padding so box-shadows aren't clipped by the hidden overflow */
+    padding-bottom: 1.5rem; 
+    gap: 1.5rem;
+    
+    /* Hides the ugly default browser scrollbar for a cleaner look */
+    scrollbar-width: none; 
+  }
+
+  main section:nth-of-type(3) .grid-3::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Targets the articles/cards inside that specific grid */
+  main section:nth-of-type(3) .grid-3 > .card {
+    /* Caps the card width at 85% so the edge of the next card peeks into view */
+    flex: 0 0 85%; 
+    max-width: 350px;
+    min-width: 320px;
+    
+    /* Snaps the card neatly to the center of the screen when swiping */
+    scroll-snap-align: center; 
+  }
+  main section:nth-of-type(3) .grid-3 > .card.pop-in {
+    opacity: 1 !important;          /* Force full visibility */
+    transform: none !important;       /* Reset slide/scale transform */
+    transition: none !important;      /* Disable the animation entirely */
+    animation: none !important;       /* Secondary safeguard */
+    visibility: visible !important;   /* Ensure it's not hidden by other rules */
+  }
+}
+
+@media (max-width: 1024px) {
+  /* Targets the 3rd section inside <main> (the Jigsaw Puzzles grid) */
+  main section:nth-of-type(5) .grid-3 {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    
+    /* Creates the app-like snap effect */
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; 
+    
+    /* Adds bottom padding so box-shadows aren't clipped by the hidden overflow */
+    padding-bottom: 1.5rem; 
+    gap: 1.5rem;
+    
+    /* Hides the ugly default browser scrollbar for a cleaner look */
+    scrollbar-width: none; 
+  }
+
+  main section:nth-of-type(5) .grid-3::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Targets the articles/cards inside that specific grid */
+  main section:nth-of-type(5) .grid-3 > .card {
+    /* Caps the card width at 85% so the edge of the next card peeks into view */
+    flex: 0 0 85%; 
+    max-width: 350px;
+    min-width: 350px;
+    
+    /* Snaps the card neatly to the center of the screen when swiping */
+    scroll-snap-align: center; 
+  }
+  main section:nth-of-type(5) .grid-3 > .card.pop-in {
+    opacity: 1 !important;          /* Force full visibility */
+    transform: none !important;       /* Reset slide/scale transform */
+    transition: none !important;      /* Disable the animation entirely */
+    animation: none !important;       /* Secondary safeguard */
+    visibility: visible !important;   /* Ensure it's not hidden by other rules */
+  }
+}
+
+@media (max-width: 1024px) {
+  /* Targets the 3rd section inside <main> (the Jigsaw Puzzles grid) */
+  main section:nth-of-type(4) .grid-3 {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    
+    /* Creates the app-like snap effect */
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; 
+    
+    /* Adds bottom padding so box-shadows aren't clipped by the hidden overflow */
+    padding-bottom: 1.5rem; 
+    gap: 1.5rem;
+    
+    /* Hides the ugly default browser scrollbar for a cleaner look */
+    scrollbar-width: none; 
+  }
+
+  main section:nth-of-type(4) .grid-3::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Targets the articles/cards inside that specific grid */
+  main section:nth-of-type(4) .grid-3 > .card {
+    /* Caps the card width at 85% so the edge of the next card peeks into view */
+    flex: 0 0 85%; 
+    max-width: 350px;
+    min-width: 350px;
+    
+    /* Snaps the card neatly to the center of the screen when swiping */
+    scroll-snap-align: center; 
+  }
+  main section:nth-of-type(4) .grid-3 > .card.pop-in {
+    opacity: 1 !important;          /* Force full visibility */
+    transform: none !important;       /* Reset slide/scale transform */
+    transition: none !important;      /* Disable the animation entirely */
+    animation: none !important;       /* Secondary safeguard */
+    visibility: visible !important;   /* Ensure it's not hidden by other rules */
+  }
+}
+
+@media (max-width: 1024px) {
+  /* Targets the 3rd section inside <main> (the Jigsaw Puzzles grid) */
+  main section:nth-of-type(6) .grid-3 {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    
+    /* Creates the app-like snap effect */
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; 
+    
+    /* Adds bottom padding so box-shadows aren't clipped by the hidden overflow */
+    padding-bottom: 1.5rem; 
+    gap: 1.5rem;
+    
+    /* Hides the ugly default browser scrollbar for a cleaner look */
+    scrollbar-width: none; 
+  }
+
+  main section:nth-of-type(6) .grid-3::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Targets the articles/cards inside that specific grid */
+  main section:nth-of-type(6) .grid-3 > .card {
+    /* Caps the card width at 85% so the edge of the next card peeks into view */
+    flex: 0 0 85%; 
+    max-width: 350px;
+    min-width: 350px;
+    
+    /* Snaps the card neatly to the center of the screen when swiping */
+    scroll-snap-align: center; 
+  }
+  main section:nth-of-type(6) .grid-3 > .card.pop-in {
+    opacity: 1 !important;          /* Force full visibility */
+    transform: none !important;       /* Reset slide/scale transform */
+    transition: none !important;      /* Disable the animation entirely */
+    animation: none !important;       /* Secondary safeguard */
+    visibility: visible !important;   /* Ensure it's not hidden by other rules */
+  }
+}
+
+/* ==========================================================================
+   TEAM SECTION (Responsive Layout)
+   ========================================================================== */
+
+/* DESKTOP: Flexbox allows the 5 items to wrap perfectly (3 on top, 2 centered on bottom) */
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.5rem 1.5rem;
+  margin-top: 2rem;
+}
+
+.team-member {
+  text-align: center;
+  flex: 0 1 calc(33.333% - 1.5rem);
+  min-width: 240px; /* Prevents them from getting too squished before the breakpoint */
+}
+
+.team-member-img {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 4 / 5; /* Maintains the portrait ratio without hardcoding pixel heights */
+  border-radius: 16px;
+  object-fit: cover;
+  margin: 0 auto 1.2rem;
+  background: #e2eaee;
+  display: block;
+}
+
+.team-member h3 {
+  margin-bottom: 0.3rem;
+  font-size: 1.15rem;
+}
+
+.team-member p {
+  font-size: 0.85rem;
+  color: var(--secondary-hover, #2e8c87);
+  font-weight: 800;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Staggered Animation Delays for the 5 items */
+.animation-delay-3 { --delay: 0.3s; animation-delay: 0.3s; }
+.animation-delay-4 { --delay: 0.4s; animation-delay: 0.4s; }
+
+/* MOBILE: Force a strict 2-column CSS Grid */
+@media (max-width: 768px) {
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1rem; /* Tighter gap for smaller screens */
+  }
+
+  .team-member {
+    min-width: 0; /* Reset flex min-width so the grid controls the sizing */
+  }
+
+  .team-member-img {
+    max-width: 100%; /* Allows the image to fluidly fill its half of the screen */
+  }
+  
+  .team-member h3 {
+    font-size: 1rem; /* Slightly smaller text for mobile */
+  }
+
+  .team-member p {
+    font-size: 0.75rem;
+  }
+
+  /* Since you have 5 items, the last one will look awkward on the left by itself. 
+     This targets the 5th item and spans it across both columns, centering it. */
+  .team-member:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: 220px; /* Keep it proportional */
+    margin-inline: auto;
+  }
+}
+
+
+/* ==========================================================================
+   PREMIERE PAGE STYLES
+   ========================================================================== */
+
+/* Countdown Timer */
+.countdown-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.5rem, 3vw, 2rem);
+  margin-top: 2.5rem;
+}
+
+.time-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  width: clamp(70px, 15vw, 120px);
+  aspect-ratio: 1;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.time-box span {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.time-box small {
+  font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #aebbd0;
+  margin-top: 0.5rem;
+  font-weight: 700;
+}
+
+.countdown-wrapper .colon {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+/* Premiere Cards (Ecosystem Grid) */
+.premiere-card {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.premiere-card-img {
+  width: 100%;
+  height: 180px;
+  background: var(--bg-light);
+}
+
+.premiere-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.premiere-card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.premiere-card-content .tag {
+  align-self: flex-start;
+}
+
+.premiere-card-content h3 {
+  margin-top: 0.5rem;
+  font-size: 1.25rem;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 960px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+  .countdown-wrapper {
+    gap: 0.5rem;
+  }
+  .countdown-wrapper .colon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
 }

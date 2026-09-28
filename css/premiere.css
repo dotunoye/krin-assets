@@ -1,0 +1,750 @@
+/* /* ==========================================================================
+   CINEMATIC PREMIERE V2 - High-End Styles
+   ========================================================================== 
+
+/* 1. Cinematic Hero 
+.premiere-hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../assets/images/prophetic-kids-1.webp');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(10, 17, 32, 0.4), rgba(10, 17, 32, 0.95));
+  z-index: 1;
+}
+
+/* Decorative Light Beams for Cinematic Effect 
+.light-beam {
+  position: absolute;
+  top: -20%;
+  width: 150px;
+  height: 150%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: rotate(25deg);
+  z-index: 2;
+  filter: blur(20px);
+}
+.light-beam-left { left: 10%; animation: sweep 8s infinite alternate ease-in-out; }
+.light-beam-right { right: 10%; transform: rotate(-25deg); animation: sweep 10s infinite alternate-reverse ease-in-out; }
+
+@keyframes sweep {
+  0% { opacity: 0.3; transform: rotate(25deg) translateX(-50px); }
+  100% { opacity: 0.8; transform: rotate(25deg) translateX(50px); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  color: white;
+}
+
+.hook-text {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1.1;
+  text-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  margin-bottom: 1.5rem;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #ffb800, #ffe79a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.hero-subtext {
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  color: #e2e8f0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(255, 184, 0, 0.5);
+}
+
+/* 2. Bento Grid (Event Details + Map) 
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.bento-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  position: relative;
+}
+
+.event-info {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.icon-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.icon-circle.gold { background: #fff7db; color: #b28000; }
+.icon-circle.pink { background: #ffe5eb; color: #d6335c; }
+
+.detail-text h3 {
+  margin: 0 0 0.2rem 0;
+  font-size: 1.2rem;
+}
+.detail-text p {
+  margin: 0;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.map-card {
+  min-height: 400px;
+  padding: 0;
+}
+
+.page-hero h1 {
+  max-width: 850px;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  margin-inline: auto;
+}
+
+.page-hero p {
+  max-width: 680px;
+  font-size: 1.16rem;
+  color: white;
+}
+
+/* Live Pill Countdown 
+.countdown-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--text-dark);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-full);
+  margin-top: 1rem;
+}
+
+.cd-item {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.cd-item span {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.cd-item small {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+}
+
+.cd-colon {
+  color: rgba(255,255,255,0.3);
+  font-weight: 800;
+}
+
+/* 3. Quote Box 
+.quote-box {
+  position: relative;
+  padding: 1.5rem;
+  background: white;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft);
+  margin-top: 2rem;
+  border-left: 4px solid var(--primary);
+}
+.quote-icon {
+  position: absolute;
+  top: -15px;
+  left: 15px;
+  background: var(--bg-light);
+  border-radius: 50%;
+  padding: 4px;
+}
+.quote-box p {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  font-style: italic;
+}
+
+/* 4. Character Posters (The 3D Pop-out Effect) 
+.poster-grid {
+  margin-top: 6rem; /* Extra space for popping heads 
+}
+
+.character-poster {
+  position: relative;
+  padding: 4rem 1.5rem 2rem;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.character-poster:hover {
+  transform: translateY(-10px);
+}
+
+.blue-card { background: #eaf4ff; }
+.pink-card { background: #ffe5eb; }
+.gold-card { background: #fff7db; }
+
+.character-popout {
+  position: absolute;
+  top: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: auto;
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
+  transition: transform 0.4s ease;
+}
+
+.character-poster:hover .character-popout {
+  transform: translateX(-50%) scale(1.08) translateY(-5px);
+}
+
+.poster-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.poster-content p {
+  margin: 0;
+  color: var(--text-dark);
+}
+
+/* 5. Hover Cards 
+.hover-card {
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+.hover-card:hover {
+  border-color: var(--primary);
+  background: white;
+}
+
+/* 6. Cinematic RSVP Footer 
+.rsvp-cinematic {
+  background: linear-gradient(135deg, #0a1120 0%, #1d2a44 100%);
+  padding: 6rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-large {
+  padding: 1rem 2rem;
+  font-size: 1.15rem;
+}
+
+.stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 800;
+  color: var(--primary);
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+}
+.stats-row .dot { color: rgba(255,255,255,0.2); }
+.tagline {
+  font-size: 1.2rem;
+  color: #aebbd0;
+  font-style: italic;
+}
+
+/* Animations 
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s forwards;
+}
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Mobile Adjustments 
+@media (max-width: 960px) {
+  .bento-grid { grid-template-columns: 1fr; }
+  .map-card { min-height: 300px; }
+}
+@media (max-width: 768px) {
+  .stats-row { flex-direction: column; gap: 0.8rem; }
+  .stats-row .dot { display: none; }
+  .poster-grid { margin-top: 4rem; gap: 5rem; }
+} */
+
+/* ==========================================================================
+   HOLLYWOOD CINEMATIC STYLES
+   ========================================================================== */
+
+:root {
+  --cine-black: #050914;
+  --cine-dark: #0a1120;
+  --cine-gold: #ffb800;
+  --cine-white: #ffffff;
+}
+
+body.cinematic-body {
+  background-color: var(--cine-black);
+  color: var(--cine-white);
+  font-family: var(--font-body);
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Typography Base */
+.cinematic-eyebrow {
+  display: block;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+.cinematic-eyebrow.dark {
+  color: var(--text-muted);
+}
+
+/* Header Adjustments */
+.site-header--transparent {
+  background: transparent !important;
+  border: none !important;
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+}
+.logo-invert { filter: brightness(0) invert(1); }
+
+/* --------------------------------------------------------------------------
+   STAGE 1: THE HOOK
+   -------------------------------------------------------------------------- */
+.stage-hook {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translateX(-50%) translateY(-50%);
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* The Vignette creates the dark, moody edges */
+.cinematic-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(5, 9, 20, 0.4) 0%, rgba(5, 9, 20, 0.95) 100%);
+  z-index: 2;
+}
+
+.hook-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cinematic-headline {
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 1.05;
+  margin-bottom: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.gold-glow {
+  color: var(--cine-gold);
+  text-shadow: 0 0 40px rgba(255, 184, 0, 0.4);
+}
+
+.action-cluster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.btn-glass {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-glass:hover {
+  background: white;
+  color: var(--cine-black);
+}
+
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: color 0.3s;
+}
+.scroll-indicator:hover { color: white; }
+.scroll-indicator svg { animation: bounce 2s infinite; }
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(10px); }
+  60% { transform: translateY(5px); }
+}
+
+/* --------------------------------------------------------------------------
+   STAGE 2: THE LORE
+   -------------------------------------------------------------------------- */
+.stage-lore {
+  background: var(--cine-white);
+  color: var(--cine-black);
+  padding: 10rem 0;
+}
+
+.lore-visual {
+  position: relative;
+  padding: 2rem;
+}
+.lore-img {
+  width: 100%;
+  border-radius: 20px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+}
+.glow-backdrop {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--cine-gold), #ff6b8b);
+  border-radius: 20px;
+  transform: rotate(-3deg) scale(0.95);
+  z-index: 1;
+  filter: blur(20px);
+  opacity: 0.4;
+}
+
+.lore-copy h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+.lore-copy p {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+}
+.cinematic-quote {
+  margin: 2.5rem 0 0;
+  padding-left: 1.5rem;
+  border-left: 4px solid var(--cine-gold);
+  font-size: 1.4rem;
+  font-weight: 800;
+  font-style: italic;
+}
+
+/* --------------------------------------------------------------------------
+   STAGE 3: THE PROTAGONISTS
+   -------------------------------------------------------------------------- */
+.stage-protagonists {
+  background: var(--cine-black);
+  padding: 8rem 0;
+}
+.light-text { color: white; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 4rem;}
+
+.poster-layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.movie-poster {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--cine-dark);
+  transition: transform 0.4s ease;
+}
+.movie-poster:hover {
+  transform: scale(1.02) translateY(-10px);
+}
+
+.poster-image {
+  position: relative;
+  aspect-ratio: 3/4; /* Classic movie poster ratio */
+}
+.poster-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+.poster-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, var(--cine-dark) 100%);
+}
+
+.poster-text {
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  margin-top: -2rem; /* Pulls text up into the gradient */
+}
+.poster-text h3 {
+  font-size: 1.8rem;
+  color: var(--cine-gold);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+.poster-text p {
+  color: #aebbd0;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   STAGE 4: THE STAKES
+   -------------------------------------------------------------------------- */
+.stage-stakes {
+  position: relative;
+  padding: 10rem 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.stakes-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Creates parallax effect */
+  filter: grayscale(100%);
+  z-index: 1;
+}
+.stakes-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 9, 20, 0.85); /* Heavy dark overlay */
+  z-index: 2;
+}
+
+.stakes-content {
+  position: relative;
+  z-index: 10;
+}
+
+.massive-text {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  max-width: 1000px;
+  margin: 0 auto 5rem;
+  color: white;
+}
+
+.stakes-pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.pillar-item {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-family: var(--font-heading);
+  font-weight: 900;
+  color: var(--cine-gold);
+  letter-spacing: -0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   STAGE 5: THE CLIMAX
+   -------------------------------------------------------------------------- */
+.stage-climax {
+  background: #f8fafc;
+  color: var(--cine-black);
+  padding: 10rem 0;
+}
+
+.climax-headline {
+  font-size: clamp(3rem, 6vw, 5rem);
+  margin-bottom: 3rem;
+}
+
+.ticket-stub {
+  background: white;
+  border: 2px solid rgba(0,0,0,0.1);
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+.ticket-row {
+  padding: 1rem 0;
+  font-size: 1.25rem;
+}
+.ticket-row:not(:last-child) {
+  border-bottom: 1px dashed rgba(0,0,0,0.1);
+}
+
+.urgency-copy {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  color: var(--text-muted);
+}
+
+.btn-epic {
+  padding: 1.2rem 3rem;
+  font-size: 1.25rem;
+  border-radius: 50px;
+  box-shadow: 0 10px 30px rgba(255, 184, 0, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   MODAL (Teaser)
+   -------------------------------------------------------------------------- */
+.cinematic-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.cinematic-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+}
+.modal-video-container {
+  position: relative;
+  z-index: 10;
+  width: 90%;
+  max-width: 1000px;
+  aspect-ratio: 16/9;
+  background: black;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.close-video {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.video-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: rgba(255,255,255,0.5);
+  font-size: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   SCROLL ANIMATIONS & RESPONSIVE
+   -------------------------------------------------------------------------- */
+/* Initial state for JS observer */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-up {
+  animation: fadeUpAnim 1s forwards cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  transform: translateY(30px);
+}
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+
+@keyframes fadeUpAnim {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 960px) {
+  .poster-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .movie-poster { max-width: 400px; margin: 0 auto; }
+}
+@media (max-width: 768px) {
+  .stage-lore, .stage-stakes, .stage-climax, .stage-protagonists { padding: 5rem 0; }
+  .stakes-bg { background-attachment: scroll; } /* Disable parallax on mobile */
+}

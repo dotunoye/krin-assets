@@ -1,9 +1,9 @@
 .cms-status {
   text-align: center;
-  margin: 1.5rem auto;
+  margin: 1rem auto;
   padding: 0 1rem;
   font-weight: 700;
-  color: #a73232;
+  color: #242c74;
 }
 .cms-loading::before {
   content: "";

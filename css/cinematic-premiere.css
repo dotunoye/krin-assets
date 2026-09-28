@@ -1,0 +1,638 @@
+/* Cinematic campaign layer: shared tokens, navigation, buttons and footer come from main.css. */
+.cinema-page {
+  background: #0a1120;
+  color: #f8f5ec;
+}
+.cinema-page .site-header {
+  background: rgba(255, 255, 255, 0.94);
+}
+.cinema-page h1,
+.cinema-page h2,
+.cinema-page h3 {
+  color: inherit;
+}
+.cinema-page p {
+  color: inherit;
+  font-size: 0.75rem;
+}
+.cinema-eyebrow {
+  margin: 0 0 1.2rem;
+  color: var(--primary);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.cinema-eyebrow::before {
+  content: "— ";
+}
+.cinema-hero {
+  position: relative;
+  min-height: calc(100svh - 70px);
+  /* CHANGE: Swap grid for flex to align items to the bottom */
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  overflow: hidden;
+  background: #0a1120;
+  isolation: isolate;
+}
+
+/* FIXED: Changed to absolute positioning so it acts as a background behind the text grid */
+.hero-video-placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0a1120; 
+  z-index: 0;
+}
+
+/* This targets the video tag directly to force it into a full-bleed background */
+.hero-video-placeholder video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Crops the video to fill the screen without stretching */
+  pointer-events: none; /* Stops users from accidentally right-clicking or pausing it */
+}
+
+.placeholder-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.26;
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.7) 0.55px,
+    transparent 0.65px
+  );
+  background-size: 5px 5px;
+  mix-blend-mode: soft-light;
+}
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 9, 17, 0.95),
+      rgba(4, 9, 17, 0.28) 55%,
+      rgba(4, 9, 17, 0.75)
+    ),
+    linear-gradient(0deg, rgba(4, 9, 17, 0.9), transparent 55%);
+  z-index: 1;
+}
+.cinema-hero__content {
+  position: relative;
+  z-index: 2;
+  width: 100%; /* Ensures the container class bounds the width properly */
+  text-align: left; /* Forces the text to the left */
+  /* Adjust bottom padding so it sits nicely above the scroll cue */
+  padding: 5rem 5rem 5rem; 
+}
+.cinema-hero h1 {
+  max-width: 900px;
+  margin: 0;
+  font-size: clamp(2.5rem, 7.4vw, 4rem);
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+  text-wrap: balance;
+  text-shadow: 0 14px 45px rgba(0, 0, 0, 0.45);
+}
+.cinema-hero h1 em {
+  display: block;
+  color: var(--primary);
+  font-style: normal;
+}
+.cinema-play {
+  margin-top: 2rem;
+}
+.play-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding-left: 2px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 0.55rem;
+}
+.scroll-cue {
+  position: absolute;
+  z-index: 2;
+  bottom: 1.7rem;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.scroll-cue span {
+  margin-left: 0.6rem;
+  color: var(--primary);
+  font-size: 1.2rem;
+}
+.lore-section {
+  padding: clamp(5rem, 11vw, 10rem) 0;
+  background: #f5f3ed;
+  color: var(--text-dark);
+}
+.lore-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 5vw, 8rem);
+  align-items: center;
+}
+.lore-copy h2 {
+  font-size: clamp(2rem, 4vw, 4rem);
+}
+.lore-copy > p:not(.cinema-eyebrow) {
+  max-width: 580px;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+.lore-copy blockquote {
+  margin: 2rem 0 0;
+  padding: 1.3rem 0 1.3rem 1.4rem;
+  border-left: 3px solid var(--primary);
+  color: var(--text-dark);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.lore-visual {
+  position: relative;
+  min-height: 500px;
+}
+.film-frame {
+  position: absolute;
+  inset: 0 9% 7% 0;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding: 1.3rem;
+  background: linear-gradient(135deg, #183044, #0d1727);
+  color: rgba(255, 255, 255, 0.58);
+  box-shadow: 30px 30px 0 rgba(255, 184, 0, 0.9);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: 16px;
+}
+.film-frame video{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Crops the video to fill the screen without stretching */
+  pointer-events: none; /* Stops users from accidentally right-clicking or pausing it */
+  border-radius: 16px;
+}
+.film-frame__mark {
+  color: var(--primary);
+  font-size: 1.2rem;
+}
+.lore-visual img {
+  position: absolute;
+  width: 40%;
+  right: 0;
+  bottom: 0;
+  filter: drop-shadow(0 24px 22px rgba(0, 0, 0, 0.2));
+  border-radius: 16px;
+}
+.cast-section {
+  padding: clamp(5rem, 10vw, 9rem) 0;
+  overflow: hidden;
+  background: #0a1120;
+}
+.cast-heading {
+  max-width: 650px;
+  margin-bottom: 4rem;
+}
+.cast-heading h2 {
+  font-size: clamp(2.4rem, 5vw, 5.2rem);
+}
+.character-reel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.character-card {
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  align-items: end;
+  overflow: hidden;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(
+    0deg,
+    rgba(5, 9, 17, 0.98),
+    rgba(5, 9, 17, 0.03) 70%
+  );
+}
+.character-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  opacity: 0.83;
+  transition: transform 0.6s ease;
+  mix-blend-mode: screen;
+}
+.character-card:hover img {
+  transform: scale(1.06);
+}
+.character-card > div {
+  position: relative;
+  z-index: 1;
+}
+.character-card span {
+  color: var(--primary);
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.character-card h3 {
+  margin: 0.5rem 0;
+  font-size: clamp(2.3rem, 4vw, 4rem);
+  text-transform: uppercase;
+}
+.character-card p {
+  max-width: 290px;
+  line-height: 1.4;
+}
+.character-card--deby {
+  background: linear-gradient(
+    0deg,
+    rgba(39, 8, 31, 0.98),
+    rgba(39, 8, 31, 0.03) 70%
+  );
+}
+.character-card--tee {
+  background: linear-gradient(
+    0deg,
+    rgba(12, 33, 33, 0.98),
+    rgba(12, 33, 33, 0.03) 70%
+  );
+}
+.stakes-section {
+  position: relative;
+  min-height: 730px;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  background: #1d2a44;
+}
+.stakes-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(5, 12, 20, 0.93), rgba(5, 12, 20, 0.35)),
+    url("../assets/images/aunt-tee-praying-with-the-children.webp") center/cover;
+  filter: saturate(0.65);
+}
+.stakes-content {
+  position: relative;
+  z-index: 1;
+}
+.stakes-content h2 {
+  max-width: 1040px;
+  font-size: clamp(2.5rem, 4vw, 6rem);
+  letter-spacing: -0.06em;
+}
+.stakes-pillars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  margin-top: 3rem;
+  color: var(--primary);
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.stakes-pillars span:not(:last-child)::after {
+  content: "✦";
+  margin-left: 1.6rem;
+  color: white;
+}
+.premiere-section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(5rem, 11vw, 10rem) 0;
+  background: #f6ba16;
+  color: var(--text-dark);
+}
+.premiere-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 8vw, 8rem);
+  align-items: center;
+}
+.premiere-copy h2 {
+  font-size: clamp(3.2rem, 6vw, 6.2rem);
+  letter-spacing: -0.06em;
+}
+.premiere-intro p {
+  max-width: 570px;
+  font-size: 1rem;
+}
+.event-card {
+  padding: clamp(1.4rem, 4vw, 2.7rem);
+  background: #fffdf8;
+  border: 1px solid rgba(29, 42, 68, 0.12);
+  box-shadow: 15px 15px 0 #183044;
+  border-radius: 16px;
+}
+.event-label {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.event-rule {
+  height: 1px;
+  margin: 1.3rem 0;
+  background: rgba(29, 42, 68, 0.2);
+}
+.event-card dl {
+  margin: 0;
+}
+.event-card dl div {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(29, 42, 68, 0.1);
+}
+.event-card dt {
+  color: var(--secondary-hover);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.event-card dd {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.map-wrap {
+  height: 185px;
+  margin-top: 1.5rem;
+  overflow: hidden;
+}
+.map-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: saturate(0.7) contrast(1.05);
+}
+.premiere-spark {
+  position: absolute;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+}
+.premiere-spark--one {
+  width: 420px;
+  height: 420px;
+  top: -220px;
+  right: -80px;
+}
+.premiere-spark--two {
+  width: 230px;
+  height: 230px;
+  bottom: -100px;
+  left: 7%;
+}
+.teaser-modal {
+  position: fixed;
+  z-index: 2000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(4, 9, 17, 0.86);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.25s ease;
+}
+.teaser-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+.teaser-modal__panel {
+  position: relative;
+  width: min(900px, 100%);
+  aspect-ratio: 16/9;
+  background: #17263a;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+.teaser-modal.open .teaser-modal__panel {
+  transform: none;
+}
+.teaser-placeholder {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  width: 100%;
+  height: 100%;
+  color: white;
+  background:
+    radial-gradient(circle, rgba(58, 175, 169, 0.35), transparent 28%), #0a1120;
+}
+.teaser-placeholder .play-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  color: var(--primary);
+  font-size: 1rem;
+}
+.teaser-placeholder p {
+  margin: 1rem 0 0.2rem;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+.teaser-placeholder small {
+  color: #b8c4d4;
+}
+.modal-close {
+  position: absolute;
+  z-index: 1;
+  top: -0.2rem;
+  right: -0.1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  background: var(--primary);
+  color: var(--text-dark);
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (max-width: 800px) {
+  .lore-grid,
+  .premiere-layout {
+    grid-template-columns: 1fr;
+  }
+  .lore-visual {
+    min-height: 400px;
+  }
+  .character-reel {
+    grid-template-columns: 1fr;
+  }
+  .character-card {
+    min-height: 460px;
+  }
+  .stakes-section {
+    min-height: 620px;
+  }
+  .cinema-hero h1 {
+    font-size: clamp(2.5rem, 7vw, 3rem);
+  }
+  .premiere-copy {
+    text-align: center;
+  }
+  .premiere-copy .btn {
+    margin-inline: auto;
+  }
+  .premiere-intro {
+    margin-inline: auto;
+  }
+}
+@media (max-width: 500px) {
+  .cinema-hero__content {
+    padding: 5rem 1rem 5rem; 
+  }
+  .lore-visual {
+    min-height: 310px;
+  }
+  .character-card {
+    min-height: 410px;
+    padding: 1.4rem;
+  }
+  .stakes-pillars {
+    display: grid;
+    gap: 0.8rem;
+  }
+  .stakes-pillars span::after {
+    display: none;
+  }
+  .event-card dl div {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+}
+
+.stage-protagonists {
+  background: var(--cine-black);
+  padding: 8rem 0;
+}
+.light-text { color: white; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 4rem;}
+
+.poster-layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.movie-poster {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--cine-dark);
+  transition: transform 0.4s ease;
+}
+.movie-poster:hover {
+  transform: scale(1.02) translateY(-10px);
+}
+
+.poster-image {
+  position: relative;
+  aspect-ratio: 3/4;
+  padding: 16px 16px 0px 16px;
+}
+.poster-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+.poster-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, var(--cine-dark) 100%);
+}
+
+.poster-text {
+  padding: 1.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  margin-top: -2rem; /* Pulls text up into the gradient */
+}
+.poster-text h3 {
+  font-size: 1.8rem;
+  color: var(--cine-gold);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  font-family: "Nunito", system-ui, sans-serif";
+}
+.poster-text p {
+  color: #aebbd0;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+
+@media (max-width: 960px) {
+  /* Turn the grid into a horizontal scrolling row */
+  .poster-layout {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    gap: 1.5rem;
+    padding-bottom: 2rem; /* Prevents box-shadows from getting cut off */
+    scrollbar-width: none; /* Hides scrollbar in Firefox */
+  }
+
+  /* Hides scrollbar in Chrome/Safari */
+  .poster-layout::-webkit-scrollbar {
+    display: none; 
+  }
+
+  /* Size the cards so the next one "peeks" in from the edge */
+  .movie-poster {
+    flex: 0 0 75%; /* Card takes up 75% of the screen */
+    max-width: 320px; /* Caps the size on tablets */
+    scroll-snap-align: center; /* Snaps the card to the middle when swiping */
+  }
+}
