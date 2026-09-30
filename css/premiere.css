@@ -612,3 +612,30 @@
   margin: 0;
 }
 
+@media (max-width: 960px) {
+  /* Turn the grid into a horizontal scrolling row */
+  .poster-layout {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    gap: 1.5rem;
+    padding-bottom: 2rem; /* Prevents box-shadows from getting cut off */
+    scrollbar-width: none; /* Hides scrollbar in Firefox */
+  }
+
+  /* Hides scrollbar in Chrome/Safari */
+  .poster-layout::-webkit-scrollbar {
+    display: none; 
+  }
+
+  /* Size the cards so the next one "peeks" in from the edge */
+  .movie-poster {
+    flex: 0 0 75%; /* Card takes up 75% of the screen */
+    max-width: 320px; /* Caps the size on tablets */
+    scroll-snap-align: center; /* Snaps the card to the middle when swiping */
+  }
+}

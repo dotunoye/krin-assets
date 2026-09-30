@@ -117,9 +117,55 @@
                 poster="/assets/images/prophetic-kids-poster.webp"
                 autoplay
                 loop
+                muted
                 playsinline
               ></video>
               <span class="film-frame__mark">01</span>
+
+              <!-- Sound Toggle Button hovering over the video -->
+              <button
+                id="lore-sound-toggle"
+                class="btn btn-glass"
+                type="button"
+                style="
+                  position: absolute;
+                  top: 1rem;
+                  right: 1rem;
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  padding: 0.4rem 0.8rem;
+                  font-size: 0.7rem;
+                  z-index: 10;
+                  background: rgba(0, 0, 0, 0.5);
+                  color: #fff;
+                  border: 1px solid rgba(255, 255, 255, 0.2);
+                  border-radius: 20px;
+                  cursor: pointer;
+                  backdrop-filter: blur(4px);
+                "
+              >
+                <span id="lore-sound-icon">
+                  <!-- Default Muted SVG -->
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polygon
+                      points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"
+                    ></polygon>
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                  </svg>
+                </span>
+                <span id="lore-sound-text">Unmute</span>
+              </button>
             </div>
             <img
               src="assets/images/prophetic-kids.webp"
