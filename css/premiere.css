@@ -1,511 +1,553 @@
-/* /* ==========================================================================
-   CINEMATIC PREMIERE V2 - High-End Styles
-   ========================================================================== 
-
-/* 1. Cinematic Hero 
-.premiere-hero {
+/* Cinematic campaign layer: shared tokens, navigation, buttons and footer come from main.css. */
+.cinema-page {
+  background: #0a1120;
+  color: #f8f5ec;
+}
+.cinema-page .site-header {
+  background: rgba(255, 255, 255, 0.94);
+}
+.cinema-page h1,
+.cinema-page h2,
+.cinema-page h3 {
+  color: inherit;
+}
+.cinema-page p {
+  color: inherit;
+  font-size: 0.75rem;
+}
+.cinema-eyebrow {
+  margin: 0 0 1.2rem;
+  color: var(--primary);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.cinema-eyebrow::before {
+  content: "— ";
+}
+.cinema-hero {
   position: relative;
-  min-height: 90vh;
+  min-height: calc(100svh - 70px);
+  /* CHANGE: Swap grid for flex to align items to the bottom */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: url('../assets/images/prophetic-kids-1.webp');
-  background-size: cover;
-  background-position: center;
+  align-items: flex-end;
+  justify-content: flex-start;
   overflow: hidden;
-  text-align: center;
+  background: #0a1120;
+  isolation: isolate;
 }
 
-.hero-image-overlay {
+/* FIXED: Changed to absolute positioning so it acts as a background behind the text grid */
+.hero-video-placeholder {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(10, 17, 32, 0.4), rgba(10, 17, 32, 0.95));
-  z-index: 1;
-}
-
-/* Decorative Light Beams for Cinematic Effect 
-.light-beam {
-  position: absolute;
-  top: -20%;
-  width: 150px;
-  height: 150%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  transform: rotate(25deg);
-  z-index: 2;
-  filter: blur(20px);
-}
-.light-beam-left { left: 10%; animation: sweep 8s infinite alternate ease-in-out; }
-.light-beam-right { right: 10%; transform: rotate(-25deg); animation: sweep 10s infinite alternate-reverse ease-in-out; }
-
-@keyframes sweep {
-  0% { opacity: 0.3; transform: rotate(25deg) translateX(-50px); }
-  100% { opacity: 0.8; transform: rotate(25deg) translateX(50px); }
-}
-
-.hero-content {
-  position: relative;
-  z-index: 10;
-  color: white;
-}
-
-.hook-text {
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  line-height: 1.1;
-  text-shadow: 0 10px 40px rgba(0,0,0,0.6);
-  margin-bottom: 1.5rem;
-}
-
-.text-gradient {
-  background: linear-gradient(135deg, #ffb800, #ffe79a);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-}
-
-.hero-subtext {
-  font-size: clamp(1.1rem, 2vw, 1.3rem);
-  color: #e2e8f0;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.glow-text {
-  text-shadow: 0 0 20px rgba(255, 184, 0, 0.5);
-}
-
-/* 2. Bento Grid (Event Details + Map) 
-.bento-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 1.5rem;
-  margin-top: 3rem;
-}
-
-.bento-card {
-  background: white;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-soft);
-  overflow: hidden;
-  position: relative;
-}
-
-.event-info {
-  padding: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2rem;
-}
-
-.detail-row {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-
-.icon-circle {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-}
-.icon-circle.gold { background: #fff7db; color: #b28000; }
-.icon-circle.pink { background: #ffe5eb; color: #d6335c; }
-
-.detail-text h3 {
-  margin: 0 0 0.2rem 0;
-  font-size: 1.2rem;
-}
-.detail-text p {
-  margin: 0;
-  color: var(--text-muted);
-  font-weight: 600;
-}
-
-.map-card {
-  min-height: 400px;
-  padding: 0;
-}
-
-.page-hero h1 {
-  max-width: 850px;
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  margin-inline: auto;
-}
-
-.page-hero p {
-  max-width: 680px;
-  font-size: 1.16rem;
-  color: white;
-}
-
-/* Live Pill Countdown 
-.countdown-pill {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--text-dark);
-  color: white;
-  padding: 1rem 1.5rem;
-  border-radius: var(--radius-full);
-  margin-top: 1rem;
-}
-
-.cd-item {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-}
-
-.cd-item span {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--primary);
-  font-variant-numeric: tabular-nums;
-}
-
-.cd-item small {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: rgba(255,255,255,0.7);
-}
-
-.cd-colon {
-  color: rgba(255,255,255,0.3);
-  font-weight: 800;
-}
-
-/* 3. Quote Box 
-.quote-box {
-  position: relative;
-  padding: 1.5rem;
-  background: white;
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-soft);
-  margin-top: 2rem;
-  border-left: 4px solid var(--primary);
-}
-.quote-icon {
-  position: absolute;
-  top: -15px;
-  left: 15px;
-  background: var(--bg-light);
-  border-radius: 50%;
-  padding: 4px;
-}
-.quote-box p {
-  margin: 0;
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--text-dark);
-  font-style: italic;
-}
-
-/* 4. Character Posters (The 3D Pop-out Effect) 
-.poster-grid {
-  margin-top: 6rem; /* Extra space for popping heads 
-}
-
-.character-poster {
-  position: relative;
-  padding: 4rem 1.5rem 2rem;
-  border-radius: var(--radius-lg);
-  text-align: center;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.character-poster:hover {
-  transform: translateY(-10px);
-}
-
-.blue-card { background: #eaf4ff; }
-.pink-card { background: #ffe5eb; }
-.gold-card { background: #fff7db; }
-
-.character-popout {
-  position: absolute;
-  top: -70px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 160px;
-  height: auto;
-  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.15));
-  transition: transform 0.4s ease;
-}
-
-.character-poster:hover .character-popout {
-  transform: translateX(-50%) scale(1.08) translateY(-5px);
-}
-
-.poster-content h3 {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-.poster-content p {
-  margin: 0;
-  color: var(--text-dark);
-}
-
-/* 5. Hover Cards 
-.hover-card {
-  border: 1px solid transparent;
-  transition: all 0.3s ease;
-}
-.hover-card:hover {
-  border-color: var(--primary);
-  background: white;
-}
-
-/* 6. Cinematic RSVP Footer 
-.rsvp-cinematic {
-  background: linear-gradient(135deg, #0a1120 0%, #1d2a44 100%);
-  padding: 6rem 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-large {
-  padding: 1rem 2rem;
-  font-size: 1.15rem;
-}
-
-.stats-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  font-size: clamp(1rem, 2vw, 1.3rem);
-  font-weight: 800;
-  color: var(--primary);
-  margin-top: 4rem;
-  margin-bottom: 1rem;
-}
-.stats-row .dot { color: rgba(255,255,255,0.2); }
-.tagline {
-  font-size: 1.2rem;
-  color: #aebbd0;
-  font-style: italic;
-}
-
-/* Animations 
-.fade-in-up {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.8s forwards;
-}
-@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-/* Mobile Adjustments 
-@media (max-width: 960px) {
-  .bento-grid { grid-template-columns: 1fr; }
-  .map-card { min-height: 300px; }
-}
-@media (max-width: 768px) {
-  .stats-row { flex-direction: column; gap: 0.8rem; }
-  .stats-row .dot { display: none; }
-  .poster-grid { margin-top: 4rem; gap: 5rem; }
-} */
-
-/* ==========================================================================
-   HOLLYWOOD CINEMATIC STYLES
-   ========================================================================== */
-
-:root {
-  --cine-black: #050914;
-  --cine-dark: #0a1120;
-  --cine-gold: #ffb800;
-  --cine-white: #ffffff;
-}
-
-body.cinematic-body {
-  background-color: var(--cine-black);
-  color: var(--cine-white);
-  font-family: var(--font-body);
-  margin: 0;
-  overflow-x: hidden;
-}
-
-/* Typography Base */
-.cinematic-eyebrow {
-  display: block;
-  font-size: 0.85rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 1.5rem;
-  font-weight: 700;
-}
-.cinematic-eyebrow.dark {
-  color: var(--text-muted);
-}
-
-/* Header Adjustments */
-.site-header--transparent {
-  background: transparent !important;
-  border: none !important;
-  position: absolute;
   width: 100%;
-  z-index: 100;
-}
-.logo-invert { filter: brightness(0) invert(1); }
-
-/* --------------------------------------------------------------------------
-   STAGE 1: THE HOOK
-   -------------------------------------------------------------------------- */
-.stage-hook {
-  position: relative;
-  height: 100vh;
-  min-height: 700px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  height: 100%;
   overflow: hidden;
+  background: #0a1120; 
+  z-index: 0;
 }
 
-.bg-video {
+/* This targets the video tag directly to force it into a full-bleed background */
+.hero-video-placeholder video {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  transform: translateX(-50%) translateY(-50%);
-  object-fit: cover;
-  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Crops the video to fill the screen without stretching */
+  pointer-events: none; /* Stops users from accidentally right-clicking or pausing it */
 }
 
-/* The Vignette creates the dark, moody edges */
-.cinematic-vignette {
+.placeholder-grain {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(5, 9, 20, 0.4) 0%, rgba(5, 9, 20, 0.95) 100%);
-  z-index: 2;
+  opacity: 0.26;
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.7) 0.55px,
+    transparent 0.65px
+  );
+  background-size: 5px 5px;
+  mix-blend-mode: soft-light;
 }
-
-.hook-content {
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 9, 17, 0.95),
+      rgba(4, 9, 17, 0.28) 55%,
+      rgba(4, 9, 17, 0.75)
+    ),
+    linear-gradient(0deg, rgba(4, 9, 17, 0.9), transparent 55%);
+  z-index: 1;
+}
+.cinema-hero__content {
   position: relative;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  z-index: 2;
+  width: 100%; /* Ensures the container class bounds the width properly */
+  text-align: left; /* Forces the text to the left */
+  /* Adjust bottom padding so it sits nicely above the scroll cue */
+  padding: 5rem 5rem 5rem; 
 }
-
-.cinematic-headline {
-  font-size: clamp(3rem, 7vw, 6.5rem);
-  line-height: 1.05;
-  margin-bottom: 3rem;
+.cinema-hero h1 {
+  max-width: 900px;
+  margin: 0;
+  font-size: clamp(2.5rem, 7.4vw, 4rem);
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+  text-wrap: balance;
+  text-shadow: 0 14px 45px rgba(0, 0, 0, 0.45);
+}
+.cinema-hero h1 em {
+  display: block;
+  color: var(--primary);
+  font-style: normal;
+}
+.cinema-play {
+  margin-top: 2rem;
+}
+.play-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding-left: 2px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-size: 0.55rem;
+}
+.scroll-cue {
+  position: absolute;
+  z-index: 2;
+  bottom: 1.7rem;
+  color: #fff;
+  font-size: 0.7rem;
   font-weight: 800;
-  letter-spacing: -0.03em;
-}
-
-.gold-glow {
-  color: var(--cine-gold);
-  text-shadow: 0 0 40px rgba(255, 184, 0, 0.4);
-}
-
-.action-cluster {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-}
-
-.btn-glass {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 1rem 2.5rem;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.btn-glass:hover {
-  background: white;
-  color: var(--cine-black);
-}
-
-.scroll-indicator {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 0.85rem;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  transition: color 0.3s;
 }
-.scroll-indicator:hover { color: white; }
-.scroll-indicator svg { animation: bounce 2s infinite; }
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(10px); }
-  60% { transform: translateY(5px); }
+.scroll-cue span {
+  margin-left: 0.6rem;
+  color: var(--primary);
+  font-size: 1.2rem;
 }
-
-/* --------------------------------------------------------------------------
-   STAGE 2: THE LORE
-   -------------------------------------------------------------------------- */
-.stage-lore {
-  background: var(--cine-white);
-  color: var(--cine-black);
-  padding: 10rem 0;
+.lore-section {
+  padding: clamp(5rem, 11vw, 10rem) 0;
+  background: #f5f3ed;
+  color: var(--text-dark);
 }
-
+.lore-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 5vw, 8rem);
+  align-items: center;
+}
+.lore-copy h2 {
+  font-size: clamp(2rem, 4vw, 4rem);
+}
+.lore-copy > p:not(.cinema-eyebrow) {
+  max-width: 580px;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+.lore-copy blockquote {
+  margin: 2rem 0 0;
+  padding: 1.3rem 0 1.3rem 1.4rem;
+  border-left: 3px solid var(--primary);
+  color: var(--text-dark);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
 .lore-visual {
   position: relative;
-  padding: 2rem;
+  min-height: 500px;
 }
-.lore-img {
+.film-frame {
+  position: absolute;
+  inset: 0 9% 7% 0;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding: 1.3rem;
+  background: linear-gradient(135deg, #183044, #0d1727);
+  color: rgba(255, 255, 255, 0.58);
+  box-shadow: 30px 30px 0 rgba(255, 184, 0, 0.9);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: 16px;
+}
+.film-frame video{
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  border-radius: 20px;
-  position: relative;
-  z-index: 2;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+  height: 100%;
+  object-fit: cover; /* Crops the video to fill the screen without stretching */
+  pointer-events: none; /* Stops users from accidentally right-clicking or pausing it */
+  border-radius: 16px;
 }
-.glow-backdrop {
+.film-frame__mark {
+  color: var(--primary);
+  font-size: 1.2rem;
+}
+.lore-visual img {
+  position: absolute;
+  width: 40%;
+  right: 0;
+  bottom: 0;
+  filter: drop-shadow(0 24px 22px rgba(0, 0, 0, 0.2));
+  border-radius: 16px;
+}
+.cast-section {
+  padding: clamp(5rem, 10vw, 9rem) 0;
+  overflow: hidden;
+  background: #0a1120;
+}
+.cast-heading {
+  max-width: 650px;
+  margin-bottom: 4rem;
+}
+.cast-heading h2 {
+  font-size: clamp(2.4rem, 5vw, 5.2rem);
+}
+.character-reel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.character-card {
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  align-items: end;
+  overflow: hidden;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(
+    0deg,
+    rgba(5, 9, 17, 0.98),
+    rgba(5, 9, 17, 0.03) 70%
+  );
+}
+.character-card img {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, var(--cine-gold), #ff6b8b);
-  border-radius: 20px;
-  transform: rotate(-3deg) scale(0.95);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  opacity: 0.83;
+  transition: transform 0.6s ease;
+  mix-blend-mode: screen;
+}
+.character-card:hover img {
+  transform: scale(1.06);
+}
+.character-card > div {
+  position: relative;
   z-index: 1;
-  filter: blur(20px);
-  opacity: 0.4;
 }
-
-.lore-copy h2 {
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  margin-bottom: 1.5rem;
-  line-height: 1.1;
-}
-.lore-copy p {
-  font-size: 1.25rem;
-  color: var(--text-muted);
-}
-.cinematic-quote {
-  margin: 2.5rem 0 0;
-  padding-left: 1.5rem;
-  border-left: 4px solid var(--cine-gold);
-  font-size: 1.4rem;
+.character-card span {
+  color: var(--primary);
+  font-size: 0.67rem;
   font-weight: 800;
-  font-style: italic;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.character-card h3 {
+  margin: 0.5rem 0;
+  font-size: clamp(2.3rem, 4vw, 4rem);
+  text-transform: uppercase;
+}
+.character-card p {
+  max-width: 290px;
+  line-height: 1.4;
+}
+.character-card--deby {
+  background: linear-gradient(
+    0deg,
+    rgba(39, 8, 31, 0.98),
+    rgba(39, 8, 31, 0.03) 70%
+  );
+}
+.character-card--tee {
+  background: linear-gradient(
+    0deg,
+    rgba(12, 33, 33, 0.98),
+    rgba(12, 33, 33, 0.03) 70%
+  );
+}
+.stakes-section {
+  position: relative;
+  min-height: 730px;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  background: #1d2a44;
+}
+.stakes-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(5, 12, 20, 0.93), rgba(5, 12, 20, 0.35)),
+    url("../assets/images/aunt-tee-praying-with-the-children.webp") center/cover;
+  filter: saturate(0.65);
+}
+.stakes-content {
+  position: relative;
+  z-index: 1;
+}
+.stakes-content h2 {
+  max-width: 1040px;
+  font-size: clamp(2.5rem, 4vw, 6rem);
+  letter-spacing: -0.06em;
+}
+.stakes-pillars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  margin-top: 3rem;
+  color: var(--primary);
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.stakes-pillars span:not(:last-child)::after {
+  content: "✦";
+  margin-left: 1.6rem;
+  color: white;
+}
+.premiere-section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(5rem, 11vw, 10rem) 0;
+  background: #f6ba16;
+  color: var(--text-dark);
+}
+.premiere-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 8vw, 8rem);
+  align-items: center;
+}
+.premiere-copy h2 {
+  font-size: clamp(3.2rem, 6vw, 6.2rem);
+  letter-spacing: -0.06em;
+}
+.premiere-intro p {
+  max-width: 570px;
+  font-size: 1rem;
+}
+.event-card {
+  padding: clamp(1.4rem, 4vw, 2.7rem);
+  background: #fffdf8;
+  border: 1px solid rgba(29, 42, 68, 0.12);
+  box-shadow: 15px 15px 0 #183044;
+  border-radius: 16px;
+}
+.event-label {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.event-rule {
+  height: 1px;
+  margin: 1.3rem 0;
+  background: rgba(29, 42, 68, 0.2);
+}
+.event-card dl {
+  margin: 0;
+}
+.event-card dl div {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(29, 42, 68, 0.1);
+}
+.event-card dt {
+  color: var(--secondary-hover);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.event-card dd {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.map-wrap {
+  height: 185px;
+  margin-top: 1.5rem;
+  overflow: hidden;
+}
+.map-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: saturate(0.7) contrast(1.05);
+}
+.premiere-spark {
+  position: absolute;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+}
+.premiere-spark--one {
+  width: 420px;
+  height: 420px;
+  top: -220px;
+  right: -80px;
+}
+.premiere-spark--two {
+  width: 230px;
+  height: 230px;
+  bottom: -100px;
+  left: 7%;
+}
+.teaser-modal {
+  position: fixed;
+  z-index: 2000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(4, 9, 17, 0.86);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.25s ease;
+}
+.teaser-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+.teaser-modal__panel {
+  position: relative;
+  width: min(900px, 100%);
+  aspect-ratio: 16/9;
+  background: #17263a;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+.teaser-modal.open .teaser-modal__panel {
+  transform: none;
+}
+.teaser-placeholder {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  width: 100%;
+  height: 100%;
+  color: white;
+  background:
+    radial-gradient(circle, rgba(58, 175, 169, 0.35), transparent 28%), #0a1120;
+}
+.teaser-placeholder .play-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  color: var(--primary);
+  font-size: 1rem;
+}
+.teaser-placeholder p {
+  margin: 1rem 0 0.2rem;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+.teaser-placeholder small {
+  color: #b8c4d4;
+}
+.modal-close {
+  position: absolute;
+  z-index: 1;
+  top: -0.2rem;
+  right: -0.1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  background: var(--primary);
+  color: var(--text-dark);
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (max-width: 800px) {
+  .lore-grid,
+  .premiere-layout {
+    grid-template-columns: 1fr;
+  }
+  .lore-visual {
+    min-height: 400px;
+  }
+  .character-reel {
+    grid-template-columns: 1fr;
+  }
+  .character-card {
+    min-height: 460px;
+  }
+  .stakes-section {
+    min-height: 620px;
+  }
+  .cinema-hero h1 {
+    font-size: clamp(2.5rem, 7vw, 3rem);
+  }
+  .premiere-copy {
+    text-align: center;
+  }
+  .premiere-copy .btn {
+    margin-inline: auto;
+  }
+  .premiere-intro {
+    margin-inline: auto;
+  }
+}
+@media (max-width: 500px) {
+  .cinema-hero__content {
+    padding: 5rem 1rem 5rem; 
+  }
+  .lore-visual {
+    min-height: 310px;
+  }
+  .character-card {
+    min-height: 410px;
+    padding: 1.4rem;
+  }
+  .stakes-pillars {
+    display: grid;
+    gap: 0.8rem;
+  }
+  .stakes-pillars span::after {
+    display: none;
+  }
+  .event-card dl div {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
 }
 
-/* --------------------------------------------------------------------------
-   STAGE 3: THE PROTAGONISTS
-   -------------------------------------------------------------------------- */
 .stage-protagonists {
   background: var(--cine-black);
   padding: 8rem 0;
@@ -531,7 +573,8 @@ body.cinematic-body {
 
 .poster-image {
   position: relative;
-  aspect-ratio: 3/4; /* Classic movie poster ratio */
+  aspect-ratio: 3/4;
+  padding: 16px 16px 0px 16px;
 }
 .poster-image img {
   width: 100%;
@@ -557,6 +600,7 @@ body.cinematic-body {
   color: var(--cine-gold);
   letter-spacing: 0.05em;
   margin-bottom: 0.5rem;
+  font-family: "Nunito", system-ui, sans-serif";
 }
 .poster-text p {
   color: #aebbd0;
@@ -564,187 +608,31 @@ body.cinematic-body {
   margin: 0;
 }
 
-/* --------------------------------------------------------------------------
-   STAGE 4: THE STAKES
-   -------------------------------------------------------------------------- */
-.stage-stakes {
-  position: relative;
-  padding: 10rem 0;
-  text-align: center;
-  overflow: hidden;
-}
-
-.stakes-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed; /* Creates parallax effect */
-  filter: grayscale(100%);
-  z-index: 1;
-}
-.stakes-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(5, 9, 20, 0.85); /* Heavy dark overlay */
-  z-index: 2;
-}
-
-.stakes-content {
-  position: relative;
-  z-index: 10;
-}
-
-.massive-text {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  line-height: 1.1;
-  max-width: 1000px;
-  margin: 0 auto 5rem;
-  color: white;
-}
-
-.stakes-pillars {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-.pillar-item {
-  font-size: clamp(2rem, 6vw, 4rem);
-  font-family: var(--font-heading);
-  font-weight: 900;
-  color: var(--cine-gold);
-  letter-spacing: -0.02em;
-}
-
-/* --------------------------------------------------------------------------
-   STAGE 5: THE CLIMAX
-   -------------------------------------------------------------------------- */
-.stage-climax {
-  background: #f8fafc;
-  color: var(--cine-black);
-  padding: 10rem 0;
-}
-
-.climax-headline {
-  font-size: clamp(3rem, 6vw, 5rem);
-  margin-bottom: 3rem;
-}
-
-.ticket-stub {
-  background: white;
-  border: 2px solid rgba(0,0,0,0.1);
-  border-radius: 12px;
-  max-width: 600px;
-  margin: 0 auto 3rem;
-  padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-}
-.ticket-row {
-  padding: 1rem 0;
-  font-size: 1.25rem;
-}
-.ticket-row:not(:last-child) {
-  border-bottom: 1px dashed rgba(0,0,0,0.1);
-}
-
-.urgency-copy {
-  font-size: 1.2rem;
-  max-width: 600px;
-  margin: 0 auto 3rem;
-  color: var(--text-muted);
-}
-
-.btn-epic {
-  padding: 1.2rem 3rem;
-  font-size: 1.25rem;
-  border-radius: 50px;
-  box-shadow: 0 10px 30px rgba(255, 184, 0, 0.4);
-}
-
-/* --------------------------------------------------------------------------
-   MODAL (Teaser)
-   -------------------------------------------------------------------------- */
-.cinematic-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-.cinematic-modal.open {
-  opacity: 1;
-  visibility: visible;
-}
-.modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.95);
-}
-.modal-video-container {
-  position: relative;
-  z-index: 10;
-  width: 90%;
-  max-width: 1000px;
-  aspect-ratio: 16/9;
-  background: black;
-  border-radius: 12px;
-  overflow: hidden;
-}
-.close-video {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-}
-.video-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  color: rgba(255,255,255,0.5);
-  font-size: 1.5rem;
-}
-
-/* --------------------------------------------------------------------------
-   SCROLL ANIMATIONS & RESPONSIVE
-   -------------------------------------------------------------------------- */
-/* Initial state for JS observer */
-.reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.reveal-on-scroll.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.fade-up {
-  animation: fadeUpAnim 1s forwards cubic-bezier(0.16, 1, 0.3, 1);
-  opacity: 0;
-  transform: translateY(30px);
-}
-.delay-1 { animation-delay: 0.2s; }
-.delay-2 { animation-delay: 0.4s; }
-.delay-3 { animation-delay: 0.6s; }
-
-@keyframes fadeUpAnim {
-  to { opacity: 1; transform: translateY(0); }
-}
 
 @media (max-width: 960px) {
-  .poster-layout { grid-template-columns: 1fr; gap: 3rem; }
-  .movie-poster { max-width: 400px; margin: 0 auto; }
-}
-@media (max-width: 768px) {
-  .stage-lore, .stage-stakes, .stage-climax, .stage-protagonists { padding: 5rem 0; }
-  .stakes-bg { background-attachment: scroll; } /* Disable parallax on mobile */
+  /* Turn the grid into a horizontal scrolling row */
+  .poster-layout {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    gap: 1.5rem;
+    padding-bottom: 2rem; /* Prevents box-shadows from getting cut off */
+    scrollbar-width: none; /* Hides scrollbar in Firefox */
+  }
+
+  /* Hides scrollbar in Chrome/Safari */
+  .poster-layout::-webkit-scrollbar {
+    display: none; 
+  }
+
+  /* Size the cards so the next one "peeks" in from the edge */
+  .movie-poster {
+    flex: 0 0 75%; /* Card takes up 75% of the screen */
+    max-width: 320px; /* Caps the size on tablets */
+    scroll-snap-align: center; /* Snaps the card to the middle when swiping */
+  }
 }
