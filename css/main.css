@@ -1064,6 +1064,90 @@ p {
   height: 100%;
 }
 
+/* ==========================================================================
+   MULTI-STEP FORM STYLES
+   ========================================================================== */
+.form-step {
+  display: none;
+  animation: fadeStepIn 0.4s ease forwards;
+}
+
+.form-step.active {
+  display: block;
+}
+
+@keyframes fadeStepIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.step-title {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  color: var(--text-dark);
+}
+
+.step-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* Action Button Layouts */
+.form-actions {
+  display: flex;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  gap: 8px;
+}
+
+.form-actions.right {
+  justify-content: flex-end;
+}
+
+.form-actions.split {
+  justify-content: space-between;
+}
+
+/* Consent Block Styling */
+.consent-block {
+  background: rgba(0,0,0,0.03);
+  padding: 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.consent-block strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.consent-block p {
+  margin: 0 0 1rem;
+  color: var(--text-dark);
+}
+
+.checkbox-label, .radio-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+
+.radio-group {
+  display: flex;
+  gap: 1.5rem;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .contact-map-wrapper {
@@ -1109,6 +1193,10 @@ p {
   gap: 1rem;
 }
 .modal-close {
+  position: absolute;
+  top: 1.5rem; 
+  right: 1.5rem;
+  z-index: 10;
   flex: 0 0 auto;
   display: grid;
   place-items: center;

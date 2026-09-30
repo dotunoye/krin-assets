@@ -68,8 +68,9 @@
           they are—with grown-ups welcome to join the adventure.
         </p>
         <div class="button-row">
-          <a class="btn btn-primary floating" href="#bookshelf">Explore the stories</a><a class="btn btn-secondary"
-            href="#kids-can-do">Join the Prophetic Kids</a>
+          <button class="btn btn-primary floating" type="button" data-open-modal="pk-membership-modal">
+            Be a Prophetic Kid</button>
+          <a class="btn btn-ghost floating" href="#bookshelf">Explore the stories</a>
         </div>
       </div>
     </section>
@@ -117,7 +118,8 @@
             <div class="puzzle-card__content">
               <h3>Good Samaritan</h3>
               <p>A biblical example of being the good in a bad world.</p>
-              <a class="btn btn-primary buy-now-btn" href="product.html?id=cd39ae2c-e5d8-4c68-bf5e-2455ea49ff59">Buy Now</a>
+              <a class="btn btn-primary buy-now-btn" href="product.html?id=cd39ae2c-e5d8-4c68-bf5e-2455ea49ff59">Buy
+                Now</a>
             </div>
           </article>
 
@@ -135,7 +137,8 @@
             <div class="puzzle-card__content">
               <h3>Disobedience of Jonah</h3>
               <p>Explore disobedience, and then the obedience of Jonah to God's call.</p>
-              <a class="btn btn-primary buy-now-btn" href="product.html?id=59f0aeec-6528-4209-a98f-a611a33eecac">Buy Now</a>
+              <a class="btn btn-primary buy-now-btn" href="product.html?id=59f0aeec-6528-4209-a98f-a611a33eecac">Buy
+                Now</a>
             </div>
           </article>
         </div>
@@ -187,7 +190,8 @@
         </div>
         <div class="grid-3">
           <article class="card feature-card pop-in">
-            <img src="assets/images/aunt-tee-telling-story.webp" alt="Kids engaging in creative arts" class="feature-card__image">
+            <img src="assets/images/aunt-tee-telling-story.webp" alt="Kids engaging in creative arts"
+              class="feature-card__image">
             <div class="feature-card__content">
               <h3>Create with us</h3>
               <p>
@@ -198,21 +202,25 @@
           </article>
 
           <article class="card feature-card pop-in animation-delay-1">
-            <img src="assets/images/aunt-tee-teaching-prophetic-kids.webp" alt="Family talking and bonding" class="feature-card__image">
+            <img src="assets/images/aunt-tee-teaching-prophetic-kids.webp" alt="Family talking and bonding"
+              class="feature-card__image">
             <div class="feature-card__content">
               <h3>Exploreeee</h3>
               <p>
-                A welcoming space designed for kids to explore their faith, ask big questions, and grow together in God’s love.
+                A welcoming space designed for kids to explore their faith, ask big questions, and grow together in
+                God’s love.
               </p>
             </div>
           </article>
 
           <article class="card feature-card pop-in animation-delay-2">
-            <img src="assets/images/prophetic-kids-4.webp" alt="Children celebrating at an event" class="feature-card__image">
+            <img src="assets/images/prophetic-kids-4.webp" alt="Children celebrating at an event"
+              class="feature-card__image">
             <div class="feature-card__content">
               <h3>Be part of something bigger</h3>
               <p>
-                Connect your child with a loving community where they can grow, discover God's big story, and see how they fit into His plan.
+                Connect your child with a loving community where they can grow, discover God's big story, and see how
+                they fit into His plan.
               </p>
             </div>
           </article>
@@ -246,6 +254,180 @@
       </div>
     </section>
   </main>
+
+  <div class="modal" id="pk-membership-modal" role="dialog" aria-modal="true" aria-labelledby="pk-membership-title"
+    aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 650px;">
+      <div class="modal-head">
+        <div>
+          <span class="eyebrow step-indicator" style="color: var(--primary);">Step 1 of 5</span>
+          <h2 id="pk-membership-title" style="font-size: clamp(1.5rem, 4.5vw, 3rem);">Community Registration</h2>
+        </div>
+
+      </div>
+      <button class="modal-close" type="button" data-close-modal aria-label="Close">×</button>
+      <div style="padding: 0 0rem 1rem; color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">
+        Join our growing community! Gain access to exclusive resources and events designed to help children develop a
+        strong foundation in God’s Word.
+      </div>
+
+      <!-- WEB3FORMS SETUP (Added class 'multi-step-form' for the JS) -->
+      <form action="https://api.web3forms.com/submit" method="POST" id="pk-membership-form" class="multi-step-form">
+        <input type="hidden" name="access_key" value="1dce1bc5-4bb0-41a9-8531-f465a93d9a92">
+        <input type="hidden" name="subject" value="New Prophetic Kids Membership Registration">
+
+        <!-- STEP 1: PARENT & ADDRESS -->
+        <div class="form-step active" data-step="1">
+          <h3 class="step-title">Parent / Guardian Information</h3>
+          <div class="form-grid">
+            <div class="field full">
+              <label for="pk-parent-name">Full Name</label>
+              <input id="pk-parent-name" name="parent_name" required />
+            </div>
+            <div class="field">
+              <label for="pk-email">Email Address</label>
+              <input type="email" id="pk-email" name="email" required />
+            </div>
+            <div class="field">
+              <label for="pk-phone">Phone Number</label>
+              <input type="tel" id="pk-phone" name="phone" required />
+            </div>
+            <div class="field full">
+              <label for="pk-address">Street Address</label>
+              <input id="pk-address" name="street_address" required />
+            </div>
+            <div class="field">
+              <label for="pk-city">City</label>
+              <input id="pk-city" name="city" required />
+            </div>
+            <div class="field">
+              <label for="pk-state">State / Province</label>
+              <input id="pk-state" name="state" required />
+            </div>
+            <div class="field full">
+              <label for="pk-country">Country</label>
+              <input id="pk-country" name="country" required />
+            </div>
+          </div>
+          <div class="form-actions right">
+            <button class="btn btn-primary btn-next" type="button">Next: Child Details</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: CHILD INFO & MEDICAL -->
+        <div class="form-step" data-step="2">
+          <h3 class="step-title">Child Information</h3>
+          <div class="form-grid">
+            <div class="field full">
+              <label for="pk-child-name">Child's Full Name</label>
+              <input id="pk-child-name" name="child_name" required />
+            </div>
+            <div class="field">
+              <label for="pk-child-age">Age</label>
+              <input type="number" id="pk-child-age" name="child_age" required />
+            </div>
+            <div class="field">
+              <label for="pk-child-dob">Date of Birth</label>
+              <input type="date" id="pk-child-dob" name="child_dob" required />
+            </div>
+            <div class="field full">
+              <label for="pk-child-gender">Gender</label>
+              <select id="pk-child-gender" name="child_gender" required>
+                <option value="">Select gender...</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="pk-medical">Medical Conditions / Allergies</label>
+              <textarea id="pk-medical" name="medical_conditions" placeholder="If none, type 'None'" rows="2"
+                required></textarea>
+            </div>
+          </div>
+          <div class="form-actions split">
+            <button class="btn btn-ghost btn-prev" type="button">Back</button>
+            <button class="btn btn-primary btn-next" type="button">Next: Emergency & Details</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: EMERGENCY & MEMBERSHIP -->
+        <div class="form-step" data-step="3">
+          <h3 class="step-title">Emergency Contact & Details</h3>
+          <div class="form-grid">
+            <div class="field">
+              <label for="pk-em-name">Emergency Contact Name</label>
+              <input id="pk-em-name" name="emergency_name" required />
+            </div>
+            <div class="field">
+              <label for="pk-em-rel">Relationship to Child</label>
+              <input id="pk-em-rel" name="emergency_relationship" required />
+            </div>
+            <div class="field full">
+              <label for="pk-em-phone">Emergency Phone Number</label>
+              <input type="tel" id="pk-em-phone" name="emergency_phone" required />
+            </div>
+
+          </div>
+          <div class="form-actions split">
+            <button class="btn btn-ghost btn-prev" type="button">Back</button>
+            <button class="btn btn-primary btn-next" type="button">Next: Consent</button>
+          </div>
+        </div>
+
+
+        <div class="form-step" data-step="4">
+          <h3 class="step-title">Membership Details</h3>
+          <div class="form-grid">
+            <div class="field full" style="margin-top: 1rem;">
+              <label for="pk-source">How did you hear about us?</label>
+              <input id="pk-source" name="how_heard" required />
+            </div>
+            <div class="field full">
+              <label for="pk-why">Why are you interested in joining?</label>
+              <textarea id="pk-why" name="why_join" rows="2" required></textarea>
+            </div>
+            <div class="field full">
+              <label for="pk-interests">Any special interests to explore? (Optional)</label>
+              <textarea id="pk-interests" name="special_interests" rows="2"></textarea>
+            </div>
+          </div>
+          <div class="form-actions split">
+            <button class="btn btn-ghost btn-prev" type="button">Back</button>
+            <button class="btn btn-primary btn-next" type="button">Next: Consent</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: CONSENT -->
+        <div class="form-step" data-step="5">
+          <h3 class="step-title">Consent & Finalization</h3>
+
+          <div class="consent-block">
+            <strong>Participation Consent</strong>
+            <p>I consent to my child’s participation in Prophetic Kids activities.</p>
+            <div class="radio-group">
+              <label><input type="radio" name="participation_consent" value="Yes" required> Yes</label>
+              <label><input type="radio" name="participation_consent" value="No"> No</label>
+              
+            </div>
+          </div>
+
+          <div class="consent-block">
+            <strong>Updates & Communications</strong>
+            <p>I agree to receive updates and communications from Prophetic Kids.</p>
+            <div class="radio-group">
+              <label><input type="radio" name="communication_consent" value="Yes" required> Yes</label>
+              <label><input type="radio" name="communication_consent" value="No"> No</label>
+            </div>
+          </div>
+
+          <div class="form-actions split" style="margin-top: 3rem;">
+            <button class="btn btn-ghost btn-prev" type="button">Back</button>
+            <button class="btn btn-primary" type="submit">Complete Registration</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <div class="modal" id="preview-modal" role="dialog" aria-modal="true" aria-labelledby="preview-title"
     aria-hidden="true">
