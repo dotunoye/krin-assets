@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 // Target your assets folder
-const inputDir = './assets/image';
-const outputDir = './assets/image1';
+const inputDir = './assets/compress';
+const outputDir = './assets/compress1';
 
 // Generate the output directory if it is missing
 if (!fs.existsSync(outputDir)){
