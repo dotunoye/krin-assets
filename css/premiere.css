@@ -1,3 +1,10 @@
+:root {
+  --cine-black: #050914;
+  --cine-dark: #0a1120;
+  --cine-gold: #ffb800;
+  --cine-white: #ffffff;
+}
+
 /* Cinematic campaign layer: shared tokens, navigation, buttons and footer come from main.css. */
 .cinema-page {
   background: #0a1120;
@@ -547,7 +554,6 @@
     gap: 0.1rem;
   }
 }
-
 .stage-protagonists {
   background: var(--cine-black);
   padding: 8rem 0;
@@ -573,8 +579,7 @@
 
 .poster-image {
   position: relative;
-  aspect-ratio: 3/4;
-  padding: 16px 16px 0px 16px;
+  aspect-ratio: 3/4; /* Classic movie poster ratio */
 }
 .poster-image img {
   width: 100%;
@@ -600,7 +605,6 @@
   color: var(--cine-gold);
   letter-spacing: 0.05em;
   margin-bottom: 0.5rem;
-  font-family: "Nunito", system-ui, sans-serif";
 }
 .poster-text p {
   color: #aebbd0;
@@ -608,31 +612,3 @@
   margin: 0;
 }
 
-
-@media (max-width: 960px) {
-  /* Turn the grid into a horizontal scrolling row */
-  .poster-layout {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    gap: 1.5rem;
-    padding-bottom: 2rem; /* Prevents box-shadows from getting cut off */
-    scrollbar-width: none; /* Hides scrollbar in Firefox */
-  }
-
-  /* Hides scrollbar in Chrome/Safari */
-  .poster-layout::-webkit-scrollbar {
-    display: none; 
-  }
-
-  /* Size the cards so the next one "peeks" in from the edge */
-  .movie-poster {
-    flex: 0 0 75%; /* Card takes up 75% of the screen */
-    max-width: 320px; /* Caps the size on tablets */
-    scroll-snap-align: center; /* Snaps the card to the middle when swiping */
-  }
-}
