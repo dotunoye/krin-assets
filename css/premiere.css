@@ -205,7 +205,7 @@
 }
 .lore-visual img {
   position: absolute;
-  width: 40%;
+  width: 30%;
   right: 0;
   bottom: 0;
   filter: drop-shadow(0 24px 22px rgba(0, 0, 0, 0.2));
@@ -476,19 +476,6 @@
 }
 .teaser-placeholder small {
   color: #b8c4d4;
-}
-.modal-close {
-  position: absolute;
-  z-index: 1;
-  top: -0.2rem;
-  right: -0.1rem;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 0;
-  background: var(--primary);
-  color: var(--text-dark);
-  font-size: 1.8rem;
-  cursor: pointer;
 }
 .reveal {
   opacity: 0;

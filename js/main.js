@@ -504,3 +504,140 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  /* ==========================================================================
+     COUNTDOWN LOGIC
+     ========================================================================== */
+  // CHANGE THIS TO YOUR ACTUAL PREMIERE DATE (Format: YYYY-MM-DDTHH:MM:SS)
+  const premiereDate = '2026-11-20T18:00:00'; 
+  
+  function initCountdown(containerId, targetDateStr) {
+    const container = document.getElementById(containerId);
+    if (!container) return; // Exit if the timer isn't on this page
+
+    const targetDate = new Date(targetDateStr).getTime();
+    const daysEl = container.querySelector('.cd-days');
+    const hoursEl = container.querySelector('.cd-hours');
+    const minsEl = container.querySelector('.cd-mins');
+    const secsEl = container.querySelector('.cd-secs');
+
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      // If the countdown is over
+      if (distance < 0) {
+        clearInterval(interval);
+        container.innerHTML = '<h3 style="color: var(--primary);">The Premiere is Live!</h3>';
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // .padStart(2, '0') forces it to show '09' instead of '9'
+      daysEl.textContent = days.toString().padStart(2, '0');
+      hoursEl.textContent = hours.toString().padStart(2, '0');
+      minsEl.textContent = minutes.toString().padStart(2, '0');
+      secsEl.textContent = seconds.toString().padStart(2, '0');
+    };
+
+    updateTimer(); // Run once immediately so it doesn't flash '00'
+    const interval = setInterval(updateTimer, 1000);
+  }
+
+  // Fire up the timers (It checks if they exist, so it won't break if one is missing)
+  initCountdown('premiere-countdown', premiereDate);
+  initCountdown('home-countdown', premiereDate);
+
+  /* ==========================================================================
+     SMART PROMO MODAL LOGIC (Home Page)
+     ========================================================================== */
+  const promoModal = document.getElementById('promo-modal');
+  
+  // Only trigger if the modal exists AND the user hasn't closed it this session
+  if (promoModal && !sessionStorage.getItem('promoDismissed')) {
+    
+    // Wait 3 seconds, then pop it
+    setTimeout(() => {
+      promoModal.classList.add('open');
+      promoModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; // Lock background scrolling
+    }, 3000);
+
+    // Handle closing the promo
+    const closeBtn = promoModal.querySelector('[data-close-promo]');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        promoModal.classList.remove('open');
+        promoModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = ''; 
+        
+        // Save to sessionStorage so it doesn't bother them again
+        sessionStorage.setItem('promoDismissed', 'true');
+      });
+    }
+  }
+});
+
+
+/* ==========================================================================
+     SMART PROMO MODAL LOGIC (Home Page)
+     ========================================================================== */
+  const promoModal = document.getElementById('promo-modal');
+  
+  if (promoModal && !sessionStorage.getItem('promoDismissed')) {
+    
+    // Slide in after 3 seconds
+    setTimeout(() => {
+      promoModal.classList.add('open');
+      promoModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; 
+    }, 3000);
+
+    // Bulletproof close logic: handles the X button AND clicking the dark background
+    promoModal.addEventListener('click', (e) => {
+      // Check if they clicked the 'X' button or the dark blurred background
+      if (e.target.closest('[data-close-modal]') || e.target === promoModal) {
+        promoModal.classList.remove('open');
+        promoModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = ''; // FORCE unlocks the page scrolling
+        
+        sessionStorage.setItem('promoDismissed', 'true');
+      }
+    });
+  }
+
+  /* ==========================================================================
+     GLOBAL MODAL CLOSE HANDLER (Fixes the Scroll Freeze)
+     ========================================================================== */
+  document.addEventListener('click', (e) => {
+    // 1. Check if they clicked an 'X' close button
+    const closeBtn = e.target.closest('[data-close-modal]');
+    
+    // 2. Check if they clicked the dark transparent background of an open modal
+    const clickedBackdrop = e.target.classList.contains('modal') && e.target.classList.contains('open');
+
+    // If either happened, shut it down and unlock the screen
+    if (closeBtn || clickedBackdrop) {
+      // Figure out exactly which modal needs to close
+      const modalToClose = closeBtn ? closeBtn.closest('.modal') : e.target;
+      
+      if (modalToClose) {
+        // Hide the modal
+        modalToClose.classList.remove('open');
+        modalToClose.setAttribute('aria-hidden', 'true');
+        
+        // THE MAGIC KEY: Force the body to allow scrolling again
+        document.body.style.overflow = ''; 
+
+        // If it was the promo modal they just closed, tell sessionStorage to leave them alone
+        if (modalToClose.id === 'promo-modal') {
+          sessionStorage.setItem('promoDismissed', 'true');
+        }
+      }
+    }
+  });

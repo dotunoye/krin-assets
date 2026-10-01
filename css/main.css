@@ -261,6 +261,7 @@ p {
   font-size: 0.94rem;
   line-height: 1.2;
   cursor: pointer;
+  color: var(--text-dark);
 }
 .nav-link::after,
 .dropdown-trigger::after {
@@ -1198,7 +1199,7 @@ p {
   right: 1.5rem;
   z-index: 10;
   flex: 0 0 auto;
-  display: grid;
+  display: flex;
   place-items: center;
   width: 42px;
   height: 42px;
@@ -2663,5 +2664,281 @@ p {
   .countdown-wrapper .colon {
     font-size: 1.5rem;
     margin-bottom: 1rem;
+  }
+}
+
+/* ==========================================================================
+   COUNTDOWN TIMER
+   ========================================================================== */
+.countdown-section {
+  padding: 6rem 0;
+  background: var(--bg-dark); /* Or whatever your dark section background is */
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.time-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+
+.time-block.colon {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.2);
+  line-height: 1.1;
+  min-width: auto;
+}
+
+.countdown-timer .digits {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--primary);
+  /* CRITICAL: Stops the numbers from shaking as they tick */
+  font-variant-numeric: tabular-nums; 
+}
+
+.countdown-timer .label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-top: 1rem;
+}
+
+/* Modal Mini Variant */
+.countdown-timer.mini {
+  gap: 1rem;
+}
+
+.countdown-timer.mini .time-block {
+  min-width: 60px;
+}
+
+.countdown-timer.mini .label {
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .countdown-timer { gap: 0.5rem; }
+  .time-block.colon { display: none; }
+  .countdown-timer .digits { font-size: 2.5rem; }
+  .time-block { min-width: 65px; }
+}
+
+/* ==========================================================================
+   2-COLUMN COUNTDOWN SECTION
+   ========================================================================== */
+
+   /* ==========================================================================
+   MINI COUNTDOWN (MODAL SPECIFIC)
+   ========================================================================== */
+.countdown-timer.mini {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.countdown-timer.mini .time-block {
+  text-align: center;
+  min-width: 55px;
+}
+
+.countdown-timer.mini .digits {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary);
+  /* Keeps the numbers from shifting side-to-side as they tick */
+  font-variant-numeric: tabular-nums; 
+}
+
+.countdown-timer.mini .label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.countdown-timer.mini .colon {
+  font-size: 2rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.2);
+  line-height: 1.1;
+}
+
+/* Modal Actions */
+.promo-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.promo-actions .promo-ghost-btn {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.countdown-section {
+  padding: 6rem 0;
+  background: #0a1120; /* Deep cinematic dark */
+  color: #fff;
+}
+
+.countdown-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+}
+
+.countdown-desc p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 90%;
+}
+
+/* Glassmorphism Timer Box */
+.glass-timer {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.glass-timer .time-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+}
+
+.glass-timer .colon {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.2);
+  line-height: 1.1;
+  min-width: auto;
+}
+
+.glass-timer .digits {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--primary, #d4af37);
+  font-variant-numeric: tabular-nums; 
+}
+
+.glass-timer .label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 1rem;
+}
+
+/* Responsive Stacking */
+@media (max-width: 960px) {
+  .countdown-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 3rem;
+  }
+  
+  .countdown-desc {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .glass-timer {
+    padding: 1.5rem 0.5rem;
+    gap: 0; /* Let flex handle the spacing entirely */
+    justify-content: space-evenly;
+    width: 100%;
+  }
+  
+  .glass-timer .time-block { 
+    min-width: unset; /* Kills the overflow constraint */
+    flex: 1; 
+  }
+  
+  .glass-timer .colon { 
+    display: block;
+    font-size: 1.5rem; 
+    line-height: 1.2;
+    margin: 0 2px;
+  }
+  
+  .glass-timer .digits { 
+    /* Dynamically scales between 1.2rem and 2rem depending on screen width */
+    font-size: clamp(1.2rem, 6vw, 2rem); 
+  }
+  
+  .glass-timer .label {
+    font-size: 0.6rem;
+    margin-top: 0.4rem;
+  }
+
+  .countdown-date .date-text {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #fff;
+  letter-spacing: 1px;
+}
+}
+
+/* ==========================================================================
+   PROMO MODAL VISIBILITY OVERRIDE
+   ========================================================================== */
+#promo-modal .modal-dialog {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none; /* Prevents ghost clicks when closed */
+}
+
+#promo-modal.open .modal-dialog {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  pointer-events: auto;
+}
+
+.countdown-date {
+  text-align: right;
+  padding-right: 0.5rem;
+}
+
+.countdown-date .date-eyebrow {
+  display: block;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--primary);
+  margin-bottom: 0.2rem;
+}
+
+@media (max-width: 960px) {
+  .countdown-date {
+    text-align: right;
+    padding-right: 0;
+    font-size: 1.5rem;
   }
 }
