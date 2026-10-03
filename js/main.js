@@ -102,7 +102,11 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   document.querySelectorAll(".modal").forEach((modal) =>
     modal.addEventListener("click", (event) => {
-      if (event.target === modal) closeModal(modal);
+      if (event.target === modal) {
+        closeModal(modal);
+        document.body.style.overflow = "";
+        document.body.classList.remove("modal-open");
+      }
     }),
   );
   document.addEventListener("keydown", (event) => {
@@ -253,6 +257,8 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('click', (e) => {
     if (modal && e.target === modal) {
       modal.style.display = 'none';
+      document.body.style.overflow = '';
+      document.body.classList.remove('modal-open');
     }
   });
 });
@@ -633,6 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // THE MAGIC KEY: Force the body to allow scrolling again
         document.body.style.overflow = ''; 
+        document.body.classList.remove('modal-open');
 
         // If it was the promo modal they just closed, tell sessionStorage to leave them alone
         if (modalToClose.id === 'promo-modal') {
@@ -641,3 +648,5 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
+
+  
