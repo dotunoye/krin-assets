@@ -219,7 +219,7 @@ p {
 }
 .brand img {
   width: auto;
-  height: 40px;
+  height: 30px;
   display: block;
   object-fit: contain;
 }
@@ -794,7 +794,7 @@ p {
 .page-hero p {
   max-width: 680px;
   font-size: 1.16rem;
-  color: var(--text-muted);
+  color: var(--text-dark);
 }
 .crumbs {
   display: flex;
@@ -1052,7 +1052,7 @@ p {
   height: 450px; /* Nice wide aspect ratio for desktop */
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   border: 1px solid #eaeaea;
   background: #f4f4f4;
   margin-top: 20px;
@@ -1078,8 +1078,14 @@ p {
 }
 
 @keyframes fadeStepIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .step-title {
@@ -1101,7 +1107,7 @@ p {
   display: flex;
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(0,0,0,0.08);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
   gap: 8px;
 }
 
@@ -1115,12 +1121,12 @@ p {
 
 /* Consent Block Styling */
 .consent-block {
-  background: rgba(0,0,0,0.03);
+  background: rgba(0, 0, 0, 0.03);
   padding: 1.25rem;
   border-radius: 8px;
   margin-bottom: 1.25rem;
   font-size: 0.9rem;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .consent-block strong {
@@ -1135,7 +1141,8 @@ p {
   color: var(--text-dark);
 }
 
-.checkbox-label, .radio-group label {
+.checkbox-label,
+.radio-group label {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -1195,7 +1202,7 @@ p {
 }
 .modal-close {
   position: absolute;
-  top: 1.5rem; 
+  top: 1.5rem;
   right: 1.5rem;
   z-index: 10;
   flex: 0 0 auto;
@@ -1244,8 +1251,16 @@ p {
 }
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 0.7fr 0.7fr 1fr;
   gap: 2rem;
+}
+
+.footer-logo-row {
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  display: flex;
+  gap: 8px;
 }
 .site-footer p,
 .site-footer a {
@@ -1256,9 +1271,10 @@ p {
 }
 .site-footer .brand {
   display: inline-flex;
-  padding: 0.45rem 0.65rem;
+  padding: 0.4rem 0.6rem;
   border-radius: 10px;
   background: white;
+  margin-bottom: 16px;
 }
 .footer-links {
   display: grid;
@@ -1275,6 +1291,42 @@ p {
   font-size: 0.88rem;
 }
 
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 12px;
+}
+
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.social-icon {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+  display: block;
+  transition: opacity 0.2s ease;
+}
+
+.social-icon:hover {
+  border-color: var(--primary);
+  border-bottom: 1px solid var(--primary);
+  padding-bottom: 4px;
+  border-radius: 0px;
+  color: #000;
+  transform: scale(1.2);
+}
+
+.social-btn:hover .social-icon {
+  opacity: 1;
+}
 @media (max-width: 960px) {
   .nav-toggle {
     display: block;
@@ -2151,7 +2203,7 @@ p {
   outline: 2px solid #247448;
   border-radius: 8px;
 }
-.sub-price{
+.sub-price {
   font: inherit;
   font-weight: 700;
 }
@@ -2190,14 +2242,10 @@ p {
   }
 }
 
-
-
-
 /* ==========================================================================
    PROPHETIC KIDS SPECIFIC STYLES (Cards & Video)
    ========================================================================== */
 
-   
 /* Remove default padding from cards so images go edge-to-edge */
 .puzzle-card,
 .feature-card {
@@ -2219,7 +2267,7 @@ p {
 }
 
 /* Slightly shorter images for the features section */
-.feature-card__image img{
+.feature-card__image img {
   aspect-ratio: 1/1;
 }
 
@@ -2259,18 +2307,24 @@ p {
 }
 
 .shop-more-btn {
-  border: 2px solid var(--text-dark, #1D2A44);
-  color: var(--text-dark, #1D2A44);
+  border: 2px solid var(--text-dark, #1d2a44);
+  color: var(--text-dark, #1d2a44);
 }
 
 .shop-more-btn:hover {
-  background: var(--text-dark, #1D2A44);
+  background: var(--text-dark, #1d2a44);
   color: #ffffff;
 }
 
 /* Staggered Animation Delays */
-.animation-delay-1 { --delay: 0.1s; animation-delay: 0.1s; }
-.animation-delay-2 { --delay: 0.2s; animation-delay: 0.2s; }
+.animation-delay-1 {
+  --delay: 0.1s;
+  animation-delay: 0.1s;
+}
+.animation-delay-2 {
+  --delay: 0.2s;
+  animation-delay: 0.2s;
+}
 
 /* ==========================================================================
    RESPONSIVE VIDEO CONTAINER (16:9 Aspect Ratio)
@@ -2284,7 +2338,7 @@ p {
   max-width: 1200px;
   margin: 0 auto;
   border-radius: var(--radius-lg, 12px);
-  box-shadow: var(--shadow-hover, 0 10px 30px rgba(0,0,0,0.1));
+  box-shadow: var(--shadow-hover, 0 10px 30px rgba(0, 0, 0, 0.1));
   background-color: #000;
   cursor: pointer; /* Hints that it can be tapped */
 }
@@ -2299,7 +2353,6 @@ p {
   outline: none;
 }
 
-
 /* ==========================================================================
    MOBILE HORIZONTAL SCROLL (Jigsaw Puzzles Section Only)
    ========================================================================== */
@@ -2310,18 +2363,18 @@ p {
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
-    
+
     /* Creates the app-like snap effect */
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch; 
-    
+    -webkit-overflow-scrolling: touch;
+
     /* Adds bottom padding so box-shadows aren't clipped by the hidden overflow */
-    padding-bottom: 1.5rem; 
+    padding-bottom: 1.5rem;
     gap: 1.5rem;
-    
+
     /* Hides the ugly default browser scrollbar for a cleaner look */
-    scrollbar-width: none; 
+    scrollbar-width: none;
   }
 
   main section:nth-of-type(3) .grid-3::-webkit-scrollbar {
@@ -2331,19 +2384,19 @@ p {
   /* Targets the articles/cards inside that specific grid */
   main section:nth-of-type(3) .grid-3 > .card {
     /* Caps the card width at 85% so the edge of the next card peeks into view */
-    flex: 0 0 85%; 
+    flex: 0 0 85%;
     max-width: 350px;
     min-width: 320px;
-    
+
     /* Snaps the card neatly to the center of the screen when swiping */
-    scroll-snap-align: center; 
+    scroll-snap-align: center;
   }
   main section:nth-of-type(3) .grid-3 > .card.pop-in {
-    opacity: 1 !important;          /* Force full visibility */
-    transform: none !important;       /* Reset slide/scale transform */
-    transition: none !important;      /* Disable the animation entirely */
-    animation: none !important;       /* Secondary safeguard */
-    visibility: visible !important;   /* Ensure it's not hidden by other rules */
+    opacity: 1 !important; /* Force full visibility */
+    transform: none !important; /* Reset slide/scale transform */
+    transition: none !important; /* Disable the animation entirely */
+    animation: none !important; /* Secondary safeguard */
+    visibility: visible !important; /* Ensure it's not hidden by other rules */
   }
 }
 
@@ -2354,18 +2407,18 @@ p {
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
-    
+
     /* Creates the app-like snap effect */
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch; 
-    
+    -webkit-overflow-scrolling: touch;
+
     /* Adds bottom padding so box-shadows aren't clipped by the hidden overflow */
-    padding-bottom: 1.5rem; 
+    padding-bottom: 1.5rem;
     gap: 1.5rem;
-    
+
     /* Hides the ugly default browser scrollbar for a cleaner look */
-    scrollbar-width: none; 
+    scrollbar-width: none;
   }
 
   main section:nth-of-type(5) .grid-3::-webkit-scrollbar {
@@ -2375,19 +2428,19 @@ p {
   /* Targets the articles/cards inside that specific grid */
   main section:nth-of-type(5) .grid-3 > .card {
     /* Caps the card width at 85% so the edge of the next card peeks into view */
-    flex: 0 0 85%; 
+    flex: 0 0 85%;
     max-width: 350px;
     min-width: 350px;
-    
+
     /* Snaps the card neatly to the center of the screen when swiping */
-    scroll-snap-align: center; 
+    scroll-snap-align: center;
   }
   main section:nth-of-type(5) .grid-3 > .card.pop-in {
-    opacity: 1 !important;          /* Force full visibility */
-    transform: none !important;       /* Reset slide/scale transform */
-    transition: none !important;      /* Disable the animation entirely */
-    animation: none !important;       /* Secondary safeguard */
-    visibility: visible !important;   /* Ensure it's not hidden by other rules */
+    opacity: 1 !important; /* Force full visibility */
+    transform: none !important; /* Reset slide/scale transform */
+    transition: none !important; /* Disable the animation entirely */
+    animation: none !important; /* Secondary safeguard */
+    visibility: visible !important; /* Ensure it's not hidden by other rules */
   }
 }
 
@@ -2398,18 +2451,18 @@ p {
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
-    
+
     /* Creates the app-like snap effect */
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch; 
-    
+    -webkit-overflow-scrolling: touch;
+
     /* Adds bottom padding so box-shadows aren't clipped by the hidden overflow */
-    padding-bottom: 1.5rem; 
+    padding-bottom: 1.5rem;
     gap: 1.5rem;
-    
+
     /* Hides the ugly default browser scrollbar for a cleaner look */
-    scrollbar-width: none; 
+    scrollbar-width: none;
   }
 
   main section:nth-of-type(4) .grid-3::-webkit-scrollbar {
@@ -2419,19 +2472,19 @@ p {
   /* Targets the articles/cards inside that specific grid */
   main section:nth-of-type(4) .grid-3 > .card {
     /* Caps the card width at 85% so the edge of the next card peeks into view */
-    flex: 0 0 85%; 
+    flex: 0 0 85%;
     max-width: 350px;
     min-width: 350px;
-    
+
     /* Snaps the card neatly to the center of the screen when swiping */
-    scroll-snap-align: center; 
+    scroll-snap-align: center;
   }
   main section:nth-of-type(4) .grid-3 > .card.pop-in {
-    opacity: 1 !important;          /* Force full visibility */
-    transform: none !important;       /* Reset slide/scale transform */
-    transition: none !important;      /* Disable the animation entirely */
-    animation: none !important;       /* Secondary safeguard */
-    visibility: visible !important;   /* Ensure it's not hidden by other rules */
+    opacity: 1 !important; /* Force full visibility */
+    transform: none !important; /* Reset slide/scale transform */
+    transition: none !important; /* Disable the animation entirely */
+    animation: none !important; /* Secondary safeguard */
+    visibility: visible !important; /* Ensure it's not hidden by other rules */
   }
 }
 
@@ -2442,18 +2495,18 @@ p {
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
-    
+
     /* Creates the app-like snap effect */
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch; 
-    
+    -webkit-overflow-scrolling: touch;
+
     /* Adds bottom padding so box-shadows aren't clipped by the hidden overflow */
-    padding-bottom: 1.5rem; 
+    padding-bottom: 1.5rem;
     gap: 1.5rem;
-    
+
     /* Hides the ugly default browser scrollbar for a cleaner look */
-    scrollbar-width: none; 
+    scrollbar-width: none;
   }
 
   main section:nth-of-type(6) .grid-3::-webkit-scrollbar {
@@ -2463,19 +2516,19 @@ p {
   /* Targets the articles/cards inside that specific grid */
   main section:nth-of-type(6) .grid-3 > .card {
     /* Caps the card width at 85% so the edge of the next card peeks into view */
-    flex: 0 0 85%; 
+    flex: 0 0 85%;
     max-width: 350px;
     min-width: 350px;
-    
+
     /* Snaps the card neatly to the center of the screen when swiping */
-    scroll-snap-align: center; 
+    scroll-snap-align: center;
   }
   main section:nth-of-type(6) .grid-3 > .card.pop-in {
-    opacity: 1 !important;          /* Force full visibility */
-    transform: none !important;       /* Reset slide/scale transform */
-    transition: none !important;      /* Disable the animation entirely */
-    animation: none !important;       /* Secondary safeguard */
-    visibility: visible !important;   /* Ensure it's not hidden by other rules */
+    opacity: 1 !important; /* Force full visibility */
+    transform: none !important; /* Reset slide/scale transform */
+    transition: none !important; /* Disable the animation entirely */
+    animation: none !important; /* Secondary safeguard */
+    visibility: visible !important; /* Ensure it's not hidden by other rules */
   }
 }
 
@@ -2524,8 +2577,14 @@ p {
 }
 
 /* Staggered Animation Delays for the 5 items */
-.animation-delay-3 { --delay: 0.3s; animation-delay: 0.3s; }
-.animation-delay-4 { --delay: 0.4s; animation-delay: 0.4s; }
+.animation-delay-3 {
+  --delay: 0.3s;
+  animation-delay: 0.3s;
+}
+.animation-delay-4 {
+  --delay: 0.4s;
+  animation-delay: 0.4s;
+}
 
 /* MOBILE: Force a strict 2-column CSS Grid */
 @media (max-width: 768px) {
@@ -2542,7 +2601,7 @@ p {
   .team-member-img {
     max-width: 100%; /* Allows the image to fluidly fill its half of the screen */
   }
-  
+
   .team-member h3 {
     font-size: 1rem; /* Slightly smaller text for mobile */
   }
@@ -2559,7 +2618,6 @@ p {
     margin-inline: auto;
   }
 }
-
 
 /* ==========================================================================
    PREMIERE PAGE STYLES
@@ -2585,7 +2643,7 @@ p {
   border-radius: 16px;
   width: clamp(70px, 15vw, 120px);
   aspect-ratio: 1;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .time-box span {
@@ -2705,7 +2763,7 @@ p {
   line-height: 1;
   color: var(--primary);
   /* CRITICAL: Stops the numbers from shaking as they tick */
-  font-variant-numeric: tabular-nums; 
+  font-variant-numeric: tabular-nums;
 }
 
 .countdown-timer .label {
@@ -2732,17 +2790,25 @@ p {
 
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
-  .countdown-timer { gap: 0.5rem; }
-  .time-block.colon { display: none; }
-  .countdown-timer .digits { font-size: 2.5rem; }
-  .time-block { min-width: 65px; }
+  .countdown-timer {
+    gap: 0.5rem;
+  }
+  .time-block.colon {
+    display: none;
+  }
+  .countdown-timer .digits {
+    font-size: 2.5rem;
+  }
+  .time-block {
+    min-width: 65px;
+  }
 }
 
 /* ==========================================================================
    2-COLUMN COUNTDOWN SECTION
    ========================================================================== */
 
-   /* ==========================================================================
+/* ==========================================================================
    MINI COUNTDOWN (MODAL SPECIFIC)
    ========================================================================== */
 .countdown-timer.mini {
@@ -2763,7 +2829,7 @@ p {
   font-weight: 800;
   color: var(--primary);
   /* Keeps the numbers from shifting side-to-side as they tick */
-  font-variant-numeric: tabular-nums; 
+  font-variant-numeric: tabular-nums;
 }
 
 .countdown-timer.mini .label {
@@ -2821,7 +2887,7 @@ p {
   justify-content: center;
   align-items: flex-start;
   gap: 1.5rem;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .glass-timer .time-block {
@@ -2844,7 +2910,7 @@ p {
   font-weight: 800;
   line-height: 1;
   color: var(--primary, #d4af37);
-  font-variant-numeric: tabular-nums; 
+  font-variant-numeric: tabular-nums;
 }
 
 .glass-timer .label {
@@ -2862,7 +2928,7 @@ p {
     text-align: center;
     gap: 3rem;
   }
-  
+
   .countdown-desc {
     max-width: 100%;
     margin: 0 auto;
@@ -2876,35 +2942,35 @@ p {
     justify-content: space-evenly;
     width: 100%;
   }
-  
-  .glass-timer .time-block { 
+
+  .glass-timer .time-block {
     min-width: unset; /* Kills the overflow constraint */
-    flex: 1; 
+    flex: 1;
   }
-  
-  .glass-timer .colon { 
+
+  .glass-timer .colon {
     display: block;
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
     line-height: 1.2;
     margin: 0 2px;
   }
-  
-  .glass-timer .digits { 
+
+  .glass-timer .digits {
     /* Dynamically scales between 1.2rem and 2rem depending on screen width */
-    font-size: clamp(1.2rem, 6vw, 2rem); 
+    font-size: clamp(1.2rem, 6vw, 2rem);
   }
-  
+
   .glass-timer .label {
     font-size: 0.6rem;
     margin-top: 0.4rem;
   }
 
   .countdown-date .date-text {
-  font-size: 1.5rem;
-  font-weight: 300;
-  color: #fff;
-  letter-spacing: 1px;
-}
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #fff;
+    letter-spacing: 1px;
+  }
 }
 
 /* ==========================================================================
@@ -2913,7 +2979,9 @@ p {
 #promo-modal .modal-dialog {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
   pointer-events: none; /* Prevents ghost clicks when closed */
 }
 

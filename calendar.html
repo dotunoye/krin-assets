@@ -5,13 +5,48 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-    content="Browse upcoming Krin Asset programmes, workshops, media events, and community gatherings." />
-  <title>Events Calendar | Krin Asset</title>
+    content="Discover upcoming Krin Asset events, workshops, screenings, and community gatherings designed to inspire families and children." />
+  <title>Upcoming events and community moments | Prophetic Kids</title>
   <link rel="icon" type="image/webp" href="assets/images/tab-logo.webp" />
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="css/mascot.css" />
   <link rel="stylesheet" href="css/calendar.css" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://krinasset.com/calendar" />
+  <meta property="og:title" content="Upcoming events and community moments | Prophetic Kids" />
+  <meta property="og:description" content="Discover upcoming Krin Asset events, workshops, screenings, and community gatherings designed to inspire families and children." />
+  <meta property="og:image" content="https://krinasset.com/assets/images/hero-poster.webp" />
+  <meta property="og:image:alt" content="Upcoming events and community moments | Prophetic Kids" />
+  <meta property="og:site_name" content="Krin Asset" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Upcoming events and community moments | Prophetic Kids" />
+  <meta name="twitter:description" content="Discover upcoming Krin Asset events, workshops, screenings, and community gatherings designed to inspire families and children." />
+  <meta name="twitter:image" content="https://krinasset.com/assets/images/hero-poster.webp" />
+  <meta name="twitter:image:alt" content="Upcoming events and community moments | Prophetic Kids" />
+  <meta name="twitter:site" content="@krinasset" />
+
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "Krin Asset Community Events",
+  "startDate": "2026-11-20T18:00:00",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "location": {
+    "@type": "Place",
+    "name": "Krin Asset Community Hub",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "NG"
+    }
+  },
+  "description": "Community events, workshops, and family experiences hosted by Krin Asset."
+}
+  </script>
 </head>
 
 <body>
@@ -19,7 +54,7 @@
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="/" aria-label="Krin Asset home"><img src="assets/images/krin-logo.webp"
-          alt="Krin Asset" /></a>
+          alt="Krin Asset logo" /></a>
       <nav class="site-nav" id="primary-navigation" aria-label="Primary navigation">
         <div class="desktop-nav">
           <a class="nav-link" href="/">Home</a>
@@ -74,7 +109,7 @@
             </button>
           </div>
           <!-- <div class="calendar-mascot-note">
-            <img src="assets/danny/danny-chill.webp" alt="" />
+            <img src="assets/danny/danny-chill.webp" alt="Danny smiling and enjoying a relaxed, friendly learning environment" />
             <p>Check out our upcoming workshops and program dates below!</p>
           </div> -->
         </div>
@@ -140,22 +175,30 @@
       </div>
       <p id="modal-description"></p>
       <div class="button-row">
-        <a class="btn btn-primary" href="/contact">Register for event</a><a class="btn btn-ghost"
+        <a class="btn btn-primary" href="/premiere#premiere">Register for event</a><a class="btn btn-ghost"
           id="google-calendar-link" href="#" target="_blank" rel="noopener">Add to Google Calendar</a>
       </div>
     </div>
   </div>
+  
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
         <div>
-          <a class="brand" href="/"><img src="assets/images/krin-logo.webp" alt="Krin Asset" /></a>
-          <p>Safe spaces and brave stories for bright futures.</p>
+          <div class="footer-logo-row">
+            <a class="brand" href="/"><img src="assets/images/krin-logo.webp" alt="Krin Asset logo" /></a>
+            <a class="brand" href="/afterschoolhaven"><img src="assets/images/AfterSchool.webp" alt="Krin Asset logo" /></a>
+            <a class="brand" href="/prophetickids"><img src="assets/images/prophetic-kids-logo.webp" alt="Krin Asset logo" /></a>
+            </div>
+          <p>
+            Creating safe spaces and brave stories so children can become all
+            God imagined.
+          </p>
         </div>
         <div>
           <h3>Explore</h3>
           <div class="footer-links">
-            <a href="/about">Our story</a><a href="/contact">Contact</a>
+            <a href="/about">Our story</a><a href="/calendar">Events</a><a href="/contact">Contact</a>
           </div>
         </div>
         <div>
@@ -165,12 +208,35 @@
           </div>
         </div>
         <div>
-          <h3>Connect</h3>
-          <a href="mailto:hello@krinasset.org">hello@krinasset.org</a>
+          <h3>Stay connected</h3>
+          <p>Welcoming new families</p>
+          <div class="social-links">
+                    <a href="mailto:hello@krinasset.org"
+                        target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+                        <img src="assets/icons/email.svg" alt="Email" class="social-icon" />
+                    </a>
+                    <a href="tel:+2348032487533"
+                        target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+                        <img src="assets/icons/phone.svg" alt="Phone" class="social-icon" />
+                    </a>
+                    <a href="https://www.youtube.com/@prophetic_kids"
+                        target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+                        <img src="assets/icons/youtube.svg" alt="Youtube" class="social-icon" />
+                    </a>
+                    <a href="https://vm.tiktok.com/ZS9DARk4p79rn-Ew0Jt/" target="_blank" rel="noopener noreferrer"
+                        class="social-btn" aria-label="LinkedIn">
+                        <img src="assets/icons/tiktok.svg" alt="Tiktok" class="social-icon" />
+                    </a>
+                    <a href="https://www.instagram.com/prophetickids/" target="_blank" rel="noopener noreferrer"
+                        class="social-btn" aria-label="LinkedIn">
+                        <img src="assets/icons/instagram.svg" alt="Instagram" class="social-icon" />
+                    </a>
+                    
+                </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© <span data-year></span> Krin Asset.</span><span>Faith • Care • Creativity</span>
+        <span>© <span data-year></span> Krin Asset. Built with purpose.</span><span>Faith • Care • Creativity</span>
       </div>
     </div>
   </footer>
