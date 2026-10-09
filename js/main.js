@@ -308,52 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-  const countdownWrapper = document.querySelector('.countdown-wrapper');
-  
-  if (countdownWrapper) {
-    // Grab the target date from the HTML attribute
-    const targetDateString = countdownWrapper.getAttribute('data-target-date');
-    const countDownDate = new Date(targetDateString).getTime();
 
-    // Get DOM elements
-    const daysEl = document.getElementById('cd-days');
-    const hoursEl = document.getElementById('cd-hours');
-    const minutesEl = document.getElementById('cd-minutes');
-    const secondsEl = document.getElementById('cd-seconds');
-
-    // Update the count down every 1 second
-    const countdownTimer = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = countDownDate - now;
-
-      // Time calculations
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      // Output the result and pad single digits with a zero
-      if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
-      if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
-      if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
-      if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
-
-      // If the countdown is finished, clear interval and show zeroes or a message
-      if (distance < 0) {
-        clearInterval(countdownTimer);
-        if (daysEl) daysEl.textContent = "00";
-        if (hoursEl) hoursEl.textContent = "00";
-        if (minutesEl) minutesEl.textContent = "00";
-        if (secondsEl) secondsEl.textContent = "00";
-        
-        // Optional: Trigger an event or change CTA text when live
-        const heroTitle = document.querySelector('.premiere-hero h1');
-        if (heroTitle) heroTitle.textContent = "We Are Live.";
-      }
-    }, 1000);
-  }
-});
 
 document.addEventListener('DOMContentLoaded', () => {
   const multiStepForms = document.querySelectorAll('.multi-step-form');
@@ -515,8 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================================================
      COUNTDOWN LOGIC
      ========================================================================== */
-  // CHANGE THIS TO YOUR ACTUAL PREMIERE DATE (Format: YYYY-MM-DDTHH:MM:SS)
-  const premiereDate = '2026-11-20T18:00:00'; 
+  const premiereDate = '2026-11-14T09:00:00'; 
   
   function initCountdown(containerId, targetDateStr) {
     const container = document.getElementById(containerId);

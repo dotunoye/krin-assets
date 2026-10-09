@@ -1,39 +1,3 @@
-// document.addEventListener('DOMContentLoaded', () => {
-//   const pill = document.querySelector('.countdown-pill');
-  
-//   if (pill) {
-//     const targetDateString = pill.getAttribute('data-target-date');
-//     const countDownDate = new Date(targetDateString).getTime();
-
-//     const daysEl = document.getElementById('cd-days');
-//     const hoursEl = document.getElementById('cd-hours');
-//     const minutesEl = document.getElementById('cd-minutes');
-//     const secondsEl = document.getElementById('cd-seconds');
-
-//     const timer = setInterval(() => {
-//       const distance = countDownDate - new Date().getTime();
-
-//       if (distance < 0) {
-//         clearInterval(timer);
-//         [daysEl, hoursEl, minutesEl, secondsEl].forEach(el => { if(el) el.textContent = "00"; });
-//         return;
-//       }
-
-//       const d = Math.floor(distance / (1000 * 60 * 60 * 24));
-//       const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//       const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-//       const s = Math.floor((distance % (1000 * 60)) / 1000);
-
-//       if(daysEl) daysEl.textContent = d.toString().padStart(2, '0');
-//       if(hoursEl) hoursEl.textContent = h.toString().padStart(2, '0');
-//       if(minutesEl) minutesEl.textContent = m.toString().padStart(2, '0');
-//       if(secondsEl) secondsEl.textContent = s.toString().padStart(2, '0');
-//     }, 1000);
-//   }
-// });
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
   
   // 1. SCROLL REVEAL ANIMATIONS (The "Movie Trailer" Pacing)
@@ -89,3 +53,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
