@@ -47,11 +47,11 @@ module.exports = async function handler(req, res) {
 
               <div style="margin-top: 15px;">
                 <!-- IMPORTANT: Replace these src links with the actual live URLs of your logos -->
-                <img src="assets/images/krin-logo.webp" alt="KrinAsset" style="height: 28px; margin: 0 12px; vertical-align: middle; opacity: 0.9; background-color: white; padding: 4px; border-radius: 4px;">
+                <img src="https://www.krinasset.org/assets/images/krin-logo.webp" alt="KrinAsset" style="height: 28px; margin: 0 12px; vertical-align: middle; opacity: 0.9; background-color: white; padding: 4px; border-radius: 4px;">
                 
                 <span style="color: rgba(212, 175, 55, 0.4); font-size: 14px; vertical-align: middle;">|</span>
                 
-                <img src="assets/images/prophetic-kids-logo.webp" alt="Prophetic Kids" style="height: 32px; margin: 0 12px; vertical-align: middle; opacity: 0.9;">
+                <img src="https://www.krinasset.org/assets/images/prophetic-kids-logo.webp" alt="Prophetic Kids" style="height: 32px; margin: 0 12px; vertical-align: middle; opacity: 0.9;">
               </div>
             </div>
           </div>
