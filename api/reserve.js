@@ -16,7 +16,7 @@ module.exports = async function handler(req, res) {
       to: [email],
       subject: `Your VIP Ticket: ${ticket_code} 🎟️ - Prophetic Kids Premiere`,
       html: `
-        <div style="text-align: center;">
+        <div style="padding: 24px 12px; text-align: center;">
           <div style="max-width: 500px; margin: 0 auto; background: #0a1120; border: 1px solid #d4af37; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);">
             
             <!-- Header -->
