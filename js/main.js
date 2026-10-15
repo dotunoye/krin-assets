@@ -410,6 +410,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // If we reach here, BOTH taps succeeded. Show the modal.
       form.style.display = 'none';
+      const headerText = document.getElementById('premiere-reservation-modal');
+      if (headerText) headerText.style.display = 'none';
       
       const successMsg = document.createElement('div');
       successMsg.className = 'success-message';
@@ -424,6 +426,8 @@ document.addEventListener('DOMContentLoaded', () => {
         form.reset();
         successMsg.remove();
         form.style.display = 'block';
+
+        if (headerText) headerText.style.display = 'block';
         document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
       }, 3500);
 
