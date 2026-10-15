@@ -369,6 +369,8 @@ document.addEventListener('DOMContentLoaded', () => {
   submitBtn.disabled = true;
 
   const formData = new FormData(form);
+  const ticketCode = 'PK-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+  formData.append('ticket_code', ticketCode);
   const formDataObj = Object.fromEntries(formData); 
 
   // TAP 1: Web3Forms
