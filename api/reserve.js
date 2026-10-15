@@ -16,22 +16,22 @@ module.exports = async function handler(req, res) {
       to: [email],
       subject: `Your VIP Ticket: ${ticket_code} 🎟️ - Prophetic Kids Premiere`,
       html: `
-        <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #050b14; color: #ffffff; padding: 40px 20px; text-align: center;">
+        <div style="text-align: center;">
           <div style="max-width: 500px; margin: 0 auto; background: #0a1120; border: 1px solid #d4af37; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);">
             
             <!-- Header -->
-            <div style="background: linear-gradient(135deg, #d4af37, #aa8529); padding: 20px;">
+            <div style="background: linear-gradient(135deg, #d4af37, #aa8529); padding: 20px; font-family:"Outfit", "Quicksand", system-ui, sans-serif;">
               <h1 style="color: #050b14; margin: 0; font-size: 24px; text-transform: uppercase; letter-spacing: 2px;">Official Access Pass</h1>
             </div>
 
             <!-- Body -->
-            <div style="padding: 30px;">
-              <p style="font-size: 16px; color: #a0aec0; margin-bottom: 5px;">Admit:</p>
-              <h2 style="font-size: 28px; margin: 0 0 20px 0; color: #ffffff;">${parent_name}</h2>
+            <div style="padding: 20px;">
+              <p style=" font-family:"Nunito", system-ui, sans-serif; font-size: 16px; color: #a0aec0; margin-bottom: 5px;">Admit:</p>
+              <h2 style="font-size: 24px; margin: 0 0 20px 0; color: #ffffff;">${parent_name}</h2>
               
               <div style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 20px; margin-bottom: 25px;">
                 <p style="font-size: 12px; text-transform: uppercase; color: #a0aec0; letter-spacing: 1px; margin: 0 0 5px 0;">Ticket ID</p>
-                <p style="font-size: 32px; font-weight: bold; font-family: monospace; color: #d4af37; margin: 0; letter-spacing: 3px;">${ticket_code || 'VIP-GUEST'}</p>
+                <p style="font-size: 32px; font-weight: bold; font-family: "Nunito", system-ui, sans-serif; color: #d4af37; margin: 0; letter-spacing: 3px;">${ticket_code || 'VIP-GUEST'}</p>
               </div>
 
               <div style="text-align: left; background: #050b14; padding: 15px; border-radius: 8px; font-size: 14px; color: #cbd5e1; line-height: 1.6;">
