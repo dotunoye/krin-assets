@@ -410,8 +410,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // If we reach here, BOTH taps succeeded. Show the modal.
       form.style.display = 'none';
-      const headerText = document.getElementById('premiere-reservation-modal');
-      if (headerText) headerText.style.display = 'none';
+      const reservationModal = document.getElementById('premiere-reservation-modal');
+      const modalDialog = reservationModal?.querySelector('.modal-dialog');
+      const modalHeader = modalDialog?.querySelector('.modal-head');
+      const modalDescription = modalDialog && Array.from(modalDialog.children).find(
+        (element) => element.tagName === 'DIV' && element !== modalHeader && !element.querySelector('form')
+      );
+      if (modalHeader) modalHeader.style.display = 'none';
+      if (modalDescription) modalDescription.style.display = 'none';
       
       const successMsg = document.createElement('div');
       successMsg.className = 'success-message';
@@ -427,7 +433,8 @@ document.addEventListener('DOMContentLoaded', () => {
         successMsg.remove();
         form.style.display = 'block';
 
-        if (headerText) headerText.style.display = 'block';
+        if (modalHeader) modalHeader.style.display = '';
+        if (modalDescription) modalDescription.style.display = '';
         document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
       }, 3500);
 
