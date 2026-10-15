@@ -21,5 +21,10 @@
   "homepage": "https://github.com/dotunoye/krin-assets#readme",
   "dependencies": {
     "sharp": "^0.35.4"
+  },
+  "name": "prophetic-kids-site",
+  "version": "1.0.0",
+  "dependencies": {
+    "resend": "^3.0.0"
   }
 }

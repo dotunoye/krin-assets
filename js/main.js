@@ -202,7 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
     el.textContent = new Date().getFullYear();
   });
 });
-
 document.addEventListener('DOMContentLoaded', () => {
   // Grab all forms with this class
   const ajaxForms = document.querySelectorAll('.web3-ajax-form');
@@ -248,6 +247,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Modal Close Logic
+  closeModalBtn?.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (e) => {
+    if (modal && e.target === modal) {
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+      document.body.classList.remove('modal-open');
+    }
+  });
+});
 
   // Modal Close Logic
   closeModalBtn?.addEventListener('click', () => {
@@ -363,80 +376,83 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Handle Web3Forms AJAX Submission & Custom Success State
     // 3. Handle Web3Forms AJAX Submission & Custom Success State
     form.addEventListener('submit', function(e) {
-      e.preventDefault(); // STOPS the default redirect
+  e.preventDefault(); 
+  
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const originalBtnText = submitBtn.textContent;
+  submitBtn.textContent = 'Sending...';
+  submitBtn.disabled = true;
+
+  const formData = new FormData(form);
+  const formDataObj = Object.fromEntries(formData); 
+
+  // TAP 1: Web3Forms
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Accept': 'application/json' },
+    body: formData
+  })
+  .then(async (response) => {
+    const json = await response.json(); 
+
+    if (response.status == 200) {
       
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalBtnText = submitBtn.textContent;
-      submitBtn.textContent = 'Sending...';
-      submitBtn.disabled = true;
+      // TAP 2: The Vercel Backend
+      try {
+        const emailResponse = await fetch('/api/reserve', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json' 
+          },
+          body: JSON.stringify(formDataObj)
+        });
 
-      const formData = new FormData(form);
+        const emailData = await emailResponse.json();
 
-      fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json' // THIS IS THE MAGIC FIX
-        },
-        body: formData
-      })
-      .then(async (response) => {
-        const json = await response.json(); // Read the exact response from Web3Forms
-
-        if (response.status == 200) {
-          // Hide the form temporarily
-          form.style.display = 'none';
-          
-          // Create and inject a sleek success message
-          const successMsg = document.createElement('div');
-          successMsg.className = 'success-message';
-          successMsg.style.cssText = 'text-align: center; padding: 3rem 1rem;';
-          successMsg.innerHTML = `
-            <div style="display: inline-flex; align-items: center; justify-content: center; width: 80px; height: 80px; border-radius: 50%; background: rgba(255, 184, 0, 0.1); margin-bottom: 1.5rem;">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            </div>
-            <h3 style="color: var(--text-dark); margin-bottom: 0.5rem; font-size: 2rem; font-weight: 800; letter-spacing: -0.02em;">Registration Complete</h3>
-            <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.5; max-width: 400px; margin: 0 auto;">
-              Your details have been securely received. Welcome to the community we will be in touch shortly.
-            </p>
-          `;
-          form.parentNode.insertBefore(successMsg, form);
-
-          // Wait 3.5 seconds, then reset everything and close modal
-          setTimeout(() => {
-            form.reset();
-            steps.forEach(s => s.classList.remove('active'));
-            currentStep = 0;
-            steps[0].classList.add('active');
-            if (stepIndicator) stepIndicator.textContent = `Step 1 of ${steps.length}`;
-            
-            successMsg.remove();
-            form.style.display = 'block';
-            
-            // Close the modal
-            const modal = form.closest('.modal');
-            if (modal) {
-              modal.classList.remove('open');
-              document.body.style.overflow = ''; // Re-enable background scrolling
-            }
-          }, 3500);
-
-        } else {
-          // If Web3Forms rejects it, tell us exactly WHY (e.g. "Invalid Access Key")
-          alert(json.message || "Something went wrong. Please try again.");
+        if (!emailResponse.ok || !emailData.success) {
+          console.error("Backend Error:", emailData.error);
+          alert("Data saved, but email failed to send: " + emailData.error);
+          return; // Stops the success modal from showing
         }
-      })
-      .catch(error => {
-        console.error(error);
-        alert("Network error. Please check your connection");
-      })
-      .finally(() => {
-        // ALWAYS put the button back to normal, even if it fails
-        submitBtn.textContent = originalBtnText;
-        submitBtn.disabled = false;
-      });
-    });
+      } catch (emailError) {
+        console.error("Network error hitting Vercel:", emailError);
+        alert("Server unreachable. Check your connection.");
+        return;
+      }
+
+      // If we reach here, BOTH taps succeeded. Show the modal.
+      form.style.display = 'none';
+      
+      const successMsg = document.createElement('div');
+      successMsg.className = 'success-message';
+      successMsg.style.cssText = 'text-align: center; padding: 3rem 1rem;';
+      successMsg.innerHTML = `
+        <h3 style="color: var(--text-dark); font-size: 2rem;">Registration Complete</h3>
+        <p style="color: var(--text-muted);">Your official ticket has been sent to your email.</p>
+      `;
+      form.parentNode.insertBefore(successMsg, form);
+
+      setTimeout(() => {
+        form.reset();
+        successMsg.remove();
+        form.style.display = 'block';
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      }, 3500);
+
+    } else {
+      alert(json.message || "Something went wrong.");
+    }
+  })
+  .catch(error => {
+    console.error(error);
+    alert("Network error.");
+  })
+  .finally(() => {
+    submitBtn.textContent = originalBtnText;
+    submitBtn.disabled = false;
+  });
+});
   });
 });
 
