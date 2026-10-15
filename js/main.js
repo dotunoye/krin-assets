@@ -262,21 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-  // Modal Close Logic
-  closeModalBtn?.addEventListener('click', () => {
-    modal.style.display = 'none';
-  });
-
-  window.addEventListener('click', (e) => {
-    if (modal && e.target === modal) {
-      modal.style.display = 'none';
-      document.body.style.overflow = '';
-      document.body.classList.remove('modal-open');
-    }
-  });
-});
-
-
 /* ==========================================================================
      PROPHETIC KIDS: INTERACTIVE NATIVE VIDEO TRAILER (Bug Fixes)
      ========================================================================== */
