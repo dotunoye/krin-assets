@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // },
     {
       month: 10,
-      day: 14,
+      day: 28,
       title: "Krin Asset's Premiere",
       category: "parent",
       categoryName: "Parent Workshops",

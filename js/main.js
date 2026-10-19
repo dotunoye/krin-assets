@@ -484,7 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================================================
      COUNTDOWN LOGIC
      ========================================================================== */
-  const premiereDate = '2026-11-14T09:00:00'; 
+  const premiereDate = '2026-11-28T09:00:00';
   
   function initCountdown(containerId, targetDateStr) {
     const container = document.getElementById(containerId);
