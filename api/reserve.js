@@ -41,7 +41,6 @@ module.exports = async function handler(req, res) {
                 <p style="margin: 5px 0;"><strong>📡 Location:</strong> ${attendance_mode}</p>
                 <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 10px 0;">
                 <p style="margin: 5px 0;"><strong>🎫 Children:</strong> ${children_count} (Ages: ${children_ages})</p>
-                <p style="margin: 5px 0;"><strong>📡 Location:</strong> ${attendance_mode}</p>
                 <p style="margin: 5px 0;"><strong>📱 Contact:</strong> ${whatsapp_number}</p>
               </div>
 
