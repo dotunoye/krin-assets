@@ -37,7 +37,7 @@ module.exports = async function handler(req, res) {
               <!-- Ticket Details -->
               <div style="text-align: left; background: #050b14; padding: 15px; border-radius: 8px; font-size: 14px; color: #cbd5e1; line-height: 1.6;">
                 <p style="margin: 5px 0;"><strong>🗓️ Date:</strong> Saturday, Nov 28, 2026</p>
-                <p style="margin: 5px 0;"><strong>⏰ Time:</strong> 9:00 AM</p>
+                <p style="margin: 5px 0;"><strong>⏰ Time:</strong> 12:00 PM Noon</p>
                 <p style="margin: 5px 0;"><strong>📡 Location:</strong> ${attendance_mode}</p>
                 <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 10px 0;">
                 <p style="margin: 5px 0;"><strong>🎫 Children:</strong> ${children_count} (Ages: ${children_ages})</p>
